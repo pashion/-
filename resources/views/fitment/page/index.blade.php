@@ -1,4 +1,4 @@
-@extends('zhuazi.layout.master')
+@extends('fitment.layout.master')
 
 
 @section('content')

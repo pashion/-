@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Http\Goods;
+use App\Goods;
 
 class GoogsController extends Controller
 {
@@ -18,8 +18,7 @@ class GoogsController extends Controller
     public function index()
     {
         $data = Goods::all();
-        $dd($data);
-        echo "123";
+        return view('fitment.page.GoodsList', compact('data'));
     }
 
     /**
