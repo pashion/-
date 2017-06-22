@@ -16,8 +16,16 @@
 
 Route::get('/', function () {
 
-    return view('zhuazi.production.index');
+    return view('welcome');
+
 });
 
 
+//商品资源路由
 Route::resource('goods', 'GoogsController');
+//查询属性头用
+Route::get('goods/head/get', 'HeadController@getHead');
+//商品文件上传
+Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
+//商品图片取消
+Route::get('goods/file/upload', 'GoodsFileController@canclePic');

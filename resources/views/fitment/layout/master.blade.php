@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>Gentelella Alela! | </title>a
+
+
+
 
     <!-- Bootstrap -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,16 +20,18 @@
     <link href="{{url('zhuazi')}}/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{url('zhuazi')}}/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
     <!-- bootstrap-progressbar -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
     <link href="{{url('zhuazi')}}/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="{{url('zhuazi')}}/build/css/custom.min.css" rel="stylesheet">
+
+    @yield('head')
+
+
   </head>
 
   <body class="nav-md">
@@ -175,7 +180,7 @@
                     <li>
                       <div class="text-center">
                         <a>
-                          <strong>See All Alerts</strong>
+                          <strong>  gggggg</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
                       </div>
@@ -193,11 +198,13 @@
               @yield('content')
 
 
+
         </div>
 
 
 
-      
+
+
 
     <!-- jQuery -->
     <script src="{{url('zhuazi')}}/vendors/jquery/dist/jquery.min.js"></script>
@@ -239,6 +246,9 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
+
+    @yield('footJS')
+
 	
   </body>
 </html>
