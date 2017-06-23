@@ -14,7 +14,7 @@ class GoodsFileController extends Controller
     {
         $file = $req->file('image');//获取文件对象
 
-        if(!$file -> isValid()){
+        if ( !$file -> isValid() ) {
             return  0;
         }
 
@@ -25,7 +25,8 @@ class GoodsFileController extends Controller
         $extension = $file -> getClientOriginalExtension();
         $mimeTye = $file -> getMimeType();
         $newName = md5(date('YmdHis').$tmpName).'.'.$extension;
-        $req->file('image')->move('upload', $newName);
+
+        $req->file('image')->move('tempPicDir', $newName);
 
         return $newName;//返回文件名
 
@@ -33,6 +34,9 @@ class GoodsFileController extends Controller
     //删除图片
     public function canclePic ()
     {
-        $_GET['name'];
+
+        unlink('tempPicDir/'.$_GET['name']);
+        return 1 ;
+
     }
 }

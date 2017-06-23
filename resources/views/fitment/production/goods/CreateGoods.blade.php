@@ -10,8 +10,10 @@
         </div>
 
         <div class="clearfix"></div>
-        <form enctype="multipart/form-data" method="post" name="fileinfo">
-            <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+
+
+
+
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -38,42 +40,14 @@
 
                         {{--商品信息填写--}}
 
-
+                        <form id="formCon" action='../goods' enctype="multipart/form-data" method="post" name="fileinfo">
+                            <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
 
                             <table class="table">
-                                <tr height="100">
-                                    <td><h3>商品图片</h3></td>
-                                    <td colspan="2">
-
-                                        <div class="col-md-55">
-                                            <div class="thumbnail">
-                                                <div class="image view view-first">
-                                                    <div class="imgDis"><img src="" alt=""></div>
-
-                                                </div>
-                                                <div class="caption">
-
-                                                    <center>{{--以下按钮定点--}}
-
-                                                        <div>未有图片</div>
-                                                        <a style="display:none" class="btn btn-defulat cancPic">取消</a>
-                                                        <button class="btn btn-defulat selPic">选择图片</button>
-                                                        <input type="file" class="fileUp" style="display:none;" name="pic" >
-
-                                                    </center>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </td>
-                                </tr>
 
                                 <tr>
                                     <td width="12%">商品名称</td>
-                                    <td width="40%"><input class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
+                                    <td width="40%"><input name="goodName" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
                                     <td >不包含有特殊字符在</td>
                                 </tr>
                                 <tr>
@@ -82,14 +56,14 @@
 
                                         <div class="input-group">
                                             <div class="input-group-addon">$</div>
-                                            <input type="text" class="form-control " id="exampleInputAmount" placeholder="价格">
+                                            <input name="price" type="text" class="form-control " id="exampleInputAmount" placeholder="价格">
                                         </div>
                                     </td>
                                     <td>1</td>
                                 </tr>
                                 <tr>
                                     <td>库存数量</td>
-                                    <td> <input class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
+                                    <td> <input name="stock" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
                                     <td>1</td>
                                 </tr>
 
@@ -101,7 +75,7 @@
                                         @if($typeV['id'] == $touV['tid'] )
                                             <label class="">
                                                 <div class="iradio_flat-green checked" style="position: relative;">
-                                                    <input type="radio" class="flat" name="iCheck{{$typeV['id']}}" value="{{$touV['id']}}"  style="position: absolute; opacity: 0;">
+                                                    <input type="radio" class="flat" name="{{$typeV['name']}}" value="{{$touV['id']}}"  style="position: absolute; opacity: 0;">
                                                     <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
                                                     </ins></div>   {{$touV['name']}} &nbsp &nbsp
                                             </label>
@@ -136,6 +110,18 @@
                                         <table id="parTable" class="table">
 
                                         </table>
+                                        <center>
+                                            <a data="0" class="btn btn-default parAff" style="display:none; width:100px;" >确认</a>
+                                            <span></span>
+                                            <a  class="btn btn-default parEdit" style="display:none; width:100px;" >修改</a>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>选项价格</td>
+                                    <td colspan="2" class="selTableTd">
+
                                     </td>
                                 </tr>
 
@@ -167,6 +153,28 @@
                                         <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
                                     </td>
                                 </tr>
+
+                                <tr height="100">
+                                    <td><h2>商品图片</h2></td>
+                                    <td colspan="2">
+
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                        <img id="addLog" num="0" width="100" height="100" src="{{url('zhuazi')}}/images/addPicLog.jpg" alt="">
+                                                        <span class="mig" ></span>
+                                                        <input type="file" class="fileUp" style="display:none;" name="pic" >
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+
+
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>商品详情</td>
                                     <td colspan="2">
@@ -178,9 +186,17 @@
                                     </td>
 
                                 </tr>
+                                        <tr>
+                                        <td>
 
+                                    <td>
+                                    </tr>
                             </table>
-                            <input type="submit" >
+                                    <center>
+                                    <a id='conmitData' style='width:150px; height:50px;'  class="btn btn-primary btn-lg" >提交</a>
+                                        <input type='reset' value='重置'>
+                                            <span id='submitMig'></span>
+                                        </center>
                             <br><br><br><br><br><br><br>
                             </div>
                         </div>

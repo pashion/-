@@ -48,7 +48,16 @@ class GoogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $goodsInfo = [];
+        $goodsInfo['goods'] = $_POST['goodsName'];
+        $goodsInfo['price'] = $_POST['price'];
+        $goodsInfo[''] = $_POST['stock'];
+        $goodsInfo = $_POST['goodsName'];
+
+
+        dump($_POST);
+//        dump($goodsInfo);
     }
 
     /**
