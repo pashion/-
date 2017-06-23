@@ -1,9 +1,11 @@
 
 
-    var ADD_SEL_PRICE_TR = [] ;  //用于存储用户添加的选项名和选项值,用于生成选项价格表
-    var CKECK_PRICE_AFF = 0;   //选项价格确认标记
-    var CKECK_PAR_AFF = 0;     //判断是否添加了选项的标记
+    var ADD_SEL_PRICE_TR = [] ;     //用于存储用户添加的选项名和选项值,用于生成选项价格表
 
+    var CKECK_PRICE_AFF = 0;        //如果确认了价格选项,这个标志值会=1
+    var CKECK_PAR_AFF = 0;          //如果添加了属性选项模块那么,这个标准值等于1
+
+    var PAR_SEL_TMP = 0 ;           //属性模板添加值,添加一个模块后+1,删除一个模块后-1
 
     //初始化
     $(function () {
@@ -14,6 +16,7 @@
         loadParAff();   //加载属性确认按钮
 
         loadConmitBtn();//加载提交按钮
+
 
     });
 
@@ -27,15 +30,23 @@
             console.log(CKECK_PRICE_AFF);
             if (CKECK_PAR_AFF) {
                 if (!CKECK_PRICE_AFF) {
-                    $('#submitMig').html('<span style="font-size:20px; color:red;">请先确定选项价格</span>');
+                    $('#submitMig').html('<span style="font-size:15px; color:red;">请先确定选项价格</span>');
                     throw SyntaxError('');
                 }
             }
 
-            $('#formCon').submit();
 
+            $('#formCon').submit();
         });
     }
+
+
+
+    function checkGoodsName (name)
+    {
+
+    }
+
 
 
 // ======================================================图片上传预览=======================================================
@@ -52,6 +63,7 @@
                 return false;
             }
             $(this).parent().children('.fileUp').click(); //触发点击事件
+
 
         });
     }
@@ -90,6 +102,8 @@
                 var num = (parseInt($('#addLog').attr('num')) + 1);
                 $('#addLog').attr('num', num);
                 fileObj.prev().html('<center style="color:green">上传成功</center>');//显示信息
+
+                var inputStr = '<input type="hidden" name="picName[]" value="'+picName+'">';
 
 
                 //为新添加的删除按钮设置事件
@@ -160,37 +174,74 @@
             var seleObj =  $(this);//保存对象
 
             //查询数据库
-            $.get('head/get?id=' + num, function (data) {
+            $.get('../goodsType?id=' + num, function (data) {
 
-                if(data == 'NO'){
+
+                var selStr = '<td><select style="width:100px;" class="select2_group form-control parHead">' +
+                    '<option>请选择</option>';
+                for(var a = 0  ; a < data.length ; a++){
+                    selStr += "<option value='"+data[a]['id']+"'>"+data[a]['name']+"</option>";
+                }
+                selStr += "</select><td>";
+
+                seleObj.parent().nextAll().remove();//删除后面所有标签
+                seleObj.parent().after(selStr);//插入
+                loadParHead();//加载后面一个选择框的事件
+
+
+
+                $('.selKind').html('');//清空--选项种类
+                $('.selTableTd').html('');//清空价格选择按钮
+                $('.spec').html('');//清空--规格参数
+                $('#parTable').html('');//清空--属性选择表
+
+                $('.parEdit').css('display', 'none');//隐藏修改按钮
+                $('.parAff').css('display', 'none');//隐藏切断按钮
+
+
+            },'json');
+        });
+    }
+//========================================================================================================================下拉框2事件
+    function loadParHead ()
+    {
+        $('.parHead').on('change', function () {
+
+            var num =  $(this).val();//获取自身的值
+            var seleObj =  $(this);//保存对象
+
+            //查询数据库
+            $.get('../goodsSpenc/' + num, function (data) {
+
+                if(data == ''){
                     return false;
                 }
-                var dataObj = eval(data);
-                var selStr = '<select style="width:100px;" class="select2_group form-control seleKind">';
-                for(var a = 0  ; a < dataObj.length ; a++){
-                    selStr += "<option value='"+dataObj[a]['id']+"'>"+dataObj[a]['name']+"</option>";
+
+                var selStr = '<td><select style="width:200px;" class="select2_group form-control seleKind">';
+                for(var a = 0  ; a < data.length ; a++){
+                    selStr += "<option value='"+data[a]['id']+"'>"+data[a]['name']+"</option>";
                 }
-                selStr += "</select>";
-
-                selStr2 = '<div class="pull-left">'+selStr+'</div>';
-                butStr = '<div class="pull-left"><a class="btn btn-info addPar" >添加</a><spam></spam></div>';
-
-                $('#parTable').html('');
-                $('.parEdit').css('display', 'none');
-                $('.parAff').css('display', 'none');
-
-                $('.selTableTd').html('');
-
-                seleObj.parent().nextAll().remove();//清空对象后面所有元素
-                seleObj.parent().after(selStr2);      //对象后面插入
-                seleObj.parent().next().after(butStr);//插入添加按钮
+                selStr += '</select><td><td><a class="btn btn-default btn-sm addPar">添加</a><span></span></td>' +
+                    '<input type="hidden" name="kind" value="'+num+'">';
 
 
-                specSel(dataObj);//加载-规格列表-事件
+                $('.selKind').html('');//清空位置
+                $('.selKind').html(selStr);//写入数据
 
-                addBut();//加载 "添加" 按钮事件
-            });
+                $('.selTableTd').html('');//清空价格选择按钮
+                $('.spec').html('');//清空--规格参数
+                $('#parTable').html('');//清空--属性选择表
+
+                $('.parEdit').css('display', 'none');//隐藏修改按钮
+                $('.parAff').css('display', 'none');//隐藏切断按钮
+
+                 specSel(data);//加载-规格列表-事件
+                 addBut();//加载 "添加" 按钮事件
+
+
+            },'json');
         });
+
     }
 
 
@@ -214,7 +265,7 @@
                 }
             });
             if( isPar == 1 ) {
-                $('.addPar').next().html("<td>不能添加同样的属性</td>");
+                $(this).next().html("<td>不能添加同样的属性</td>");
                 return false
             }
 
@@ -228,13 +279,17 @@
                 '<input type="file" style="display:none;" class="selParPic"></td>';
             str += '<td><a class="btn btn-default btn-sm addParCel">取消</a></td>';
             str += '<tr>';
-            str  = $('#parTable').html() + str;
-            $('#parTable').html(str);
+
+
+
+            $('#parTable').append(str);
 
 
 
 
             $('.parAff').css('display', 'block');
+
+            PAR_SEL_TMP += 1 ;
 
             selBut();//加载--添加选项--按钮事件
             cancel();//加载--取消--按钮事件
@@ -264,8 +319,8 @@
 
 
             var str  = '<span class="tag input-sm" selName="'+val+'" selVal="'+num+'">' +
-                '<span >'+val+'</span>&nbsp;&nbsp;' +
-                '<label class="parDel">X</label>' +
+                '<span class="pull-left" >'+val+'</span>&nbsp;&nbsp;' +
+                '<label class="pull-right parDel" >X</label>' +
                 '<input type="hidden" name="par['+pid+']['+num+']" value="'+val+'"></span>';//拼接表单
 
 
@@ -300,7 +355,7 @@
 
            });
 
-
+           console.log(SelNameVal);
 
             //判断是否为空
             $(this).next().html('');
@@ -343,7 +398,8 @@
             $(this).css('display', 'none'); //修改按钮隐藏
             $('.parAff').css('display', 'block');//确认按钮显示
             $('.selTableTd').html('');//清空价格列表
-            loseParSel('block');
+            loseParSel('block');//显示相关按钮
+            $('.parDel').css('display', 'block');
 
         });
     }
@@ -371,9 +427,13 @@
         $('.selTableTd').html('');//清空td表格
         $('.selTableTd').append(str);//吧table写入td
 
-        var btnStr = '<span><a style="width:120px;" class="btn btn-default btn-sm affPrice">确定价格</a>' +
+        var btnStr = '<table><tr><td>' +
+            '<a style="width:120px;" class="btn btn-default btn-sm addPriceSel ">添加</a>' +
+            '</td><td>' +
             '<a style="display:none;width:120px;" class="btn btn-default btn-sm revise">修改</a>' +
-            '<a style="width:120px;" class="btn btn-default btn-sm addPriceSel">添加</a></span><span class="migPrice"></span>';
+            '<a style="width:120px;" class="btn btn-default btn-sm affPrice">确定价格</a></td><td></span><span class="migPrice">' +
+            '</td></tr></table>';
+
         $('.selTableTd').append(btnStr);
 
         loadAffPrice()//加载--确定价格--事件
@@ -397,6 +457,14 @@
     {
         $('.affPrice').on('click', function () {
 
+
+
+            if (!$('#priceTable').children('tbody').children().is('.selSelPriceTr')) {
+                $('.migPrice').html('<span class="mig" style="color:red">请添加选项</span>');
+                throw SyntaxError();
+            }
+
+
             var affPriceObj  =  $(this); //获取按钮对象
             var num1 = 0; //计数器
             var selData = []; //存储所有
@@ -415,22 +483,14 @@
                     if( $(this).children().is('.selPrice')  ) {
 
                         var val = $(this).children('.selPrice').val();
-                        console.log(val);
                         if( val == '' ){
                             isnNull = 1;
                             return false;
                         }
 
-                        // if(isString( val )){
-                        //     console.log(123);
-                        //     isnNull = 2;
-                        //     return false;
-                        // }
-
                         data['price'] = val ;//存储价格
 
                     }
-
 
                     if( $(this).children().is('.selKu')  ) {
 
@@ -440,11 +500,6 @@
                             isnNull = 1;
                             return false;
                         }
-
-                        // if (isString( val )) {
-                        //     isnNull = 2;
-                        //     return false;
-                        // }
 
                         data['ku'] = val ;//存储库存
 
@@ -460,8 +515,6 @@
                 });
 
 
-
-
                 //判断数据是否合法
                 if (isnNull) {
                     $('.migPrice').html('<span class="mig" style="color:red">存在空的价格或库存,价格或库存不能为空</span>');
@@ -473,11 +526,13 @@
                     throw SyntaxError('价格或库存不能为空');
                 }
 
+
                 //拼接数据
                 var numStr = numStrArr.join('_');//拼接号码字串
                 var selStr = selStrArr.join('_');//拼接字符字串
-                data['numStr'] = numStr;
-                data['selStr'] = selStr;
+
+                data['numStr'] = numStr;        //写入行数据组,字符串
+                data['selStr'] = selStr;        //写入行数据组,号码串
 
                 //判断是否已经存同样的选项组
                 if (!checkSel.indexOf(selStr)) {
@@ -485,17 +540,14 @@
                     throw SyntaxError();
                 }
 
-                checkSel[num1] = selStr;//写入校验组
-                selData[num1] = data;//写入数据组
+                console.log(checkSel);
+
+                checkSel[num1] = selStr;//把字串写入整齐数据组,该组只有但一个拼接字串,:红_小_中
+
+                selData[num1] = data;//写入整体数据组
                 num1 +=1;
 
             });
-
-
-
-
-
-            console.log(selData);
 
             var str = '' ; //装载input标签
             for( a in selData){
@@ -506,14 +558,13 @@
                     '<input type="hidden" name="selPrice['+selData[a]['selStr']+'][]" value="'+selData[a]['selStr']+'">';
             }
 
+            $('.selTableTd').append(str);//写入td表格内部
 
-            $('.inputBox').append(str);//写入td表格内部
 
             priceBtnCancel('none');//隐藏按钮
             $('.revise').css('display', 'block');//显示价格修改按钮
 
-
-            LoadRevisePriceBtn();//加载价格列表--修改--按钮
+            loadRevisePriceBtn();//加载价格列表--修改--按钮
 
             CKECK_PRICE_AFF = 1;//确认价格按钮标记
 
@@ -533,7 +584,7 @@
 
 
 //========================================================================================================================价格列表--修改--按钮
-    function LoadRevisePriceBtn ()
+    function loadRevisePriceBtn ()
     {
         $('.revise').on('click', function () {
             priceBtnCancel('block');//显示相关按钮
@@ -559,7 +610,7 @@
         }
         str  += '<td><input style="width:70px;" class="date-picker form-control col-md-7 col-xs-12 selPrice" required="required" type="text"></td>' +
             '<td><input style="width:70px;" class="date-picker form-control col-md-7 col-xs-12 selKu" required="required" type="text"></td>' +
-        '<td>&nbsp&nbsp<a class="btn btn-default btn-sm delPriceSel">删除</a></td></tr>';
+        '<td><a style="width:60px;" class="btn btn-default btn-sm delPriceSel">删除</a></td></tr>';
 
 
 
@@ -594,9 +645,14 @@
     function cancel ()
     {
         $('.addParCel').on('click', function () {
+            PAR_SEL_TMP -= 1;
             $(this).parent().parent().remove();
-            console.log($(this).parent().parent());
-            console.log($('#parTable').children('tbody').children())
+
+            if (!PAR_SEL_TMP) {
+                $('.parAff').css('display', 'none');
+            }
+            // console.log($(this).parent().parent());
+            // console.log($('#parTable').children('tbody').children())
             // if () {
             //     $('.parAff').css('display', 'none');
             // }
@@ -619,8 +675,11 @@
         var str = '<tr>';
         for(var a = 0 ; a < dataObj.length ; a++){
 
-            str +="<td>"+dataObj[a]['name']+"</td>";
-            str += "<td><td>&nbsp&nbsp<input style='width:100px;' type='text' name='"+dataObj[a]['id']+"'>&nbsp&nbsp</td>";
+            str +="<td width='40'>"+dataObj[a]['name']+"</td>";
+            str += "<td>&nbsp&nbsp" +
+                "<input style='width:100px;' class='form-control col-md-7 col-xs-12' type='text' name='specArr[]["+dataObj[a]['id']+"]' >" +
+                "&nbsp&nbsp</td>";
+
 
     }
         str += '</tr>';

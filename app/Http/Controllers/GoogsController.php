@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+
 
 use App\Goods;          //商品表
 use App\Option;         //属性表
@@ -12,7 +12,8 @@ use App\Head;           //属性头表
 use App\SpecPrice;      //商品属性价格表
 use App\Type;           //类别表
 use App\SecondType;     //二级类别表
-
+use App\Spec;           //商品规格表
+use App\GoodsDetail;      //商品详情表
 
 class GoogsController extends Controller
 {
@@ -34,10 +35,15 @@ class GoogsController extends Controller
      */
     public function create()
     {
-        $type = Type::all();   //查询一级类表
-        $typeTou = SecondType::all();  //查询二级类表
-        $kind = SecondType::where('tid', "=", '3')->get();  //获取种类数据
-        return view('fitment.production.goods.CreateGoods', compact('type', 'typeTou', 'kind'));
+
+        $tType = SecondType::whereRaw("tid = ? and name = ?", ['0', '种类'])->select('id')->get();//获取种类数据
+        $id = $tType[0]['id'];
+        $tType=  SecondType::whereRaw('tid = ? ', [$id])->get();
+
+        $type = SecondType::whereRaw('tid = ? and name != ?', ['0', '种类'])->get();  //查询父类
+        $typeTou = SecondType::whereRaw('tid != ? ', [$id])->get();//查询子分类
+
+        return view('fitment.production.goods.CreateGoods', compact('tType','typeTou', 'type'));
     }
 
     /**
@@ -46,18 +52,76 @@ class GoogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\GoodsPostRquest  $request)
     {
 
-        $goodsInfo = [];
-        $goodsInfo['goods'] = $_POST['goodsName'];
-        $goodsInfo['price'] = $_POST['price'];
-        $goodsInfo[''] = $_POST['stock'];
-        $goodsInfo = $_POST['goodsName'];
+        //写入goods,商品信息表
+        $goodsData = [] ;
+        $goodsData['goods'] = $_POST['goodName'];      //商品名
+        $goodsData['price'] = $_POST['price'];         //价格
+        $goodsData['stockall'] = $_POST['stockAll'];   //总库存
+        $goodsData['style'] = $_POST['风格'];          //风格
+        $goodsData['area'] = $_POST['区域'];           //区域
+        $goodsData['kind'] = $_POST['kind'];           //种类
+        $goodsData['pic'] = implode($_POST['pic'], ',');  //图片
+        $goodsData['desr'] = $_POST['desr'];        //描述
+        $goodsData['state'] = $_POST['state'];      //状态
+
+        $info =  Goods::create($goodsData);
+
+        //准备商品id
+        $goodId =  $info['id'];
+
+        //写入option表,商品选项
+        if (!empty($_POST['par'])) {
+            foreach ($_POST['par'] as $k => $v  ) {
+                foreach ($v as $vv) {
+                    $optionArr['name'] = $vv;
+                    $optionArr['gid']  = $goodId;
+                    $optionArr['hid']  = $k;
+                    Option::create($optionArr);
+                }
+            }
+        }
 
 
-        dump($_POST);
-//        dump($goodsInfo);
+
+        //写入SpecPrice表,商品选项价格
+        if (!empty($_POST['selPrice'])) {
+            $selPriceData = [];
+            foreach ($_POST['selPrice'] as $v) {
+
+                $selPriceData['store']      =   $v[0];//库存
+                $selPriceData['price']      =   $v[1];//价格
+                $selPriceData['str_bunch']  =   $v[3];//字符串
+                $selPriceData['bunch_name'] =   $v[2];//号码串
+                $selPriceData['gid']       =    $goodId;//商品id
+
+                SpecPrice::create($selPriceData);
+            }
+        }
+
+
+
+        //写入spec表, 商品规格
+        foreach ($_POST['specArr'] as $v) {
+
+            foreach ($v as $k => $vv) {
+                $specData['name']   =   $vv;
+                $specData['gid']    =   $goodId;
+                $specData['hid']    =   $k;
+
+                Spec::create($specData);
+            }
+        }
+
+        //写入goods_detail, 商品详情表
+        $GoodsDetailData['gid'] = $goodId;
+        $GoodsDetailData['content'] = $_POST['editorValue'];
+
+        GoodsDetail::create($GoodsDetailData);
+
+        return 1;
     }
 
     /**

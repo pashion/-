@@ -36,6 +36,18 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="x_content">
 
                         {{--商品信息填写--}}
@@ -43,37 +55,41 @@
                         <form id="formCon" action='../goods' enctype="multipart/form-data" method="post" name="fileinfo">
                             <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
 
+
                             <table class="table">
 
                                 <tr>
-                                    <td width="12%">商品名称</td>
-                                    <td width="40%"><input name="goodName" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
-                                    <td >不包含有特殊字符在</td>
+                                    <td width="30%">商品名称</td>
+                                    <td width="40%"><input name="goodName" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12"></td>
+                                    <td width="30%">必须输入商品名</td>
                                 </tr>
                                 <tr>
                                     <td>基本价格</td>
                                     <td>
-
                                         <div class="input-group">
-                                            <div class="input-group-addon">$</div>
-                                            <input name="price" type="text" class="form-control " id="exampleInputAmount" placeholder="价格">
+                                            <input name="price" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </td>
-                                    <td>1</td>
+                                    <td>必须,你必须输入一个商品价格</td>
                                 </tr>
                                 <tr>
                                     <td>库存数量</td>
-                                    <td> <input name="stock" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"></td>
-                                    <td>1</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input name="stockAll" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    <td>必须,你必须输入有关该商品的所有库存</td>
                                 </tr>
 
                                 @foreach($type as $typeV)
                                 <tr>
                                     <td>{{$typeV['name']}}</td>
-                                    <td colspan="2">
+
+                                    <td data="{{$typeV['name']}}" colspan="2">
+
                                     @foreach($typeTou as $touV)
                                         @if($typeV['id'] == $touV['tid'] )
-                                            <label class="">
+                                            <label >
                                                 <div class="iradio_flat-green checked" style="position: relative;">
                                                     <input type="radio" class="flat" name="{{$typeV['name']}}" value="{{$touV['id']}}"  style="position: absolute; opacity: 0;">
                                                     <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
@@ -81,34 +97,45 @@
                                             </label>
                                         @endif
                                     @endforeach
+
+                                        <span>你必须选择指定标签,来定位你的商品</span>
                                     </td>
                                     <td></td>
                                 </tr>
                                 @endforeach
                                 <tr>
-                                    <td>属性选项</td>
-
-                                    <td colspan="2">
-                                        <div class="pull-left">
-                                            <select style="width:100px;" class="select2_group form-control sele">
-                                                <option value="">请选择</option>
-                                                @foreach($kind as $kindV)
-                                                    <option value="{{$kindV["id"]}}">{{$kindV['name']}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <td><h2>商品种类</h2></td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <select tableName="type" style="width:100px;" class="select2_group form-control sele">
+                                                        <option value="">请选择</option>
+                                                        @foreach($tType as $tTypeV)
+                                                            <option value="{{$tTypeV["id"]}}">{{$tTypeV['name']}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
                                      </td>
-
-
+                                    <td>必须, 你必须选择一个商品种类来完善商品信息</td>
+                                </tr>
+                                <tr>
+                                    <td><h2>商品属性</h2></td>
+                                    <td class="selKind">
+                                        <h2>无</h2>
+                                    </td>
+                                    <td>非必选, 如果你的商品没有选项,那么则不用添加</td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        属性选项
+                                        <h2>属性选项</h2>
                                     </td>
                                     <td colspan="2">
                                         <table id="parTable" class="table">
-
+                                            <h2>无</h2>
                                         </table>
                                         <center>
                                             <a data="0" class="btn btn-default parAff" style="display:none; width:100px;" >确认</a>
@@ -119,25 +146,25 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>选项价格</td>
+                                    <td><h2>选项价格</h2></td>
                                     <td colspan="2" class="selTableTd">
-
+                                        <h2>无</h2>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        规格参数
+                                        <h2>规格参数</h2>
                                     </td>
                                     <td colspan="2">
                                         <tabe id="spec">
-
+                                            这里为必填项,请选择--商品种类--后填写
                                         </tabe>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>商品状态</td>
+                                    <td><h2>商品状态</h2></td>
                                     <td>
 
                                         <select class="form-control" name="state">
@@ -146,12 +173,14 @@
                                             <option value="2">预售</option>
                                         </select>
                                     </td>
+                                    <td>必须</td>
                                 </tr>
                                 <tr>
-                                    <td>描述</td>
+                                    <td><h2>描述</h2></td>
                                     <td>
-                                        <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
+                                        <textarea name="desr" id="message" required="required" class="form-control" ></textarea>
                                     </td>
+                                    <td>必须</td>
                                 </tr>
 
                                 <tr height="100">
@@ -191,22 +220,24 @@
 
                                     <td>
                                     </tr>
-                            </table>
+                                    </table>
                                     <center>
+                                    {{--<input type='submit' id='conmitData' style='width:150px; height:50px;'  class="btn btn-primary btn-lg" >--}}
+
                                     <a id='conmitData' style='width:150px; height:50px;'  class="btn btn-primary btn-lg" >提交</a>
-                                        <input type='reset' value='重置'>
-                                            <span id='submitMig'></span>
+
+                                        <span id='submitMig'></span>
                                         </center>
-                            <br><br><br><br><br><br><br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        </div>
-    </div>
-    </div>
+                                        <br><br><br><br><br><br><br>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </form>
+                                        </div>
+                                        </div>
+                                        </div>
 
     @endsection
 

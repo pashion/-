@@ -23,8 +23,12 @@ Route::get('/', function () {
 
 //商品资源路由
 Route::resource('goods', 'GoogsController');
-//查询属性头用
-Route::get('goods/head/get', 'HeadController@getHead');
+//商品分类查询路由
+Route::get('goodsType', 'GoodsTypeController@GetKindType');
+//商品规格
+Route::resource('goodsSpenc', 'GoodsSpecController');
+////查询属性头用
+//Route::get('goods/head/get', 'HeadController@getHead');
 //商品文件上传
 Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
 //商品图片取消
