@@ -14,10 +14,9 @@
 //Route::get('/', 'CuisineController@index');
 
 
-Route::get('/', function () {
-
-    return view('zhuazi.production.index');
-});
-
-
-Route::resource('goods', 'GoogsController');
+Route::resource('/type', 'TypeController');
+Route::get('/SecoundType/increase','SecoundTypeController@increase');
+Route::post('/SecoundType/insert','SecoundTypeController@insert');
+Route::get('/SecoundType/ajax','SecoundTypeController@ajax');
+Route::get('/SecoundType/getmsg','SecoundTypeController@getmsg');
+Route::resource('/SecoundType', 'SecoundTypeController');

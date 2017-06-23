@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Http\Goods;
+use App\Type;
 
-class GoogsController extends Controller
+use DB;
+
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +19,8 @@ class GoogsController extends Controller
      */
     public function index()
     {
-        $data = Goods::all();
-        $dd($data);
-        echo "123";
+        $users = DB::select('select * from type');
+        return view('zhuazi.production.type.index',compact('users'));
     }
 
     /**
@@ -29,7 +30,7 @@ class GoogsController extends Controller
      */
     public function create()
     {
-        //
+        return view('zhuazi.production.type.create');
     }
 
     /**
@@ -40,7 +41,16 @@ class GoogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = $request->all();
+        $num = Type::create(['name' => $result['origin']]);
+        if($num)
+        {
+            return '插入成功';
+        }else
+        {
+            return '插入失败';
+        }
+
     }
 
     /**
@@ -60,9 +70,11 @@ class GoogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request ,$id)
     {
-        //
+        $info = DB::select('select * from type where id ='.$id)[0];
+        $text = $request->url();
+        return view('zhuazi.production.type.edit',compact('info','text'));
     }
 
     /**
@@ -74,7 +86,10 @@ class GoogsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $info = $request->all();
+        DB::table('type')
+            ->where('id', $id)
+            ->update(['name' => $info['name']]);
     }
 
     /**
@@ -85,6 +100,13 @@ class GoogsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bool = DB::table('type')->where('id', '=', $id)->delete();
+        if($bool)
+        {
+            return '删除成功';
+        }else
+        {
+            return '删除失败';
+        }
     }
 }

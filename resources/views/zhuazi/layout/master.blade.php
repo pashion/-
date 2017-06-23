@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="/test2/laravel/public/js/jquery-1.10.2.min.js"></script>
 
     <title>Gentelella Alela! | </title>
 
@@ -59,13 +61,23 @@
               <div class="menu_section">
                 <h3>只能添加店铺</h3>
                 <ul class="nav side-menu">
-                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
+                  <li><a><i class="fa fa-desktop"></i> 类别管理 </span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('SecoundType')}}">查看类别</a></li>
+                      <li><a href="{{url('SecoundType/create')}}">添加类别</a></li>
+                      <li><a href="{{url('SecoundType/ajax')}}">ajax测试</a></li>
+                    </ul>
+                  </li>
 
-                  <li><a><i class="fa fa-desktop"></i> 用户管理 </span></a></li>
+                  <li><a><i class="fa fa-table"></i> 轮播图管理 </a>
+                      <ul class="nav child_menu">
+                          <li><a href="{{url('SecoundType')}}">查看轮播图</a></li>
+                          <li><a href="{{url('SecoundType/create')}}">查看轮播图</a></li>
+                          <li><a href="{{url('SecoundType/ajax')}}">查看轮播图</a></li>
+                      </ul>
+                  </li>
 
-                  <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
-
-                  <li><a><i class="fa fa-bar-chart-o"></i> 主题菜式管理 </a></li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 轮播图列表 </a></li>
   
               </div>
 
