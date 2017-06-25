@@ -20,7 +20,7 @@ use App\GoodsDetail;      //商品详情表
 class GoogsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 显示商品列表
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,7 +38,7 @@ class GoogsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     *显示商品添加表单
      *
      * @return \Illuminate\Http\Response
      */
@@ -56,7 +56,7 @@ class GoogsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 保存商品添加表单数据
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

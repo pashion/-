@@ -8,26 +8,42 @@ use App\Http\Requests;
 
 use App\Head;
 
+use App\SecondType;
+
+use Illuminate\Support\Facades\DB;
+
 class GoodsSpecController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 显示所有规格
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        //查询到类头
+        $typeHead =  SecondType::where('name', '种类')->get();
+        $id = $typeHead[0]['id'];
+        $typeData =  SecondType::where('tid', $id)->get();
+
+        $kindData = [];
+        foreach ($typeData as $v) {
+            $kindData[$v['id']] = SecondType::where('tid', $v['id'])->get();
+        }
+//        dd($kindData);
+
+        return view('fitment.production.goods.GoodsSpec', compact('typeData', 'kindData'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
+    /**s
+     *规格键值添加
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        echo 1 ;
     }
 
     /**
@@ -42,7 +58,7 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 返回商品规格键值
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
