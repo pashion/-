@@ -74,7 +74,9 @@
                   <td class=" ">{{$v['id']}}</td>
                   <td class=" ">{{$v['goods']}}</td>
                   <td class=" ">
-                    <img width="50"  height="50" src="{{url('zhuazi/images').'/'.$v['pic']}}" alt="">
+                    {{--<img width="50"  height="50" src="{{url('goodsPic').'/'.$picNamep[$v['id']]}}" alt="">--}}
+
+                    <img width="50"  height="50" src="aa" alt="">
                     </td>
                   <td class=" ">{{$v['price']}} <i class="success fa fa-long-arrow-up"></i></td>
                   <td class=" ">{{$v['desr']}}</td>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -25,7 +27,14 @@ class GoogsController extends Controller
     public function index()
     {
         $data = Goods::paginate(10);
-        return view('fitment.production.goods.GoodsList', compact('data'));
+
+        //切割 处理图片名
+        $picName = [];
+        foreach ($data as $v) {
+            $arr  = explode(',', $v['pic']);
+            $picNamep[$v['id']]  = $arr[0];
+        }
+        return view('fitment.production.goods.GoodsList', compact('data', 'picNamep'));
     }
 
     /**
@@ -67,6 +76,12 @@ class GoogsController extends Controller
         $goodsData['desr'] = $_POST['desr'];        //描述
         $goodsData['state'] = $_POST['state'];      //状态
 
+        //移动图片
+        foreach ($_POST['pic'] as $v) {
+            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
+        }
+
+
         $info =  Goods::create($goodsData);
 
         //准备商品id
@@ -95,7 +110,7 @@ class GoogsController extends Controller
                 $selPriceData['price']      =   $v[1];//价格
                 $selPriceData['str_bunch']  =   $v[3];//字符串
                 $selPriceData['bunch_name'] =   $v[2];//号码串
-                $selPriceData['gid']       =    $goodId;//商品id
+                $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
             }
