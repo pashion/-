@@ -27,9 +27,31 @@ Route::resource('goods', 'GoogsController');
 Route::get('goodsType', 'GoodsTypeController@GetKindType');
 //商品规格
 Route::resource('goodsSpenc', 'GoodsSpecController');
-////查询属性头用
-//Route::get('goods/head/get', 'HeadController@getHead');
+
+
 //商品文件上传
 Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
 //商品图片取消
 Route::get('goods/file/upload', 'GoodsFileController@canclePic');
+//商品图片缩略图获取路由
+Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

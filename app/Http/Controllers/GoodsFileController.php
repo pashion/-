@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Intervention\Image\Facades\Image//引入图片修改扩展,intervention/image
+use Intervention\Image\Facades\Image;//引入图片修改扩展,intervention/image
 
 class GoodsFileController extends Controller
 {
@@ -45,9 +45,8 @@ class GoodsFileController extends Controller
     //缩略图访问方法
     public function reduce ()
     {
-        $img = Image::make(public_path('goodsPic/aa.jpg'))->resize(300, 200);
+        $img = Image::make(public_path($_GET['name']))->resize(100, 100);
         return $img->response('jpg');
-
     }
 
 

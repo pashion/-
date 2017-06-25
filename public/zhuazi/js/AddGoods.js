@@ -103,18 +103,11 @@
     function loadGoodNameBlurEven ()
     {
         $('input[name=goodName]').on('input porpertychange', function () {
-
             var str = '<span>名称必须是中文,英文,数字,-/=号组成,最少5个字符,长度不能超过40个字符</span>';
-
             var bool =  new RegExp('^[a-zA-Z0-9,\u4E00-\u9FA5\uF900-\uFA2D,-|=]{5,40}$').test($(this).val());
-
             //调用样式方法
             YorNStyle($(this), bool, str);
-
             bool?MUST_INPUT_TMP['goodName'] = 1:MUST_INPUT_TMP['goodName'] = 0;
-
-
-
         });
     }
 
@@ -122,18 +115,11 @@
     function loadPriceBlurEven ()
     {
         $('input[name=price]').on('input porpertychange', function () {
-
             var str = '<span>价格必须是数字,可以带有2位小数,<br>如果你有一位小数必须按照这样的样式写:12.10</span>';
-
             var bool =  new RegExp('^[0-9]{1,4}(.[0-9]{2})?$').test($(this).val());
-
             //调用样式方法
             YorNStyle($(this), bool, str);
-
             bool?MUST_INPUT_TMP['price'] = 1:MUST_INPUT_TMP['price'] = 0;
-
-
-
         });
     }
 
@@ -141,17 +127,11 @@
     function loadStockAllBlurEven ()
     {
         $('input[name=stockAll]').on('input porpertychange', function () {
-
             var str = '<span>您必须输入数字,并且不能超过99999</span>';
-
             var bool =  new RegExp('^[1-9]{1,5}$').test($(this).val());
-
             //调用样式方法
             YorNStyle($(this), bool, str);
-
             bool?MUST_INPUT_TMP['stockAll'] = 1:MUST_INPUT_TMP['stockAll'] = 0;
-
-
         });
     }
 
@@ -162,7 +142,6 @@
             var id = $(this).attr('name');
             $('#'+id).attr('class', 'bg-success');
             MUST_INPUT_TMP[id] = 1;
-
         });
     }
 
@@ -170,27 +149,14 @@
     //加载描述框验证
     function loadDesrTextarea ()
     {
-
         $('.desr').on('input porpertychange', function () {
-
             var str = '<span>最少输入10个字符,最多输入80个字符,不能换行</span>';
-
             var bool =  new RegExp('^[a-zA-Z0-9,\',\.\u4E00-\u9FA5\uF900-\uFA2D]{5,80}$').test($(this).val());
-
             //调用样式方法
             YorNStyle($(this), bool, str);
-
             bool?MUST_INPUT_TMP['depict'] = 1:MUST_INPUT_TMP['depict'] = 0;
-
         });
     }
-
-
-
-
-
-
-
 
     //正确或错误样式
     function  YorNStyle (obj, bool, mig)
@@ -205,10 +171,7 @@
     }
 
 
-
 // ======================================================图片上传预览=======================================================
-
-
 
     //加载 图片添加按钮 事件
     function loadEvenAddLog ()
@@ -248,7 +211,7 @@
                 //拼接字符串
                 var str  = '<td>' +
                     '<div sytle="margin:10px;">' +
-                    '<img width="130" height="130" class="img-thumbnail" src="../tempPicDir/'+picName+'">' +
+                    '<img width="130" height="130" class="img-thumbnail" src="file/reducepic?name=tempPicDir/'+picName+'">' +
                     '</div>' +
                     '<center  style="color:green">上传成功</center>' +
                     '<center picName="'+picName+'" class="del'+MUST_INPUT_TMP['pic']+'" ><label>删除</label></center>' +
@@ -336,7 +299,6 @@
 
 
 //==========================================属性添加=========================================
-
 
     //====================================================================================================================下拉框事件
     function select ()
@@ -429,8 +391,6 @@
     }
 
 
-
-
 //========================================================================================================================加载--添加--按钮
     function addBut ()
     {
@@ -485,10 +445,6 @@
             $('#goodSelTr').attr('class','');//修改--选项--颜色
             $('.parAff').css('display', 'block');//显示隐藏按钮
 
-
-
-
-
             selBut();//加载--添加选项--按钮事件
             cancel(PAR_SEL_TMP);//加载--取消--按钮事件
             CKECK_PAR_AFF = 1;//判断是否添加了选项的标记
@@ -531,7 +487,6 @@
 
         });
     }
-
 
 //=========================================================================================================================加载--属性确认--按钮
     function  loadParAff ()
@@ -584,8 +539,6 @@
             $('.selTableTd').append(strBtn);
             loadAddSelPriceEven();//记载添加价格按钮
 
-
-
         });
     }
 
@@ -626,7 +579,6 @@
 
             PAR_SEL_TMP_ARR['affSel'] = 0 ;     //属性选项确定标记
 
-
         });
     }
 
@@ -665,9 +617,7 @@
         loadAffPrice()//加载--确定价格--事件
         loadAddSelPriceBtn() //加载选项--添加--按钮事件
         LoaddelPriceSel();//加载价格--删除--事件
-
     }
-
 //========================================================================================================================价格列表--添加--按钮
     function loadAddSelPriceBtn ()
     {
@@ -683,13 +633,10 @@
     {
         $('.affPrice').on('click', function () {
 
-
-
             if (!$('#priceTable').children('tbody').children().is('.selSelPriceTr')) {
                 $('.migPrice').html('<span class="mig" style="color:red">请添加选项</span>');
                 throw SyntaxError();
             }
-
 
             var affPriceObj  =  $(this); //获取按钮对象
             var num1 = 0; //计数器
@@ -731,7 +678,6 @@
                     }
                     num += 1 ;
                 });
-
 
                 //判断数据是否合法
                 if (isnNull) {
@@ -873,16 +819,13 @@
         });
     }
 
-
+//删除选项价格
     function LoaddelPriceSel ()
     {
         $('.delPriceSel').on('click', function () {
             $(this).parent().parent().remove();
         });
     }
-
-
-
 //========================================================================================================================加载-规格列表-事件
     function specSel (dataObj)
     {
@@ -908,23 +851,16 @@
 
     }
 
-
     //加载文本框事件
     function loadSpecTextEven ()
     {
         $('.specText').on('blur', function () {
-
             var bool  = new RegExp('^[a-zA-Z0-9,.:/;*()@]{1,40}').test($(this).val());
-
             if (bool) {
-
                 $(this).parent().parent().attr({'tmp': 0, 'class': 'pull-left bg-success'});
-
             } else {
-
                 $(this).parent().parent().attr({'tmp': 1, 'class': 'pull-left bg-danger'});
             }
-
         });
     }
 

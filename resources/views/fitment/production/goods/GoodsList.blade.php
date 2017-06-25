@@ -76,7 +76,7 @@
                   <td class=" ">
                     {{--<img width="50"  height="50" src="{{url('goodsPic').'/'.$picNamep[$v['id']]}}" alt="">--}}
 
-                    <img width="50"  height="50" src="aa" alt="">
+                    <img width="50"  height="50" src="goods/file/reducepic?name=goodsPic/{{$picNamep[$v['id']]}}" alt="">
                     </td>
                   <td class=" ">{{$v['price']}} <i class="success fa fa-long-arrow-up"></i></td>
                   <td class=" ">{{$v['desr']}}</td>
