@@ -7,6 +7,10 @@ use Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+
+
 
 use App\Goods;          //商品表
 use App\Option;         //属性表
@@ -109,7 +113,7 @@ class GoogsController extends Controller
                 $selPriceData['store']      =   $v[0];//库存
                 $selPriceData['price']      =   $v[1];//价格
                 $selPriceData['str_bunch']  =   $v[3];//字符串
-                $selPriceData['bunch_name'] =   $v[2];//号码串
+                $selPriceData['num_bunch']  =   $v[2];//号码串
                 $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
@@ -147,30 +151,36 @@ class GoogsController extends Controller
      */
     public function show($id)
     {
-        $data =  Goods::find($id);          //获取单个商品信息
-        $parArr  =  Option::where('oid',  $data['option'])->get(); //获取属性值
-        //取出所有属性头
-        $head  = [];
-        foreach($parArr as $v){
-            $head[]  =  $v['hid'];
+        //获取商品信息
+        $goodsData =  Goods::find($id);
+
+        //获取选项信息
+        $selData = DB::table('option')
+            ->leftJoin('head', 'option.hid', '=', 'head.id')
+            ->select('option.*', 'head.name as headName', 'head.id as headId')
+            ->where('gid', '=', $id)
+            ->get();
+
+        $headKey  = '';
+        foreach ($selData as $v) {
+            $headKey[$v->headId] = $v->headName;
         }
-        $head =  array_unique($head);//删除重复值
 
-        //遗留问题:写死了查询条件
+        //查询规格
+        $sql = 'SELECT A.* ,B.name AS specName , B.id AS specId FROM head AS A  LEFT JOIN  (SELECT * FROM spec WHERE gid = 100) AS B ON A.id = B.hid WHERE A.tid = 15';
+        $specData = DB::select( $sql );
+
+        //获取详情信息
+        $detail  = GoodsDetail::where('gid', '=', $id)->get();
+
+        //切割图片名
+        $picData = explode(',', $goodsData['pic']);
+
+        //选项价格
+        $goodSelPrice  = SpecPrice::where('gid', '=', $id)->get();
 
 
-        $headArr  = Head::whereRaw('id = ? or id = ? or id = ? ',  $head)->get();//查询属性头名称
-
-        $price   =  SpecPrice::where('gid', "=", '1')->get();            //获取属性价格数组
-        $minPrice   =  SpecPrice::where('gid', "=", '1')->min('price');  //获取最小值
-        $maxprice   =  SpecPrice::where('gid', "=", '1')->max('price');  //获取最大值
-
-        $mPrice = $minPrice.'---'.$maxprice;
-//        dd($maxMaxPrice);
-//        dump($headArr);
-//        dump($parArr);
-
-        return view('fitment.production.goods.Detail', compact('data', 'parArr', 'headArr', 'mPrice', 'price'));
+        return view('fitment.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice'));
 
     }
 

@@ -9,9 +9,11 @@
 
     function buttonLoad ()
     {
-        $('.btn.btn-primary.btn-xs').on('click', function () {
+        $('.goodsSingle').on('click', function () {
 
-            var goodsId =  $(this).attr('data');
+
+
+            var goodsId =  $(this).attr('goodId');
             $.get('./goods/'+goodsId, function (data) {
 
                 $('div[role=main]').html(data);

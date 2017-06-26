@@ -19,7 +19,7 @@ class GoodsTypeController extends Controller
         if (empty($_GET['id'])) {
             exit();
         }
-        $kinType =  SecondType::where('', '=', $kindTId)->get();
+        $kinType =  SecondType::where('tid', '=', $kindTId)->get();
 
         if(empty($kinType)){
             exit();

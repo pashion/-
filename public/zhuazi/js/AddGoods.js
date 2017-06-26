@@ -349,7 +349,7 @@
             var seleObj =  $(this);//保存对象
 
             //查询数据库
-            $.get('../goodsSpenc/' + num, function (data) {
+            $.get('../goodsSpec/' + num, function (data) {
 
                 if(data == ''){
                     return false;
