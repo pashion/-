@@ -26,7 +26,7 @@ Route::resource('goods', 'GoogsController');
 
 
 //商品规格
-Route::resource('goodsSpenc', 'GoodsSpecController');
+Route::resource('goodsSpec', 'GoodsSpecController');
 
 
 //商品分类查询路由

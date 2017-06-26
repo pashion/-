@@ -1,10 +1,17 @@
 @extends('fitment.layout.master')
 
+@section('head')
+
+    <link href="{{url('zhuazi')}}/css/goodsSpec.css" rel="stylesheet">
+
+    @endsection
+
 @section('content')
 
 <div class="title_left">
     <h3>规格\属性分类表</h3>
 </div>
+<input id="token" type="hidden" value="{{csrf_token()}}">
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">

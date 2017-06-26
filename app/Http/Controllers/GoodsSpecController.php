@@ -47,13 +47,15 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 添加  ajax穿过个
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        
+        return Head::create($_POST);
 
     }
 
@@ -93,13 +95,14 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * 删除head表中指定的ID
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+
+        return Head::where('id', $id)->delete();
+
     }
 }

@@ -64,9 +64,9 @@
               <div class="menu_section">
                 <h3>只能添加店铺</h3>
                 <ul class="nav side-menu">
-                 <li><a href="{{url('goodsSpenc')}}"><i class="fa fa-edit"></i>商品管理</a>
+                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
 
-                  <li><a href="{{url('goods')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
+                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
 
                   <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
 

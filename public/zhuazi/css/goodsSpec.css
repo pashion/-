@@ -1,0 +1,28 @@
+
+
+ .headBox{
+     background:white;
+     width:200px;
+     margin:3px;
+     height:25px;
+     border-radius: 15px;
+     float:left;
+ }
+
+ .headText {
+     margin:5px;
+     margin-left:10px;
+     float:left;
+ }
+
+ #headTable {
+
+     padding:10px;
+     width:650px;
+     background:rgb(91,192,222);
+     border-radius: 5px;
+ }
+
+ .btn {
+     margin:5px;
+ }
