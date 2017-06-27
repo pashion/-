@@ -11,23 +11,46 @@
 
         styleEditBtn();//加载风格/区域修改按钮点击事件
 
-        loadAddEditGoodPic()//记载图片添加按钮
+        loadAddEditGoodPic();//加载图片添加按钮
+        picDelEven('.delPicBtn');//加载图片删除按钮
+
+
     });
 
 
+    //添加选项按钮
+    function () {
+        $('.selDddBtn').on('click', function () {
+
+            
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+//================================================================================图片处理
+    //加载图片添加按钮
     function loadAddEditGoodPic()
     {
         $('.addEditGoodPic').on('click', function () {
             $('#addPicFile').click();
         });
 
+        //点击事件
         $('#addPicFile').on('change', function () {
 
             console.log( $('.picBox'));
 
             console.log($('.picBox').children().length);
             if ($('.picBox').children().length >= 5) {
-                $('#compose').after('<span style="color:red;">最多存在5张图片</span>');
+                $('#picConMig').html('<span style="color:red;">展示图片最多5张</span>');
                 throw SyntaxError();
             }
 
@@ -45,16 +68,42 @@
             function gg  (data) {
 
                 if (data.length == 36) {
-                    $('.picBox').prepend('<img src="goodsPic/'+data+'" alt="..." class="img-thumbnail">');
+                    $('#picConMig').html('<span style="color:green;">添加成功</span>');
+                    var name = data.substr(0, 6);
+                    var str = '<div class="onPicBox"> ' +
+                        '<div  class="picDelBox"><label class="delPicBtn '+name+'" picName="'+data+'" >删除</lable></div> ' +
+                        '<div  class="picDiv"><img src="goodsPic/'+data+'" alt="..." class="img-thumbnail"> ' +
+                        '</div> </div>';
+                    $('.picBox').prepend(str);
+                    picDelEven('.'+name);
                 }
-
             }
-
             // 准备回调方法,这里写你获取到上传结果,0 为失败,获取到 文件名 为成功
             ajaxFile('goods/file/upload', formData, gg);
-
         });
     }
+    //图片删除按钮
+    function picDelEven (btnName)
+    {
+        $(btnName).on('click', function () {
+
+            var name = $(this).attr('picName');
+            var goodId = $('#goodsID').attr('data');
+            var url = 'goods/file/upload?name='+name+'&conMode=1&goodId='+goodId;
+            var delPicBtnObj = $(this);
+
+            //发送
+            $.get(url, function (data) {
+                if (data == 2) {
+                    delPicBtnObj.parent().parent().remove();
+                    $('#picConMig').html('<span style="color:green;">删除成功</span>')
+                } else {
+                    $('#picConMig').html('<span style="color:red;">删除失败</span>')
+                }
+            });
+        });
+    }
+
 
     //ajax文件上传方法,默认post上传,(地址, formData对象, 回调方法(data))
     function ajaxFile (url, formData, func)
@@ -79,30 +128,7 @@
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//=================================================================基础信息修改
 
 
     //显示修改按钮

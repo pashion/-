@@ -37,8 +37,8 @@ class GoodsFileController extends Controller
             $req->file('image')->move('goodsPic', $newName);
             //存入数据库
             $picStr = Goods::select('pic')->where('id', $_POST['id'])->get();
-            $pic = $newName.','.$picStr[0]['pic'];
-            $pic = rtrim($pic, ',');
+            $picName = $newName.','.$picStr[0]['pic'];
+            $pic = rtrim($picName, ',');
             Goods::where('id', $_POST['id'])->update(['pic' => $pic]);
         }
 
@@ -46,11 +46,27 @@ class GoodsFileController extends Controller
         return $newName;//返回文件名
 
     }
+
     //删除图片
     public function canclePic ()
     {
-        unlink('tempPicDir/'.$_GET['name']);
-        return 1 ;
+
+        if (empty($_GET['conMode'])) {
+
+            unlink('tempPicDir/'.$_GET['name']);//删除临时文件
+
+        } else {
+
+            unlink('goodsPic/'.$_GET['name']);  //删除文件
+            $picStr = Goods::select('pic')->where('id', $_GET['goodId'])->get();//取出
+            $picArr = explode(',', $picStr[0]['pic']);//切割
+            $key =  array_search($_GET['name'], $picArr);  //查找键位
+            array_splice($picArr, $key, 1);     //删除指定键位元素
+            $picStr = implode(',', $picArr);     //拼接
+            Goods::where('id', $_GET['goodId'])->update(['pic' => $picStr]);
+        }
+
+        return 2 ;
     }
 
     //缩略图访问接口

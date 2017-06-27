@@ -3,9 +3,13 @@
 
 
 .editBtnMinBox{
-    margin-left:10px;
+    margin-left:16px;
     display:none;
     float:left;
+    height:50px;
+    line-height:50px;
+
+
 }
 
 #infoEditBtnAff {
@@ -26,4 +30,28 @@
 
 .stateList {
     display:none;
+}
+
+/*删除图片按钮样式*/
+.picDelBox {
+    position:absolute;
+    font-size:16px;
+    color:red;
+    font-family:"微软雅黑";
+    width:100px;
+    height:20px;
+    left:0px;
+    top:0px;
+    z-index:999;
+}
+
+/*一个图片的盒子*/
+.picDiv {
+    position:relative;
+    left:0px;
+    top:0px;
+}
+/*整体盒子*/
+.onPicBox {
+    position:relative;
 }
