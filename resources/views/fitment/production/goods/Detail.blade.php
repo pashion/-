@@ -111,13 +111,31 @@
                                             <td>
                                                 <h2 class="lineTextBox">
                                                     <div  class="pull-left">{{$goodsData['style']}}</div>
-                                                    <div>
+                                                    <div class="selRadio">
                                                     </div>
                                                 </h2>
                                                 <div class="editBtnMinBox">
                                                     <button type="button" class="btn btn-default btn-sm styleEditBtn">修改</button>
                                                     <div class="saveAnCloseBox">
-                                                        <button type="button" class="btn btn-default btn-sm desrBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm sytleBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h2>区域 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">{{$goodsData['area']}}</div>
+                                                    <div class="selRadio">
+                                                    </div>
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm areaEditBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm areaBtnSave">保存</button>
                                                         <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
                                                     </div>
                                                     <div class="pull-left saveMig"></div>

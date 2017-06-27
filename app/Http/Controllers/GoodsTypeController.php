@@ -31,9 +31,8 @@ class GoodsTypeController extends Controller
     //返回所有的风格选项
     public function getgGoodsStyle ()
     {
-        $tid = $_GET['id'];
+        $tid = $_GET['tid'];
         $styleData = SecondType::where('tid', $tid)->get();
-        dd($styleData);
-
+        return $styleData;
     }
 }
