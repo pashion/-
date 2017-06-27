@@ -31,7 +31,7 @@ class AdminLoginController extends Controller
 
                 $request->session()->put(['admin_name'=>$name]);
                 // dd(session('admin_name'));
-                return view('zhuazi/production/index');
+                return view('zhuazi/users/add');
 
             }else{
 

@@ -9,15 +9,12 @@
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
     <title>Gentelella Alela!</title>
 
-<<<<<<< HEAD
     <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
-=======
     <title>Gentelella Alela! | </title>a
 
 
 
 
->>>>>>> 2d44165622a24110e9575169906997b8a2705554
     <!-- Bootstrap -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -46,7 +43,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{url('goods')}}" class="site_title"><i class="fa fa-paw"></i> <span>菜肴--后台管理</span></a>
+              <a href="{{url('goods')}}" class="site_title"><i class="fa fa-paw"></i> <span>商城--后台管理</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -72,20 +69,31 @@
                 <ul class="nav side-menu">
                  <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
 
-<<<<<<< HEAD
                   <li><a><i class="fa fa-user"></i> 用户管理 </span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('admin/user/index')}}">会员列表</a></li>
                       <li><a href="{{url('admin/user/add')}}">会员添加</a></li>
                     </ul>
                   </li>
-=======
                   <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
->>>>>>> 2d44165622a24110e9575169906997b8a2705554
 
-                  <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
+                  <li><a><i class="fa fa-desktop"></i> 类别管理 </span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('SecoundType')}}">查看类别</a></li>
+                      <li><a href="{{url('SecoundType/create')}}">添加类别</a></li>
+                      <li><a href="{{url('SecoundType/ajax')}}">ajax测试</a></li>
+                    </ul>
+                  </li>
 
-                  <li><a><i class="fa fa-bar-chart-o"></i> 主题菜式管理 </a></li>
+                   <li><a><i class="fa fa-table"></i> 轮播图管理 </a>
+                      <ul class="nav child_menu">
+                          <li><a href="{{url('Wheel')}}">查看轮播图</a></li>
+                          <li><a href="{{url('Wheel/create')}}">插入轮播图</a></li>
+                          <li><a href="{{url('Wheel/ajax')}}">查看轮播图</a></li>
+                      </ul>
+                  </li>
+
+
                   <li><a><i class="fa fa-group"></i>管理员权限管理 </span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('admin/roles/index')}}">所有角色</a></li>
@@ -295,16 +303,13 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
-<<<<<<< HEAD
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
       </div>
     </div>
-=======
 
     @yield('footJS')
 
 	
->>>>>>> 2d44165622a24110e9575169906997b8a2705554
   </body>
 </html>
