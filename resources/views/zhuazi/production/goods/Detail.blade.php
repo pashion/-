@@ -110,7 +110,7 @@
                                             <td><h2>风格 :</h2></td>
                                             <td>
                                                 <h2 class="lineTextBox">
-                                                    <div  class="pull-left">{{$goodsData['style']}}</div>
+                                                    <div id="goodsStyleText" class="pull-left">{{$styleNameArr[0]['name']}}</div>
                                                     <div class="selRadio">
                                                     </div>
                                                 </h2>
@@ -128,9 +128,7 @@
                                             <td><h2>区域 :</h2></td>
                                             <td>
                                                 <h2 class="lineTextBox">
-                                                    <div  class="pull-left">{{$goodsData['area']}}</div>
-                                                    <div class="selRadio">
-                                                    </div>
+                                                    <div id="goodsAreaText" class="pull-left">{{$styleNameArr[0]['name']}}</div>
                                                 </h2>
                                                 <div class="editBtnMinBox">
                                                     <button type="button" class="btn btn-default btn-sm areaEditBtn">修改</button>
@@ -145,7 +143,7 @@
                                         <tr>
                                             <td><h2>种类 :</h2></td>
                                             <td>
-                                                <h2>{{$goodsData['kind']}}</h2>
+                                                <h2 id="goodsKindText" >{{$goodsData['kind']}}</h2>
                                                 <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
                                             </td>
                                         </tr>
@@ -168,15 +166,30 @@
                                         </tr>
                                         <tr>
                                             <td><h2>状态 :</h2></td><td>
-                                                <h2 status="{{$goodsData['state']}}">
-
-                                                    @if($goodsData['state'] = 1 )
-                                                        <div style="color:green;">在售</div>
-                                                    @endif
-
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">
+                                                        @if($goodsData['state'] == 0 )
+                                                            <span style="color:green;">在售</span>
+                                                        @elseif($goodsData['state'] == 1)
+                                                            <span style="color:red;">下架</span>
+                                                        @elseif($goodsData['state'] == 2)
+                                                            <span style="color:black">缺货</span>
+                                                        @endif
+                                                    </div>
+                                                    <select class="stateList" name="status" id="">
+                                                        <option value="0">在售</option>
+                                                        <option value="1">下架</option>
+                                                        <option value="2">缺货</option>
+                                                    </select>
                                                 </h2>
-                                                <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
-
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm nameBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm statuBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
                                             </td>
                                         </tr>
 

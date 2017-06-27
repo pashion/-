@@ -3,14 +3,16 @@
 
     $(function () {
 
-        loadInfoEditBtn();//加载总体修改按钮事件
-        loadGoodsNameSaveBtn();//加载商品名称修改事件
+        loadInfoEditBtn();//加载总体修改按钮点击事件
+        loadGoodsNameSaveBtn();//加载商品名称修改点击事件
 
-        publicTextCloseBen();//加载共用取消按钮事件
-        pubicReviseBtnEven();//加载共用修改按钮事件
+        publicTextCloseBen();//加载共用取消按钮点击事件
+        pubicReviseBtnEven();//加载共用修改按钮点击事件
 
-        styleEditBtn();//加载风格/区域修改按钮
+        styleEditBtn();//加载风格/区域修改按钮点击事件
     });
+
+
 
     //显示修改按钮
     function loadInfoEditBtn ()
@@ -29,9 +31,6 @@
             $('#infoEditBtn').css('display', 'block');
         });
     }
-
-    //状态修改按钮
-    function statusEdit 
 
 
     //风格/区域修改按钮
@@ -123,6 +122,15 @@
             var name = selBtn.attr('styleName');
             saveBtn($(this), val, '', '', 'style', name)//发送数据
         })
+
+        //状态
+        $('.statuBtnSave').on('click', function ()
+        {
+            var showText =  $(this).parent().parent().prev().children().first();
+            var val = showText.next().val();
+            var name = showText.next().find("option:selected").text();
+            saveBtn($(this), val, '', '', 'state', name)//发送数据
+        });
 
 
     }

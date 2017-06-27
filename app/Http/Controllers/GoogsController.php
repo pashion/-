@@ -38,7 +38,7 @@ class GoogsController extends Controller
             $arr  = explode(',', $v['pic']);
             $picNamep[$v['id']]  = $arr[0];
         }
-        return view('fitment.production.goods.GoodsList', compact('data', 'picNamep'));
+        return view('zhuazi.production.goods.GoodsList', compact('data', 'picNamep'));
     }
 
     /**
@@ -56,7 +56,7 @@ class GoogsController extends Controller
         $type = SecondType::whereRaw('tid = ? and name != ?', ['0', '种类'])->get();  //查询父类
         $typeTou = SecondType::whereRaw('tid != ? ', [$id])->get();//查询子分类
 
-        return view('fitment.production.goods.CreateGoods', compact('tType','typeTou', 'type'));
+        return view('zhuazi.production.goods.CreateGoods', compact('tType','typeTou', 'type'));
     }
 
     /**
@@ -162,13 +162,22 @@ class GoogsController extends Controller
             ->where('gid', '=', $id)
             ->get();
 
+        //处理选项获取属性名
         $headKey  = '';
         foreach ($selData as $v) {
             $headKey[$v->headId] = $v->headName;
         }
 
+        //获取相关名称
+        $style  = $goodsData['style'];
+        $area   = $goodsData['area'];
+        $kind   = $goodsData['kind'];
+        $styleNameArr = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get()->orderBy('tid');
+
+        dd($styleNameArr);
+
         //查询规格
-        $sql = 'SELECT A.* ,B.name AS specName , B.id AS specId FROM head AS A  LEFT JOIN  (SELECT * FROM spec WHERE gid = 100) AS B ON A.id = B.hid WHERE A.tid = 15';
+        $sql = 'SELECT A.* ,B.name AS specName , B.id AS specId FROM head AS A  LEFT JOIN  (SELECT * FROM spec WHERE gid = '.$id.') AS B ON A.id = B.hid WHERE A.tid = '.$goodsData['kind'];
         $specData = DB::select( $sql );
 
         //获取详情信息
@@ -181,7 +190,7 @@ class GoogsController extends Controller
         $goodSelPrice  = SpecPrice::where('gid', '=', $id)->get();
 
 
-        return view('fitment.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice'));
+        return view('zhuazi.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice', 'styleNameArr'));
 
     }
 

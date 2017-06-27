@@ -32,7 +32,7 @@ class GoodsSpecController extends Controller
         }
 //        dd($kindData);
 
-        return view('fitment.production.goods.GoodsSpec', compact('typeData', 'kindData'));
+        return view('zhuazi.production.goods.GoodsSpec', compact('typeData', 'kindData'));
 
     }
 

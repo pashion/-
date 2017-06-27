@@ -183,8 +183,6 @@
                 return false;
             }
             $(this).parent().children('.fileUp').click(); //触发点击事件
-
-
         });
     }
 
@@ -197,7 +195,7 @@
             var formData = new FormData();
 
             //准备上传数据,使用HTNL5新对象formData,保存数据
-            formData.append("image", $(this)[0].files[0]);
+            formData.append("image", $(this)[0].files[0]); //获取图片数据
             formData.append("name", 'image' );
             formData.append('_token', $('#token').val());
 

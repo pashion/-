@@ -35,4 +35,12 @@ class GoodsTypeController extends Controller
         $styleData = SecondType::where('tid', $tid)->get();
         return $styleData;
     }
+
+    //返回指定类名
+    public function getgGoodsStyle ()
+    {
+        $tid = $_GET['tid'];
+        $styleData = SecondType::where('tid', $tid)->get();
+        return $styleData;
+    }
 }

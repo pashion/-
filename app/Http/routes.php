@@ -32,6 +32,7 @@ Route::resource('goodsSpec', 'GoodsSpecController');
 //商品分类查询路由
 Route::get('goodsType', 'GoodsTypeController@getKindType');
 Route::get('goodsgetstyle', 'GoodsTypeController@getgGoodsStyle');
+Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
 //商品文件上传
 Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
 //商品图片取消
