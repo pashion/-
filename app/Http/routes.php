@@ -12,7 +12,18 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::controller('/admin/roles','RolesController');	
 	Route::controller('/admin/permissions','PermissionsController');
 	Route::controller('/admin/users','UsersController');
-
+	
 });
 
 
+Route::resource('goods', 'GoogsController');
+Route::resource('frenship','FrenshipController');
+Route::get('frenship/{id}/delete','FrenshipController@destroy');
+Route::resource('talking','TalkingController');
+Route::get('talking/{id}/delete','TalkingController@destroy');
+Route::resource('order','OrderController');
+
+Route::get('/', function () {
+
+    return view('web.index');
+});

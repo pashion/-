@@ -16,7 +16,7 @@ class CreateFlinkTable extends Migration
         Schema::create('flink', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');//名称
-            $table->tinyInteger('type');//链接类型1,图片;2,文字;
+            $table->tinyInteger('type');//链接类型1,显示;2,不显示;
             $table->string('url');//链接地址
             $table->string('image');//图片
             $table->timestamps();
