@@ -1,3 +1,6 @@
+<link href="{{url('zhuazi')}}/css/goodsEdit.css" rel="stylesheet">
+
+
 <div class="">
 
     <div class="page-title">
@@ -18,14 +21,15 @@
     </div>
 
     <div class="clearfix"></div>
-
+    <input type="hidden" id="token" name="token" value="{{csrf_token()}}">
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>商品ID: {{$goodsData['id']}} </h2>
+                    <h2 id="goodsID" data="{{$goodsData['id']}} ">商品ID: {{$goodsData['id']}} </h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <button type="button" class="btn btn-success">修改</button>
+                        <button id='infoEditBtn' type="button" class="btn btn-success ">修改</button>
+                        <button id="infoEditBtnAff" type="button" class="btn btn-warning ">确定</button>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -51,30 +55,114 @@
                                 <div class="mail_heading row">
 
                                     <table style="margin-left:15px; width:700px" class="table table-hover">
-                                        <tr>
-                                            <td width="15%"><h2>商品名称 :</h2></td><td><h2>{{$goodsData['goods']}}</h2></td>
+                                        <tr id="goodNameTr">
+                                            <td width="100"><h2>商品名称 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">{{$goodsData['goods']}}</div>
+                                                    <input type="text" class="form-control inputText">
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm nameBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm nameBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h2>价格 :</h2></td><td><h2>{{$goodsData['price']}}</h2></td>
+                                            <td><h2>价格 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div class="pull-left">{{$goodsData['price']}}</div>
+                                                    <input type="text" class="form-control inputText">
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm nameBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm priceBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h2>总库存 :</h2></td><td><h5>{{$goodsData['stockall']}}</h5></td>
+                                            <td><h2>总库存 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">{{$goodsData['stockall']}}</div>
+                                                    <input type="text" class="form-control inputText">
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm nameBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm stockBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h2>描述 :</h2></td><td><h2>{{$goodsData['desr']}}</h2></td>
+                                            <td><h2>风格 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">{{$goodsData['style']}}</div>
+                                                    <div>
+                                                    </div>
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm styleEditBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm desrBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h2>状态 :</h2></td><td><h2>
+                                            <td><h2>种类 :</h2></td>
+                                            <td>
+                                                <h2>{{$goodsData['kind']}}</h2>
+                                                <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h2>描述 :</h2></td>
+                                            <td>
+                                                <h2 class="lineTextBox">
+                                                    <div  class="pull-left">{{$goodsData['desr']}}</div>
+                                                    <input type="text" class="form-control inputText">
+                                                </h2>
+                                                <div class="editBtnMinBox">
+                                                    <button type="button" class="btn btn-default btn-sm nameBtn">修改</button>
+                                                    <div class="saveAnCloseBox">
+                                                        <button type="button" class="btn btn-default btn-sm desrBtnSave">保存</button>
+                                                        <button type="button" class="btn btn-default btn-sm btnCancle">取消</button>
+                                                    </div>
+                                                    <div class="pull-left saveMig"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h2>状态 :</h2></td><td>
+                                                <h2 status="{{$goodsData['state']}}">
 
                                                     @if($goodsData['state'] = 1 )
                                                         <div style="color:green;">在售</div>
                                                     @endif
 
-                                                </h2></td>
+                                                </h2>
+                                                <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
+
+                                            </td>
                                         </tr>
 
                                     </table>
-
 
                                 </div>
 
@@ -89,6 +177,10 @@
                                                 <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">规格</a>
                                                 </li>
                                                 <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">选项价格</a>
+                                                </li>
+                                                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">评论记录</a>
+                                                </li>
+                                                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">销售记录</a>
                                                 </li>
 
                                             </ul>
@@ -138,8 +230,6 @@
 
                                             {{--选项价格--}}
                                                 <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-
-                                                    @if($goodSelPrice != null)
                                                     <table class="table table-bordered">
                                                         <tr>
                                                             <th>选项链</th>
@@ -148,20 +238,23 @@
                                                             <th>操作</th>
                                                         </tr>
                                                         @foreach($goodSelPrice as $v)
-
                                                             <tr>
                                                                 <td>{{$v['str_bunch']}}</td><td>{{$v['price']}}</td><td>{{$v['store']}}</td><td>删除</td>
                                                             </tr>
-
                                                         @endforeach
                                                     </table>
-                                                    @else
-                                                        空
-                                                    @endif
-
-
                                                 </div>
 
+
+                                            {{--评论记录--}}
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                                评论记录
+                                            </div>
+
+                                            {{--销售记录--}}
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                                                销售记录
+                                            </div>
 
                                             </div>
                                         </div>
@@ -298,7 +391,4 @@
 
 
 
-
-
-
-    <script src="{{url('zhuazi')}}/js/GoodsDetail.js"></script>
+<script src="{{url('zhuazi')}}/js/GoodsDetail.js"></script>

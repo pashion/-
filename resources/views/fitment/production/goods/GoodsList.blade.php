@@ -82,7 +82,7 @@
                   <td class=" ">{{$v['desr']}}</td>
                   <td class=" ">{{$v['state']}}</td>
                   <td>
-                    <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i> 查看 </a>
+                    <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
                     <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑 </a>
                     <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除 </a>
                   </td>

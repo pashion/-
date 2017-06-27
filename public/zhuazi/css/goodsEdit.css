@@ -1,0 +1,25 @@
+
+
+
+
+.editBtnMinBox{
+    margin-left:10px;
+    display:none;
+    float:left;
+}
+
+#infoEditBtnAff {
+    display:none;
+}
+.saveAnCloseBox {
+    display:none;
+}
+
+.inputText{
+    float:left;
+    display:none;
+    width:200px;
+}
+.lineTextBox {
+    float:left;
+}

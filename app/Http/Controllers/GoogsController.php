@@ -143,6 +143,7 @@ class GoogsController extends Controller
         return 1;
     }
 
+
     /**
      * 接收ID, 显示单个商品信息
      *
@@ -184,6 +185,7 @@ class GoogsController extends Controller
 
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -204,7 +206,17 @@ class GoogsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        if ($_POST['table'] == 'goods' ) {
+
+            $field  =  $_POST['field'];
+            $content = $_POST['content'];
+
+            Goods::where('id', $id)->update([ $field => $content ]);
+
+            return 1;
+        }
+
     }
 
     /**

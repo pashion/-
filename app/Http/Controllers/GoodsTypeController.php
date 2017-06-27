@@ -11,9 +11,10 @@ use App\Type;
 use App\SecondType;
 
 
+
 class GoodsTypeController extends Controller
 {
-    public function GetKindType ()
+    public function getKindType ()
     {
         $kindTId = $_GET['id'];
         if (empty($_GET['id'])) {
@@ -25,5 +26,14 @@ class GoodsTypeController extends Controller
             exit();
         }
         return $kinType;
+    }
+
+    //返回所有的风格选项
+    public function getgGoodsStyle ()
+    {
+        $tid = $_GET['id'];
+        $styleData = SecondType::where('tid', $tid)->get();
+        dd($styleData);
+
     }
 }
