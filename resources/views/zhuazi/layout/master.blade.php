@@ -83,7 +83,13 @@
                       </ul>
                   </li>
 
-                  <li><a><i class="fa fa-bar-chart-o"></i> 轮播图列表 </a></li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 文章管理 </a>
+                      <ul class="nav child_menu">
+                          <li><a href="{{url('Article')}}">文章列表</a></li>
+                          <li><a href="{{url('Article/create')}}">添加文章</a></li>
+                          <li><a href="{{url('Wheel/ajax')}}">查看轮播图</a></li>
+                      </ul>
+                  </li>
   
               </div>
 

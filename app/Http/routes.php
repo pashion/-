@@ -33,4 +33,9 @@ Route::resource('/Wheel','WheelController');
 //触发ajax
 Route::post('/Wheel/sort','WheelController@sort');
 
+//文章模块路由
+Route::resource('Article','ArticleController');
+//文章封面图ajax路由
+Route::post('Article/ajax','ArticleController@ajax');
+
 
