@@ -30,6 +30,10 @@
         });
     }
 
+    //状态修改按钮
+    function statusEdit 
+
+
     //风格/区域修改按钮
     function styleEditBtn()
     {
@@ -85,23 +89,19 @@
         //库存
         $('.stockBtnSave').on('click', function ()
         {
-
             var regExp = '^[1-9]{1,5}$';
             var reText = '<span style="color:red;">您必须输入数字,并且不能超过99999</span>';
             var val = $(this).parent().parent().prev().children().first().next().val();//获取相对内容
             saveBtn( $(this), val, regExp, reText, 'stockall');
-
         });
 
         //描述
         $('.desrBtnSave').on('click', function ()
         {
-
             var regExp = '^[a-zA-Z0-9,\',\.\u4E00-\u9FA5\uF900-\uFA2D]{5,80}$';
             var reText = '<span style="color:red;">最少输入10个字符,最多输入80个字符,不能换行</span>';
             var val = $(this).parent().parent().prev().children().first().next().val();//获取相对内容
             saveBtn( $(this), val, regExp, reText, 'desr');
-
         });
 
         //风格
@@ -114,7 +114,7 @@
             saveBtn($(this), val, '', '', 'style', name)//发送数据
         })
 
-        //风格
+        //区域
         $('.areaBtnSave').on('click', function ()
         {
             var showText =  $(this).parent().parent().prev().children().first();
