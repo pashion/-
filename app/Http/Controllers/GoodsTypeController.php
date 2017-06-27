@@ -29,7 +29,7 @@ class GoodsTypeController extends Controller
     }
 
     //返回所有的风格选项
-    public function getgGoodsStyle ()
+    public function getGoodsStyle ()
     {
         $tid = $_GET['tid'];
         $styleData = SecondType::where('tid', $tid)->get();

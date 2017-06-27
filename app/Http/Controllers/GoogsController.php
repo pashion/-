@@ -172,11 +172,12 @@ class GoogsController extends Controller
         $style  = $goodsData['style'];
         $area   = $goodsData['area'];
         $kind   = $goodsData['kind'];
-        $styleNameArr = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get()->orderBy('tid');
-
+        $styleNameArr[0] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
+        $styleNameArr[1] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
+        $styleNameArr[2] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
         dd($styleNameArr);
 
-        //查询规格
+        //查询商品规格格
         $sql = 'SELECT A.* ,B.name AS specName , B.id AS specId FROM head AS A  LEFT JOIN  (SELECT * FROM spec WHERE gid = '.$id.') AS B ON A.id = B.hid WHERE A.tid = '.$goodsData['kind'];
         $specData = DB::select( $sql );
 

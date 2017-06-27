@@ -225,11 +225,7 @@
                 var inputStr = '<input type="hidden" name="picName[]" value="'+picName+'">';
                 $('#pic').attr('class', 'bg-success');//改变颜色
 
-
-
                 priDleBtnEven()//加载删除事件
-
-
             }
 
             //执行已经包装好的ajaxFile方法
