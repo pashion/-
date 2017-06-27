@@ -66,7 +66,27 @@
                   <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
 
                   <li><a><i class="fa fa-bar-chart-o"></i> 主题菜式管理 </a></li>
-  
+                  <li><a href="{{url('frenship')}}"><i class="fa fa-edit"></i>友情链接管理<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('frenship')}}">查看友情链接</a></li>
+                      <li><a href="{{url('frenship/create')}}">添加友情链接</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="{{url('talking')}}"><i class="fa fa-edit"></i>评论管理<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('talking')}}">查看评论</a></li>
+                      <li><a href="{{url('talking/create')}}">添加评论</a></li>
+                      <li><a href="{{url('talking/create')}}">评论分类管理</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="{{url('order')}}"><i class="fa fa-edit"></i>订单管理<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('order')}}">查看订单</a></li>
+                      <li><a href="{{url('order/create')}}">添加订单</a></li>
+                      <li><a href="{{url('order/create')}}">订单分类管理</a></li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
 
             </div>
@@ -239,6 +259,9 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
-	
+    <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
+    <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
+      </div>
+    </div>
   </body>
 </html>

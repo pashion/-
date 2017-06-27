@@ -14,10 +14,20 @@
 //Route::get('/', 'CuisineController@index');
 
 
-Route::get('/', function () {
+Route::get('/admin', function () {
 
     return view('zhuazi.production.index');
 });
 
 
 Route::resource('goods', 'GoogsController');
+Route::resource('frenship','FrenshipController');
+Route::get('frenship/{id}/delete','FrenshipController@destroy');
+Route::resource('talking','TalkingController');
+Route::get('talking/{id}/delete','TalkingController@destroy');
+Route::resource('order','OrderController');
+
+Route::get('/', function () {
+
+    return view('zhuazi.web.index');
+});
