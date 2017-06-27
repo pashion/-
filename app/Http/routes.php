@@ -29,5 +29,5 @@ Route::resource('order','OrderController');
 
 Route::get('/', function () {
 
-    return view('zhuazi.web.index');
+    return view('web.index');
 });

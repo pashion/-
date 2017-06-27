@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="{{url('zhuazi/build}')}}/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
-<link  href="css/common.css" type="text/css" rel="stylesheet" />
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<link href="css/z_css.css" type="text/css" rel="stylesheet" />
+<script src="{{url('web/build')}}/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{url('web/build')}}/js/jquery.SuperSlide.2.1.1.js"></script>
+<link  href="{{url('web/build')}}/css/common.css" type="text/css" rel="stylesheet" />
+<link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
+<link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
 <!--[if lt IE 9]>
-<script src="js/html5shiv.js" type="text/javascript"></script>
-<script src="js/respond.min.js"></script>
-<script src="js/css3-mediaqueries.js"  type="text/javascript"></script>
+<script src="{{url('web/build')}}/js/html5shiv.js" type="text/javascript"></script>
+<script src="{{url('web/build')}}/js/respond.min.js"></script>
+<script src="{{url('web/build')}}/js/css3-mediaqueries.js"  type="text/javascript"></script>
   <![endif]-->
 <title>首页</title>
 </head>
@@ -36,7 +36,7 @@ $(document).ready(function(){
 <div class="header">
  <div class="header_top">
    <div class="top_info clearfix">
-   <div class="logo_style l_f"><a href="#"><img src="images/logo.jpg" /></a></div>
+   <div class="logo_style l_f"><a href="#"><img src="{{url('web')}}/images/logo.jpg" /></a></div>
    <div class="Search_style l_f">
    <form>
    <div class="select">
@@ -54,7 +54,7 @@ $(document).ready(function(){
    <div class="Cart_user r_f">
    <div class="Cart_Quantity "><span class="number">0</span></div>
    <div class="header_operating l_f">
-    <span class="header_touxiang"><img src="images/touxiang_03.png" /></span>
+    <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
     <a href="#">登录</a><a href="@">注册</a>
    </div>
    </div>
@@ -94,10 +94,10 @@ $(document).ready(function(){
 <div class="fullSlide">
 	<div class="bd">
 		<ul style="position: relative; width: 1583px; height: 460px;">
-			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url(images/banner01.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: list-item; background: url(images/banner02.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url(images/banner03.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url(images/banner01.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
+			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url({{url('web')}}/images/banner01.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
+			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: list-item; background: url({{url('web')}}/images/banner02.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
+            <li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: list-item; background: url({{url('web')}}/images/banner03.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
+			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url({{url('web')}}/images/banner01.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
 			<li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url(images/banner03.jpg) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
 		</ul>
 	</div>
@@ -111,8 +111,8 @@ $(document).ready(function(){
 		</ul>
 	</div>
 </div>
-<script type="text/javascript">		
-jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click" });	
+<script type="text/javascript">
+jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click" });
 </script>
 <!--banner轮播  e-->
 
@@ -128,34 +128,34 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
             	<a href="#">客厅</a><a href="#">卫生间</a><a href="#">书房</a><a href="#">主卧</a><a href="#">次卧</a><a href="#">阳台/露台</a><a href="#">儿童房</a><a href="#">茶室</a><a href="#">客厅</a><a href="#">客厅</a>
             </div>
             <div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
         </div>
     	<div class="c_mianbox1 mar_14">
         	<div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
             <div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
         </div>
         <div class="c_mianbox2 mar_14">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
         </div>
         <div class="c_mianbox1 mar_14">
         	<div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
             <div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
         </div>
         <div class="c_mianbox1">
         	<div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
             <div class="c_pic">
-            	<a href="#"><img src="images/c_img.jpg" /></a>
+            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
             </div>
         </div>
     </div>
@@ -170,27 +170,27 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
     </div>
     <div class="p_main">
     	<div class="p_box1">
-        	<a href="#" class="p_box1pic"><img src="images/p_img01.jpg" /></a>
+        	<a href="#" class="p_box1pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
             <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
             <p class="p_pirce">￥2439</p>
         </div>
         <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="images/p_img01.jpg" /></a>
+        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
             <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
             <p class="p_pirce">￥2439</p>
         </div>
         <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="images/p_img01.jpg" /></a>
+        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
             <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
             <p class="p_pirce">￥2439</p>
         </div>
         <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="images/p_img01.jpg" /></a>
+        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
             <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
             <p class="p_pirce">￥2439</p>
         </div>
         <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="images/p_img01.jpg" /></a>
+        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
             <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
             <p class="p_pirce">￥2439</p>
         </div>
@@ -206,7 +206,7 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
             <p class="a_text">这里是一个提倡分享与交流的社区，你可以这里：分享你喜欢的案例或者是自己参与设计的案例发帖和大家一起交流，发布自己的观点与设计态度，有机会获得更多的商业机会哦。互动的动态会及时更新到我们的官网微信社区与QQ群，并且一家一世界软装网会大力推广原创设计师的作品以及设计师，包括家居饰品的设计师哟；还可以认识很多与你志趣相投的新朋友，组织线下活动聚会。在这里你都可以找到归属。</p>
         </div>
         <div class="a_box2_pic">
-        	<img src="images/a_img01.jpg" />
+        	<img src="{{url('web')}}/images/a_img01.jpg" />
         </div>
     </div>
 </div>
@@ -221,22 +221,22 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
         <div class="s_box1">
         	<ul>
             	<li>
-                	<p><img src="images/icon_s01.jpg" /></p>
+                	<p><img src="{{url('web')}}/images/icon_s01.jpg" /></p>
                     <p class="s_tip">知识</p>
                     <p class="s_tip_text">软装饰细节，无论是从视觉到触觉，从感官到心里都彻底温暖起来。</p>
                 </li>
                 <li>
-                	<p><img src="images/icon_s02.jpg" /></p>
+                	<p><img src="{{url('web')}}/images/icon_s02.jpg" /></p>
                     <p class="s_tip"c>实现</p>
                     <p class="s_tip_text">软装饰细节，无论是从视觉到触觉，从感官到心里都彻底温暖起来。</p>
                 </li>
                 <li>
-                	<p><img src="images/icon_s03.jpg" /></p>
+                	<p><img src="{{url('web')}}/images/icon_s03.jpg" /></p>
                     <p class="s_tip">优势</p>
                     <p class="s_tip_text">软装饰细节，无论是从视觉到触觉，从感官到心里都彻底温暖起来。</p>
                 </li>
                 <li>
-                	<p><img src="images/icon_s04.jpg" /></p>
+                	<p><img src="{{url('web')}}/images/icon_s04.jpg" /></p>
                     <p class="s_tip">服务</p>
                     <p class="s_tip_text">软装饰细节，无论是从视觉到触觉，从感官到心里都彻底温暖起来。</p>
                 </li>
@@ -244,42 +244,42 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
         </div>
         <div class="s_box2">
         	<div class="s_box2_list">
-            	<p><img src="images/icon_s05.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s05.jpg" /></p>
                 <p>浏览场景</p>
             </div>
             <div class="s_box2_jt">
-            	<img src="images/s_jt.jpg" />
+            	<img src="{{url('web')}}/images/s_jt.jpg" />
             </div>
             <div class="s_box2_list">
-            	<p><img src="images/icon_s06.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s06.jpg" /></p>
                 <p>挑选方案</p>
             </div>
             <div class="s_box2_jt">
-            	<img src="images/s_jt.jpg" />
+            	<img src="{{url('web')}}/images/s_jt.jpg" />
             </div>
             <div class="s_box2_list">
-            	<p><img src="images/icon_s07.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s07.jpg" /></p>
                 <p>选择套餐</p>
             </div>
             <div class="s_box2_jt">
-            	<img src="images/s_jt.jpg" />
+            	<img src="{{url('web')}}/images/s_jt.jpg" />
             </div>
             <div class="s_box2_list">
-            	<p><img src="images/icon_s08.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s08.jpg" /></p>
                 <p>下单购买</p>
             </div>
             <div class="s_box2_jt">
-            	<img src="images/s_jt.jpg" />
+            	<img src="{{url('web')}}/images/s_jt.jpg" />
             </div>
             <div class="s_box2_list">
-            	<p><img src="images/icon_s09.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s09.jpg" /></p>
                 <p>物流配送</p>
             </div>
             <div class="s_box2_jt">
-            	<img src="images/s_jt.jpg" />
+            	<img src="{{url('web')}}/images/s_jt.jpg" />
             </div>
             <div class="s_box2_list">
-            	<p><img src="images/icon_s010.jpg" /></p>
+            	<p><img src="{{url('web')}}/images/icon_s010.jpg" /></p>
                 <p>售后服务</p>
             </div> 
         </div>
@@ -290,15 +290,15 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
 <!--二维码  s-->
 <div class="ewm bgcolor_f9">
     <span>
-        <p><img src="images/ewm.jpg" /></p>
+        <p><img src="{{url('web')}}/images/ewm.jpg" /></p>
         <p>手机端访问</p>
     </span>
     <span>
-        <p><img src="images/ewm.jpg" /></p>
+        <p><img src="{{url('web')}}/images/ewm.jpg" /></p>
         <p>手机端访问</p>
     </span>
     <span>
-        <p><img src="images/ewm.jpg" /></p>
+        <p><img src="{{url('web')}}/images/ewm.jpg" /></p>
         <p>手机端访问</p>
     </span>
 </div>
