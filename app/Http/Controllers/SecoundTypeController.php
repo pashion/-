@@ -4,21 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Middleware\DelTypeMiddleware;
+
 use App\Http\Requests;
+
+use deltype;
 
 use App\SecondType;
 
 use DB;
+
 use Illuminate\Support\Facades\Response;
 
 class SecoundTypeController extends Controller
 {
+    public function __construct()
+    {
+        //资源路由在控制器里写中间件,第一个参数为中间件的简写名
+        $this->middleware('deltype',['only'=>['destroy']]);
+    }
+
     public function index()
     {
         //类别管理首页,查询二级类别表，通过path,id组合排序结果集,传递给index视图处理输出
         $info = DB::select('SELECT * from second_type ORDER BY CONCAT(path,id)');
-//        $info = DB::table('second_type')->paginate(15);
-//        $info = SecondType::orderBy('id','path')->paginate(15);
         return view('zhuazi.production.secoundType.index',compact('info'));
     }
 
@@ -50,18 +59,16 @@ class SecoundTypeController extends Controller
     public function edit($id)
     {
         //首页编辑传递类别id值,接收并查询该类别信息传递到edit视图,并提供name值修改
-        $name = DB::select('select id,name from second_type where id ='.$id)[0];
+        $name = DB::select('select id,name,sort from second_type where id ='.$id)[0];
         return view('zhuazi.production.secoundType.edit',compact('name'));
     }
 
     public function update(Request $request, $id)
     {
         //接收update视图修改的传值,并对该类目名称进行修改,返回闪,存值+修改成功,到首页
-
-        dd($request->all());
         DB::table('second_type')
             ->where('id', $id)
-            ->update(['name' => $request->name],['sort'=>$request->sort]);
+            ->update(['name' => $request->name,'sort'=>$request->sort]);
         return redirect('/SecoundType')->with('name',$request->input('name').'修改成功');
     }
 
@@ -69,11 +76,8 @@ class SecoundTypeController extends Controller
     {
         //接收ajax/post方式的传值,并对该条目数据进行删除,返回给ajax进行页面局部刷新
         $num = DB::table('second_type')->where('id', '=', $id)->delete();
-        if($num >0){
-            echo '删除成功';
-        }else{
-            echo '删除失败';
-        }
+        //返回0则删除失败,返回1则删除成功
+        echo $num;
     }
 
     public function increase(Request $request)

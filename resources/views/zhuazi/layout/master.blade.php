@@ -8,9 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/test2/laravel/public/js/jquery-1.10.2.min.js"></script>
+    <script src="/test2/laravel/public/js/del.js"></script>
+
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="/test2/laravel/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="/test2/laravel/ueditor/ueditor.all.js"></script>
+
 
     <title>Gentelella Alela! | </title>
-
     <!-- Bootstrap -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -71,9 +77,9 @@
 
                   <li><a><i class="fa fa-table"></i> 轮播图管理 </a>
                       <ul class="nav child_menu">
-                          <li><a href="{{url('SecoundType')}}">查看轮播图</a></li>
-                          <li><a href="{{url('SecoundType/create')}}">查看轮播图</a></li>
-                          <li><a href="{{url('SecoundType/ajax')}}">查看轮播图</a></li>
+                          <li><a href="{{url('Wheel')}}">查看轮播图</a></li>
+                          <li><a href="{{url('Wheel/create')}}">插入轮播图</a></li>
+                          <li><a href="{{url('Wheel/ajax')}}">查看轮播图</a></li>
                       </ul>
                   </li>
 

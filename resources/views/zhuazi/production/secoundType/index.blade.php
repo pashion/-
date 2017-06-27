@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{ Session::get('name') }}
+    <p class="bg-success">{{ session('name') }}</p>
 
     <table class="table">
         <tr>
@@ -18,51 +18,23 @@
                 <td>{{$v->id}}</td>
                 <td>
                     @if ( substr_count($v->path,',') > 0 )
-                        {{ str_repeat( '&nbsp;', substr_count($v->path,',')*12  ) }} |-- {{$v->name}}
+                        {{ str_repeat( '&nbsp;', substr_count($v->path,',')*4  ) }} |-- {{$v->name}}
                     @endif
-
                 </td>
                 <td>{{$v->tid}}</td>
                 <td>{{$v->path}}</td>
-                <td>{{$v->sort}}</td>
+                <td>{{$v->tid}}-{{$v->sort}}</td>
                 <td>
-                    <a href="javascript:void(0)" onclick="del( '{{$v->id}}',this )">
-                        删除
-                    </a>
-                    <a href="{{url('/SecoundType/increase')}}?id={{$v->id}}&name={{$v->name}}&path={{$v->path}}">添加子分类</a>
-                    <a href="{{url('/SecoundType')}}/{{$v->id}}/edit">编辑</a>
+                    <a  class="btn btn-danger" href="javascript:void(0)" onclick="del( '{{$v->id}}',this,'SecoundType/' )">D</a>
+                    @include('zhuazi.production.secoundType.add')
+                    @include('zhuazi.production.secoundType.modal')
+                    {{--<a href="{{url('/SecoundType/increase')}}?id={{$v->id}}&name={{$v->name}}&path={{$v->path}}">添加子分类</a>--}}
+                    {{--<a href="{{url('/SecoundType')}}/{{$v->id}}/edit">编辑</a>--}}
                 </td>
             </tr>
         @endforeach
     </table>
-    {{--{{ $info->links() }}--}}
-    <script>
 
-        function del($id,$obj){
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-
-            $.ajax({
-                type: 'DELETE',
-                url: 'SecoundType/'+$id,
-                data: {id: $id},
-                success:function(data){
-                    if(data == '删除成功'){
-                        alert(data);
-                        $($obj).parent().parent().remove();
-                    }else{
-                        alert('删除失败');
-                    }
-                }
-            });
-        }
-
-    </script>
 
 
 @endsection

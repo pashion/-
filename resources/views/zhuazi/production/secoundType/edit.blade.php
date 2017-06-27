@@ -1,3 +1,4 @@
+{{--已弃用!!--}}
 @extends('zhuazi.layout.master')
 
 @section('content')
@@ -18,9 +19,9 @@
         </div>
         {{--修改顺序--}}
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">修改排序</label>
+            <label for="inputEmail3" class="col-sm-2 control-label">当前同级排序</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="sort" value="">
+                <input type="text" class="form-control" name="sort" value="{{$name->sort}}">
             </div>
         </div>
         <div class="form-group">
