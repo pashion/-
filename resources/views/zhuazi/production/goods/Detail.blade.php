@@ -22,6 +22,7 @@
 
     <div class="clearfix"></div>
     <input type="hidden" id="token" name="token" value="{{csrf_token()}}">
+    <input type="file" name="picFile" id="addPicFile">
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
@@ -36,7 +37,7 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-sm-3 mail_list_column">
-                            <button id="compose" class="btn btn-sm btn-success btn-block" type="button">添加图片</button>
+                            <button id="compose" class="btn btn-sm btn-success btn-block addEditGoodPic" type="button">添加图片</button>
 
 
                                 <div class="mail_list">
@@ -110,7 +111,7 @@
                                             <td><h2>风格 :</h2></td>
                                             <td>
                                                 <h2 class="lineTextBox">
-                                                    <div id="goodsStyleText" class="pull-left">{{$styleNameArr[0]['name']}}</div>
+                                                    <div id="goodsStyleText" class="pull-left">{{$styleNameArr[0][0]['name']}}</div>
                                                     <div class="selRadio">
                                                     </div>
                                                 </h2>
@@ -128,7 +129,7 @@
                                             <td><h2>区域 :</h2></td>
                                             <td>
                                                 <h2 class="lineTextBox">
-                                                    <div id="goodsAreaText" class="pull-left">{{$styleNameArr[0]['name']}}</div>
+                                                    <div id="goodsAreaText" class="pull-left">{{$styleNameArr[1][0]['name']}}</div>
                                                 </h2>
                                                 <div class="editBtnMinBox">
                                                     <button type="button" class="btn btn-default btn-sm areaEditBtn">修改</button>
@@ -143,7 +144,7 @@
                                         <tr>
                                             <td><h2>种类 :</h2></td>
                                             <td>
-                                                <h2 id="goodsKindText" >{{$goodsData['kind']}}</h2>
+                                                <h2 id="goodsKindText" >{{$styleNameArr[2][0]['name']}}</h2>
                                                 <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
                                             </td>
                                         </tr>

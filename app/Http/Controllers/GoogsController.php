@@ -162,20 +162,19 @@ class GoogsController extends Controller
             ->where('gid', '=', $id)
             ->get();
 
+
         //处理选项获取属性名
         $headKey  = '';
         foreach ($selData as $v) {
             $headKey[$v->headId] = $v->headName;
         }
 
-        //获取相关名称
-        $style  = $goodsData['style'];
-        $area   = $goodsData['area'];
-        $kind   = $goodsData['kind'];
-        $styleNameArr[0] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
-        $styleNameArr[1] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
-        $styleNameArr[2] = SecondType::select('name')->whereRaw('id = ? or id = ? or id = ? ', [$style, $area, $kind])->get();
-        dd($styleNameArr);
+
+        //获取风格,区域,种类,名称
+        $styleNameArr[0] = SecondType::select('name')->where('id',$goodsData['style'])->get();
+        $styleNameArr[1] = SecondType::select('name')->where('id', $goodsData['area'])->get();
+        $styleNameArr[2] = SecondType::select('name')->where('id', $goodsData['kind'])->get();
+
 
         //查询商品规格格
         $sql = 'SELECT A.* ,B.name AS specName , B.id AS specId FROM head AS A  LEFT JOIN  (SELECT * FROM spec WHERE gid = '.$id.') AS B ON A.id = B.hid WHERE A.tid = '.$goodsData['kind'];
@@ -190,9 +189,8 @@ class GoogsController extends Controller
         //选项价格
         $goodSelPrice  = SpecPrice::where('gid', '=', $id)->get();
 
-
+        //返回
         return view('zhuazi.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice', 'styleNameArr'));
-
     }
 
 

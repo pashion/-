@@ -10,7 +10,39 @@
         pubicReviseBtnEven();//加载共用修改按钮点击事件
 
         styleEditBtn();//加载风格/区域修改按钮点击事件
+
+        loadAddEditGoodPic()//记载图片添加按钮
     });
+
+
+    function loadAddEditGoodPic()
+    {
+        $('.addEditGoodPic').on('click', function () {
+            addPicFile.click();
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
