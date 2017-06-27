@@ -22,3 +22,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 
 
+$factory->define(App\goods::class, function (Faker\Generator $faker) {
+    return [
+        'goods' => $faker->name,
+        'style' => $faker->numberBetween(4,6),
+        'area' => $faker->numberBetween(7,9),
+        'kind' => $faker->numberBetween(10,12),
+    ];
+});

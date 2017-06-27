@@ -4,7 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "14106aaaeab68546e8ebdbe7dc4b4e6a",
+=======
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
     "content-hash": "dc9e2f875ab09ce35cfab8df4953e4fe",
     "packages": [
         {
@@ -171,7 +174,11 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+=======
+                "url": "https://files.phpcomposer.com/files/guzzle/psr7/f5b8a8512e2b58b0071a7280e39f14f72e05d87c.zip",
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
                 "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
@@ -236,7 +243,11 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/Intervention/image/zipball/15a517f052ee15d373ffa145c9642d5fec7ddf5c",
+=======
+                "url": "https://files.phpcomposer.com/files/Intervention/image/15a517f052ee15d373ffa145c9642d5fec7ddf5c.zip",
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
                 "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c",
                 "shasum": ""
             },
@@ -923,6 +934,7 @@
             "time": "2017-03-13T16:22:52+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "patinthehat/entrust",
             "version": "1.7.2",
             "source": {
@@ -955,6 +967,8 @@
                 ],
                 "psr-4": {
                     "Zizaco\\Entrust\\": "src/Entrust/"
+=======
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -964,7 +978,11 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+=======
+                "url": "https://files.phpcomposer.com/files/php-fig/http-message/f6561bf28d520154e4b0ec72be95418abe6d9363.zip",
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
                 "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
                 "shasum": ""
             },
@@ -988,6 +1006,7 @@
             ],
             "authors": [
                 {
+<<<<<<< HEAD
                     "name": "Andrew Elkins",
                     "homepage": "http://andrewelkins.com"
                 },
@@ -1018,6 +1037,8 @@
                 "roles"
             ],
             "time": "2017-04-05T20:38:42+00:00"
+=======
+>>>>>>> 6f380f58b7fa05e940cbef5d19dc8e5113474e34
                     "name": "PHP-FIG",
                     "homepage": "http://www.php-fig.org/"
                 }

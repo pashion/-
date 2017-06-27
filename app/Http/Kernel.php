@@ -15,6 +15,8 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+//        \app\Http\Middleware\DelTypeMiddleware::class,
+
     ];
 
     /**
@@ -54,5 +56,6 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
 
+        'deltype' => \App\Http\Middleware\DelTypeMiddleware::class,
     ];
 }

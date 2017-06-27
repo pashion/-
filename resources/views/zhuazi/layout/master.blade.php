@@ -72,7 +72,6 @@
                   <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
 
                   <li><a><i class="fa fa-bar-chart-o"></i> 主题菜式管理 </a></li>
-<<<<<<< HEAD
                   <li><a><i class="fa fa-group"></i>管理员权限管理 </span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('admin/roles/index')}}">所有角色</a></li>
@@ -81,7 +80,6 @@
                       <li><a href="{{url('admin/users/index')}}">所有管理员</a></li>
                       </ul> 
                   </li>
-=======
                   <li><a href="{{url('frenship')}}"><i class="fa fa-edit"></i>友情链接管理<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('frenship')}}">查看友情链接</a></li>
@@ -103,7 +101,6 @@
                     </ul>
                   </li>
                 </ul>
->>>>>>> 83f5e04e4acece40aa1dc778dd96e37c97b8bc95
               </div>
 
             </div>
