@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+    <title>Gentelella Alela!</title>
 
-    <title>Gentelella Alela! | </title>
-
+    <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
     <!-- Bootstrap -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -46,7 +47,7 @@
                 <img src="{{url('zhuazi')}}/images/img.jpg" alt="{{url('zhuazi')}}." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>后台用户1号</span>
+                <span>{{session('admin_name')}}</span>
                 <h2><二级></二级>管理</h2>
               </div>
             </div>
@@ -61,12 +62,24 @@
                 <ul class="nav side-menu">
                  <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
 
-                  <li><a><i class="fa fa-desktop"></i> 用户管理 </span></a></li>
+                  <li><a><i class="fa fa-user"></i> 用户管理 </span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('admin/user/index')}}">会员列表</a></li>
+                      <li><a href="{{url('admin/user/add')}}">会员添加</a></li>
+                    </ul>
+                  </li>
 
                   <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
 
                   <li><a><i class="fa fa-bar-chart-o"></i> 主题菜式管理 </a></li>
-  
+                  <li><a><i class="fa fa-group"></i>管理员权限管理 </span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('admin/roles/index')}}">所有角色</a></li>
+                      <li><a href="{{url('admin/roles/add')}}">新建角色</a></li>
+                      <li><a href="{{url('admin/roles/create')}}">新建权限</a></li>
+                      <li><a href="{{url('admin/users/index')}}">所有管理员</a></li>
+                      </ul> 
+                  </li>
               </div>
 
             </div>
@@ -102,19 +115,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{url('zhuazi')}}/images/img.jpg" alt="">John Doe
+                    <img src="{{url('zhuazi')}}/images/img.jpg" alt=""> {{session('admin_name')}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{url('admins/logout')}}"><i class="fa fa-sign-out pull-right"></i> 退出 </a></li>
                   </ul>
                 </li>
 
@@ -188,8 +193,23 @@
         </div>
    
         <div class="right_col" role="main">
-    
+              
 
+              @if (session('success'))
+               <div class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Success:</span>
+                    {{session('success')}}
+                </div>
+              @endif
+
+               @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span>
+                    {{session('error')}}
+                </div>
+              @endif
               @yield('content')
 
 
@@ -199,8 +219,7 @@
 
       
 
-    <!-- jQuery -->
-    <script src="{{url('zhuazi')}}/vendors/jquery/dist/jquery.min.js"></script>
+    
     <!-- Bootstrap -->
     <script src="{{url('zhuazi')}}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
