@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Intervention\Image\Facades\Image;//引入图片修改扩展,intervention/image
+use App\Goods;
+
+use Intervention\Image\Facades\Image;   //引入图片修改扩展,intervention/image
 
 class GoodsFileController extends Controller
 {
@@ -28,7 +30,18 @@ class GoodsFileController extends Controller
 
         $newName    = md5(date('YmdHis').$tmpName).'.'.$extension;
 
-        $req->file('image')->move('tempPicDir', $newName);
+        //判断是直接写入还是存临时文件
+        if (empty($_POST['conMode'])) {
+            $req->file('image')->move('tempPicDir', $newName);
+        } else {
+            $req->file('image')->move('goodsPic', $newName);
+            //存入数据库
+            $picStr = Goods::select('pic')->where('id', $_POST['id'])->get();
+            $pic = $newName.','.$picStr[0]['pic'];
+            $pic = rtrim($pic, ',');
+            Goods::where('id', $_POST['id'])->update(['pic' => $pic]);
+        }
+
 
         return $newName;//返回文件名
 
@@ -36,18 +49,18 @@ class GoodsFileController extends Controller
     //删除图片
     public function canclePic ()
     {
-
         unlink('tempPicDir/'.$_GET['name']);
         return 1 ;
-
     }
 
-    //缩略图访问方法
+    //缩略图访问接口
     public function reduce ()
     {
         $img = Image::make(public_path($_GET['name']))->resize(100, 100);
         return $img->response('jpg');
     }
+
+
 
 
 }

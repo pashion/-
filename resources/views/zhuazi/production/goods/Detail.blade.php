@@ -38,15 +38,13 @@
                     <div class="row">
                         <div class="col-sm-3 mail_list_column">
                             <button id="compose" class="btn btn-sm btn-success btn-block addEditGoodPic" type="button">添加图片</button>
+                                <div class="mail_list picBox">
 
-
-                                <div class="mail_list">
                                     @foreach($picData as $v)
                                         <img src="goodsPic/{{$v}}" alt="..." class="img-thumbnail">
                                     @endforeach
+
                                 </div>
-
-
                         </div>
                         <!-- /MAIL LIST -->
 

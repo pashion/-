@@ -18,10 +18,69 @@
     function loadAddEditGoodPic()
     {
         $('.addEditGoodPic').on('click', function () {
-            addPicFile.click();
+            $('#addPicFile').click();
         });
 
+        $('#addPicFile').on('change', function () {
+
+            console.log( $('.picBox'));
+
+            console.log($('.picBox').children().length);
+            if ($('.picBox').children().length >= 5) {
+                $('#compose').after('<span style="color:red;">最多存在5张图片</span>');
+                throw SyntaxError();
+            }
+
+            var fileObj = $(this);
+            var formData = new FormData(); //创建表单对象
+            var goodId = $('#goodsID').attr('data');
+
+            //准备上传数据,使用HTNL5新对象formData,保存数据
+            formData.append("image", $(this)[0].files[0]); //获取图片数据
+            formData.append('_token', $('#token').val());
+            formData.append('conMode', 1);
+            formData.append('id', goodId);
+
+            //回调方法
+            function gg  (data) {
+
+                if (data.length == 36) {
+                    $('.picBox').prepend('<img src="goodsPic/'+data+'" alt="..." class="img-thumbnail">');
+                }
+
+            }
+
+            // 准备回调方法,这里写你获取到上传结果,0 为失败,获取到 文件名 为成功
+            ajaxFile('goods/file/upload', formData, gg);
+
+        });
     }
+
+    //ajax文件上传方法,默认post上传,(地址, formData对象, 回调方法(data))
+    function ajaxFile (url, formData, func)
+    {
+        $.ajax({
+            url : url,
+            type : 'POST',
+            data : formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData : false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType : false,
+            beforeSend:function(){
+
+            },
+            success : function(responseStr) {
+                func(responseStr);//回调方法
+            },
+            error : function(responseStr) {
+
+            }
+        });
+    }
+
+
+
 
 
 

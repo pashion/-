@@ -34,7 +34,7 @@ Route::get('goodsType', 'GoodsTypeController@getKindType');
 Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
 
 Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
-//商品文件上传
+//商品图片上传
 Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
 //商品图片取消
 Route::get('goods/file/upload', 'GoodsFileController@canclePic');
