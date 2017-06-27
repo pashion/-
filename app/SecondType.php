@@ -8,5 +8,5 @@ class SecondType extends Model
 {
     public $table = 'second_type';
     protected $fillable = ['name','tid','path','sort'];
-
+    protected $table = 'second_type';
 }

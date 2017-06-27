@@ -9,7 +9,15 @@
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
     <title>Gentelella Alela!</title>
 
+<<<<<<< HEAD
     <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
+=======
+    <title>Gentelella Alela! | </title>a
+
+
+
+
+>>>>>>> 2d44165622a24110e9575169906997b8a2705554
     <!-- Bootstrap -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -18,16 +26,18 @@
     <link href="{{url('zhuazi')}}/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{url('zhuazi')}}/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
     <!-- bootstrap-progressbar -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
     <link href="{{url('zhuazi')}}/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{url('zhuazi')}}/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="{{url('zhuazi')}}/build/css/custom.min.css" rel="stylesheet">
+
+    @yield('head')
+
+
   </head>
 
   <body class="nav-md">
@@ -36,7 +46,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>菜肴--后台管理</span></a>
+              <a href="{{url('goods')}}" class="site_title"><i class="fa fa-paw"></i> <span>菜肴--后台管理</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -62,12 +72,16 @@
                 <ul class="nav side-menu">
                  <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
 
+<<<<<<< HEAD
                   <li><a><i class="fa fa-user"></i> 用户管理 </span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('admin/user/index')}}">会员列表</a></li>
                       <li><a href="{{url('admin/user/add')}}">会员添加</a></li>
                     </ul>
                   </li>
+=======
+                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
+>>>>>>> 2d44165622a24110e9575169906997b8a2705554
 
                   <li><a><i class="fa fa-table"></i> 类别管理 </a>  </li>
 
@@ -201,7 +215,7 @@
                     <li>
                       <div class="text-center">
                         <a>
-                          <strong>See All Alerts</strong>
+                          <strong>  gggggg</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
                       </div>
@@ -234,11 +248,13 @@
               @yield('content')
 
 
+
         </div>
 
 
 
-      
+
+
 
     
     <!-- Bootstrap -->
@@ -279,9 +295,16 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
+<<<<<<< HEAD
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
       </div>
     </div>
+=======
+
+    @yield('footJS')
+
+	
+>>>>>>> 2d44165622a24110e9575169906997b8a2705554
   </body>
 </html>

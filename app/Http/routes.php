@@ -25,7 +25,12 @@ Route::resource('order','OrderController');
 
 Route::get('/', function () {
 
+<<<<<<< HEAD
     return view('web.index');
+=======
+    return view('welcome');
+
+>>>>>>> 2d44165622a24110e9575169906997b8a2705554
 });
 //测试图形缩放类
 Route::get('/', function(){
@@ -55,3 +60,45 @@ Route::resource('Article','ArticleController');
 Route::post('Article/ajax','ArticleController@ajax');
 
 
+<<<<<<< HEAD
+=======
+//商品资源路由
+Route::resource('goods', 'GoogsController');
+
+
+//商品规格
+Route::resource('goodsSpec', 'GoodsSpecController');
+
+
+//商品分类查询路由
+Route::get('goodsType', 'GoodsTypeController@getKindType');
+Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
+
+Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
+//商品文件上传
+Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
+//商品图片取消
+Route::get('goods/file/upload', 'GoodsFileController@canclePic');
+//商品图片缩略图获取路由
+Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 2d44165622a24110e9575169906997b8a2705554
