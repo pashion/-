@@ -15,15 +15,259 @@
         picDelEven('.delPicBtn');//加载图片删除按钮
 
 
+        createConBox()//创建编辑框架
+        paddContent()//填充原有值
+        loadEditGoodsSel()//加载--修改商品选项按钮
+        loadAddParBtn()//加载--添加属性按钮
+        loadParEditConcelBtn()//加载--属性取消按钮
+
+        loadAffParEditBtn()//加载--确定按钮
     });
 
 
-    //添加选项按钮
-    function () {
-        $('.selDddBtn').on('click', function () {
 
-            
+
+
+    function loadAffParEditBtn ()
+    {
+        $('#affParEditBtn').on('click', function () {
+
+
+            alert();
+            // $('#marParSelTr').each(function () {
+            //
+            //
+            //
+            // });
+
         });
+    }
+
+
+
+
+
+
+
+
+//=========================================================================================================================选项控制器
+
+    //创建控制盒子
+    function createConBox ()
+    {
+        //拼接标签
+        var str = ' <button id="editGoodsSel" type="button" class="btn btn-default btn-sm ">修改商品选项</button>' +
+            '<div id="parSelConBox">' +
+                '<div id="parSelToolBtnBox">' +
+                '<select name="" id="selList"></select>' +
+                ' <button id="parAddBtn" id="addGoodsPar" type="button" class="btn btn-default btn-sm ">添加属性</button>' +
+                ' <button id="parEditConcelBtn" type="button" class="btn btn-default btn-sm ">取消</button>' +
+                '<span id="parSelConMig"></span>' +
+                ' <button id="affParEditBtn" type="button" class="btn btn-default btn-sm pull-right">确定</button>' +
+                '</div>' +
+                '<table id="parSelConTable" class="parSelEditTable table table-striped">' +
+                 '' +
+                '<tr>' +
+                    '<th width="10%">属性</th><th width="50%">选项</th><th>操作</th>' +
+                '</tr>' +
+
+                '</table>' +
+            '</div>';
+
+        //写入
+        $("#goodsSelConMaxBox").append(str);
+
+        return str;
+    }
+
+
+    //如果有值则填充
+    function paddContent ()
+    {
+        $('.oriParSelTr').each(function () {
+            var str = '';
+            var val =   $(this).attr('dataId');
+            var name =  $(this).attr('name');
+
+            //拼接名字
+            var selDddBtnName = 'selDddBtn' + val;//生成指定添加按钮名
+            var selDelBtnName = 'selDelBtn' + val;//生成指定删除按钮名
+
+            str += '<tr class="marParSelTr" data="'+val+'">' +
+                '<td>'+name+'</td><td>';
+
+            // 获取tr下所有的内容标签
+            $(this).contents().find('.selOriContent').each(function () {
+                var selName = $(this).html();
+                //拼接标签
+                str  += ' <div class="pull-left btn btn-default">' +
+                    '<a class="pull-left selContent">'+selName+'<a>' +
+                    '<label style="display:block;"class="selClose">' +
+                    '&nbsp;&nbsp;X</label></div>';//拼接表单
+            });
+
+            str+= '</td>' +
+                '<td  class="selConTd">' +
+                '<input type="text">' +
+                ' <button type="button" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
+                '<button type="button" class="btn btn-default btn-sm '+selDelBtnName+'">删除</button><span></span>' +
+                '</td></tr>';
+
+            $('#parSelConTable').append(str);
+
+            loadSelAddBtn(selDddBtnName);
+            loadSelDelBtn(selDelBtnName);
+            loadSelDel();
+        });
+
+
+    }
+
+
+    //修改按钮事件
+    function loadEditGoodsSel ()
+    {
+        $('#editGoodsSel').on('click', function () {
+
+            $(this).css('display', 'none');//隐形---修改商品选项
+            $('#parSelConBox').css('display', 'block');//显示相关控件
+
+
+            //获取ID
+            var tid = $('#goodsKindText').attr('data');
+
+            //发送请求获取规格数据
+            $.get('goodsSpec/' + tid, function (data) {
+
+                var str = '';
+                for (a in data) {
+                    str += '<option value="'+data[a]['id']+'">'+data[a]['name']+'</option>';
+                }
+                $('#selList').html(str);
+
+            }, 'json');
+
+        });
+    }
+
+
+
+    //添加属性--按钮
+    function loadAddParBtn ()
+    {
+        $('#parAddBtn').on('click', function () {
+
+            //获取值
+            var name = $('#selList').find('option:selected').text();
+            var val = $('#selList').val();  //
+
+            //循环验证
+            $('.marParSelTr').each(function () {
+                var id = $(this).attr('data');
+                if (id == val) {
+                    $('#parSelConMig').html('已有属性不能重复添加')
+                    throw EtytaxError();
+                }
+            });
+
+            //生成名字
+            var selDddBtnName = 'selDddBtn' + val;//生成指定添加按钮名
+            var selDelBtnName = 'selDelBtn' + val;//生成指定删除按钮名
+
+            //拼接标签
+            var str = '<tr class="marParSelTr" data="'+val+'">' +
+                '<td>'+name+'</td>' +
+                '<td></td>' +
+                '<td  class="selConTd">' +
+                '<input type="text">' +
+                ' <button type="button" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
+                '<button type="button" class="btn btn-default btn-sm '+selDelBtnName+'">删除</button><span></span>' +
+                '</td>' +
+                '</tr>';
+
+            //添加标签
+            $('#parSelConTable').append(str);
+
+            loadSelAddBtn(selDddBtnName);
+            loadSelDelBtn(selDelBtnName);
+
+
+        });
+    }
+
+
+    //取消按钮按钮
+    function loadParEditConcelBtn ()
+    {
+        $('#parEditConcelBtn').on('click', function () {
+            $('.marParSelTr').remove();
+            $('#parSelConBox').css('display', 'none');//显示相关控件
+            $('#editGoodsSel').css('display', 'block');//隐形---修改商品选项
+        });
+    }
+
+    //确定数据按钮
+    function loadParEditAffBtn ()
+    {
+
+    }
+
+    //添加选项按钮
+    function loadSelAddBtn (name)
+    {
+        $('.'+name).on('click', function () {
+
+            //获取内容
+            var val = $(this).prev().val();
+            var addBtnObj = $(this);
+
+            //验证输入内容
+            bool = new   RegExp('^[a-zA-Z0-9,\u4E00-\u9FA5\uF900-\uFA2D,-|=]{1,40}$').test(val);
+            if (!bool) {
+                addBtnObj.next().next().html('名称不符合规则');
+                throw EyntaxError();
+            }
+
+            //验证是否重复
+            $(this).parent().prev().contents().find('.selContent').each(function () {
+                var  text =  $(this).html();
+                console.log(text);
+                if (text == val) {
+                    addBtnObj.next().next().html('不能提交相同的值');
+                    throw SyntaxError();
+                }
+            });
+
+            //拼接标签
+            var str  = ' <div class="pull-left btn btn-default">' +
+                '<a class="pull-left selContent">'+val+'<a>' +
+                '<label style="display:block;"class="selClose">' +
+                '&nbsp;&nbsp;X</label></div>';//拼接表单
+
+            //写入标签
+            $(this).parent().prev().append(str);
+
+            //加载按钮
+            loadSelDel()
+        });
+    }
+
+
+    //属性删除按钮
+    function loadSelDelBtn (name)
+    {
+        $('.' + name).on('click', function () {
+            $(this).parent().parent().remove();
+        });
+    }
+
+    //选项删除
+    function loadSelDel  ()
+    {
+        $('.selClose').on('click', function () {
+            $(this).parent().parent().remove();
+        });
+
     }
 
 
@@ -35,7 +279,9 @@
 
 
 
-//================================================================================图片处理
+
+
+    //================================================================================图片处理=================================================
     //加载图片添加按钮
     function loadAddEditGoodPic()
     {
@@ -96,9 +342,9 @@
             $.get(url, function (data) {
                 if (data == 2) {
                     delPicBtnObj.parent().parent().remove();
-                    $('#picConMig').html('<span style="color:green;">删除成功</span>')
+                    $('#picConMig').html('<span style="color:green;">删除成功</span>');
                 } else {
-                    $('#picConMig').html('<span style="color:red;">删除失败</span>')
+                    $('#picConMig').html('<span style="color:red;">删除失败</span>');
                 }
             });
         });

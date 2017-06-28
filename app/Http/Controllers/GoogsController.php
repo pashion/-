@@ -80,10 +80,10 @@ class GoogsController extends Controller
         $goodsData['desr'] = $_POST['desr'];        //描述
         $goodsData['state'] = $_POST['state'];      //状态
 
-        //移动图片
-        foreach ($_POST['pic'] as $v) {
-            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
-        }
+//        //移动图片
+//        foreach ($_POST['pic'] as $v) {
+//            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
+//        }
 
 
         $info =  Goods::create($goodsData);
@@ -107,13 +107,37 @@ class GoogsController extends Controller
 
         //写入SpecPrice表,商品选项价格
         if (!empty($_POST['selPrice'])) {
-            $selPriceData = [];
+
             foreach ($_POST['selPrice'] as $v) {
+                $selPriceData = [];
+                //准备数据值
+                $selVal =  explode('_', $v[3]);
+                //拼接条件文件语句
+                $strArr = [] ;
+                foreach ($selVal   as $vv) {
+                    $strArr[] = 'name = ?';
+                }
+                $sqlStr = implode(' or ', $strArr);
+                $sqlStr = '('.$sqlStr.')';
+
+                $selVal[] =  $goodId;   //添加商品ID
+                $sqlStr .= ' and gid = ?';
+
+                //查询数据库
+                $selIdArr = Option::select('id')->whereRaw($sqlStr, $selVal)->get();
+
+                dump($selIdArr);
+                //循环解开,拼接
+                $selNumArr = [];
+                foreach ($selIdArr as $vv) {
+                    $selNumArr[] = $vv['id'];
+                }
+                $selNumStr = implode('_',$selNumArr);
 
                 $selPriceData['store']      =   $v[0];//库存
                 $selPriceData['price']      =   $v[1];//价格
                 $selPriceData['str_bunch']  =   $v[3];//字符串
-                $selPriceData['num_bunch']  =   $v[2];//号码串
+                $selPriceData['num_bunch']  =   $selNumStr;//号码串
                 $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
@@ -170,8 +194,9 @@ class GoogsController extends Controller
         }
 
 
+
         //获取风格,区域,种类,名称
-        $styleNameArr[0] = SecondType::select('name')->where('id',$goodsData['style'])->get();
+        $styleNameArr[0] = SecondType::select('name')->where('id', $goodsData['style'])->get();
         $styleNameArr[1] = SecondType::select('name')->where('id', $goodsData['area'])->get();
         $styleNameArr[2] = SecondType::select('name')->where('id', $goodsData['kind'])->get();
 
@@ -191,6 +216,7 @@ class GoogsController extends Controller
 
         //返回
         return view('zhuazi.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice', 'styleNameArr'));
+
     }
 
 

@@ -55,3 +55,15 @@
 .onPicBox {
     position:relative;
 }
+
+.parSelEditTable {
+    width:500x;
+}
+
+#parSelToolBtnBox {
+
+}
+
+#parSelConBox {
+    display:none;
+}

@@ -155,7 +155,7 @@
                                         <tr>
                                             <td><h2>种类 :</h2></td>
                                             <td>
-                                                <h2 id="goodsKindText" >{{$styleNameArr[2][0]['name']}}</h2>
+                                                <h2 id="goodsKindText" data="{{$goodsData['kind']}}">{{$styleNameArr[2][0]['name']}}</h2>
                                                 <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
                                             </td>
                                         </tr>
@@ -232,28 +232,38 @@
                                                 {{--选项--}}
                                                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
-                                                    @if($headKey != null)
-                                                        @foreach($headKey as  $v)
-                                                            <table>
-                                                                <tr>
+
+                                                    <table id="">
+                                                        @if($headKey != null)
+                                                            @foreach($headKey as $k => $v)
+                                                                <tr class="oriParSelTr" dataId="{{$k}}" name="{{$v}}">
                                                                     <td style="font-size:15px;">{{$v}}</td>
                                                                     <td>
                                                                         <div style="margin:10px">
                                                                         @foreach($selData as  $vv)
                                                                             @if($vv->headName == $v)
-                                                                             <div class="pull-left"><a class="btn btn-default">{{$vv->name}}<a></div>
+                                                                                <div class="pull-left btn btn-default "><a data="{{$v}}" class="pull-left selOriContent">{{$vv->name}}<a></div>
                                                                             @endif
                                                                         @endforeach
                                                                         </div>
                                                                     </td>
+                                                                    <td class="selConTd">
+
+                                                                    </td>
                                                                 </tr>
-                                                            </table>
-                                                        @endforeach
-                                                    @else
-                                                        <div>
-                                                            <button type="button" class="btn btn-default btn-sm selDddBtn">添加</button>
-                                                        </div>
-                                                    @endif
+
+                                                            @endforeach
+                                                        @else
+                                                            <h3>无</h3>
+                                                        @endif
+                                                    </table>
+
+
+                                                    <div id="goodsSelConMaxBox">
+
+                                                    </div>
+
+
 
                                                 </div>
 
@@ -329,7 +339,6 @@
 </div>
     <br><br><br><br><br><br><br><br><br>
 </div>
-
 
 
 
