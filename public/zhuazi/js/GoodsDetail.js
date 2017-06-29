@@ -20,49 +20,50 @@
         picDelEven('.delPicBtn');//加载图片删除按钮
 
 
-        createConBox()//创建编辑框架
-        loadEditGoodsSel()//加载--修改商品选项按钮
-        loadAddParBtn()//加载--添加属性按钮
-        loadParEditConcelBtn()//加载--属性取消按钮
+        getGoodSelInfo();//获取选项数据0
 
-        loadAffParEditBtn()//加载--确定按钮
+        createConBox()//创建编辑框架1
+        loadEditGoodsSel()//加载--修改商品选项按钮2
+        loadAddParBtn()//加载--添加属性按钮3
+        loadParEditConcelBtn()//加载--属性取消按钮4
+
+        loadAffParEditBtn()//加载--确定按钮5
 
 
     });
 
 
 
-    //获取选项信息
+    //获取商品选项信息,并添加到指定位置
     function getGoodSelInfo ()
     {
         var  goodId = $('#goodsID').attr('data');
-
-        console.log(goodId);
-
         $.get('goods/' + goodId +'/edit', function (data) {
 
-            var str = '<table id=""> <tr class="oriParSelTr" dataId="" name=""><td style="font-size:15px;"></td><td>';
-
-            for ( i in data) {
-
-
-
-                str  += ' <div style="margin:10px">' +
-                    '<div class="pull-left btn btn-default "><a data="{{$v}}" class="pull-left selOriContent">{{$vv->name}}<a></div></div>';
-
-
-                if (data[i] != data[i+1]) {
-
-                    str += '</td> <td class="selConTd"> </td> </tr> <h3>无</h3>';
+            //声明一个数字用于抽取装载,属性名
+            var headName = [];
+            for (a in data) {
+                headName[data[a]['headId']] = data[a]['headName'];
+            }
+            //拼接html
+            var str = '<table id="">';
+            for (a in headName) {
+                str  += '<tr class="oriParSelTr" dataId="'+a+'" name="'+headName[a]+'">' +
+                    '<td style="font-size:15px;">'+headName[a]+'</td> <td><div style="margin:10px">';
+                for (aa in data ) {
+                    if (data[aa]['headId'] == a) {
+                        str += '<div class="pull-left btn btn-default"><a data="'+headName[a]+'" class="pull-left selOriContent">'+data[aa]['name']+'<a></div>';
+                    }
                 }
-
-
-
+                str +='</div></td><td class="selConTd"></td> </tr>';
             }
             str += '</table>';
 
+            //添加到指定标签位置
+            $('#selTable').html(str);
 
-        }, 'json');
+        },'json');
+
     }
 
 
@@ -71,11 +72,7 @@
     {
         $('#affParEditBtn').on('click', function () {
 
-            getGoodSelInfo();
 
-            return false;
-            //关闭控制面板
-            $('#parEditConcelBtn').click();
 
             //判断组内是否为空
             if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
@@ -108,9 +105,15 @@
                 if (!data) {
                     SAVE_SEL_ADD_CON.splice(0,SAVE_SEL_ADD_CON.length);
                     SAVE_SEL_DEL_CON.splice(0,SAVE_SEL_DEL_CON.length);
+                    getGoodSelInfo();//获取选项数据0
+                    $('#parEditConcelBtn').click(); //关闭控制面板
                 }
             });
+
+
+
         });
+
 
 
     }
@@ -193,7 +196,7 @@
     }
 
 
-    //如果有值则填充
+    //填充控制器
     function paddContent ()
     {
         $('.oriParSelTr').each(function () {
@@ -216,10 +219,10 @@
                 NUM += 1;
                 var selCancelBtnName = 'sC'+ NUM;
                 //拼接标签
-                str  += ' <div class="pull-left btn btn-default">' +
+                str  += ' <div style="overflow:hidden;" class="pull-left btn btn-default">' +
                     '<a class="pull-left selContent">'+text+'<a>' +
-                    '<label id="'+selCancelBtnName+'" pid="'+val+'"  data = "'+text+'" style="display:block;"class="selClose">' +
-                    '&nbsp;&nbsp;X</label></div>';
+                    '<div id="'+selCancelBtnName+'" pid="'+val+'"  data = "'+text+'" class="pull-left selClose">' +
+                    '&nbsp;&nbsp;X</div></div>';
 
                 //存储名字
                 cancelBtnNameArr.push(selCancelBtnName);
@@ -232,6 +235,7 @@
                 '<button type="button" class="btn btn-default btn-sm '+selDelBtnName+'">删除</button><span></span>' +
                 '</td></tr>';
 
+            //添加入表格
             $('#parSelConTable').append(str);
 
             //加载事件
@@ -371,8 +375,8 @@
             //拼接标签,写入文本,写入商品属性ID给,pid属性
             var str  = ' <div class="pull-left btn btn-default">' +
                 '<a class="pull-left selContent">'+val+'<a>' +
-                '<label id="'+selCancelBtnName+'" style="display:block;" pid="'+parId+'" data = "'+val+'" class="selClose">' +
-                '&nbsp;&nbsp;X</label></div>';//拼接表单
+                '<div id="'+selCancelBtnName+'" style="display:block;" pid="'+parId+'" data = "'+val+'" class="pull-left selClose">' +
+                '&nbsp;&nbsp;X</div></div>';//拼接表单
 
             //写入标签
             $(this).parent().prev().append(str);

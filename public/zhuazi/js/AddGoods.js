@@ -81,7 +81,6 @@
 
             });
 
-
             $('#formCon').submit();
         });
     }
@@ -201,6 +200,8 @@
 
             //准备回调方法,这里写你获取到上传结果,0 为失败,获取到 文件名 为成功
             function gg (picName) {
+                picName = picName['name'];
+                console.log(picName);
                 if(picName  == '' ){
                     fileObj.prev().html('<center style="color:red">上传失败</center>');
                     return falses;
@@ -209,13 +210,12 @@
                 //拼接字符串
                 var str  = '<td>' +
                     '<div sytle="margin:10px;">' +
-                    '<img width="130" height="130" class="img-thumbnail" src="file/reducepic?name=tempPicDir/'+picName+'">' +
+                    '<img width="130" height="130" class="img-thumbnail" src="../tempPicDir/'+picName+'">' +
                     '</div>' +
                     '<center  style="color:green">上传成功</center>' +
                     '<center picName="'+picName+'" class="del'+MUST_INPUT_TMP['pic']+'" ><label>删除</label></center>' +
                     '<input type="hidden" name="pic[]" value="'+picName+'">'+
                     '</td>';
-
                 fileObj.parent().parent().before(str);//显示图片
                 //添加次数
                 var num = (parseInt($('#addLog').attr('num')) + 1);
