@@ -14,6 +14,7 @@ use App\SecondType;
 
 class GoodsTypeController extends Controller
 {
+    //返回种类列表
     public function getKindType ()
     {
         $kindTId = $_GET['id'];

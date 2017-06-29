@@ -21,8 +21,10 @@
     </div>
 
     <div class="clearfix"></div>
+
     <input type="hidden" id="token" name="token" value="{{csrf_token()}}">
-    <input type="file" name="picFile" id="addPicFile">
+    <input style="display:none;" type="file" name="picFile" id="addPicFile">
+
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
@@ -38,12 +40,21 @@
                     <div class="row">
                         <div class="col-sm-3 mail_list_column">
                             <button id="compose" class="btn btn-sm btn-success btn-block addEditGoodPic" type="button">添加图片</button>
+                            <span id="picConMig"></span>
+                                <div class="mail_list picBox">
 
 
-                                <div class="mail_list">
-                                    @foreach($picData as $v)
-                                        <img src="goodsPic/{{$v}}" alt="..." class="img-thumbnail">
-                                    @endforeach
+                                    @if($picData != null || $picData != '')
+                                        @foreach($picData as $v)
+                                            <div class="onPicBox">
+                                                <div  class="picDelBox"><label class="delPicBtn" picName="{{$v}}" >删除</lable></div>
+                                                <div  class="picDiv">
+                                                    <img src="goodsPic/{{$v}}" alt="..." class="img-thumbnail">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+
                                 </div>
 
 
@@ -144,7 +155,7 @@
                                         <tr>
                                             <td><h2>种类 :</h2></td>
                                             <td>
-                                                <h2 id="goodsKindText" >{{$styleNameArr[2][0]['name']}}</h2>
+                                                <h2 id="goodsKindText" data="{{$goodsData['kind']}}">{{$styleNameArr[2][0]['name']}}</h2>
                                                 <div><button style="display:none;" type="button" class="btn btn-info editBtn nameBtn">修改</button></div>
                                             </td>
                                         </tr>
@@ -221,26 +232,38 @@
                                                 {{--选项--}}
                                                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
-                                                    @if($headKey != null)
-                                                        @foreach($headKey as  $v)
-                                                            <table>
-                                                                <tr>
+
+                                                    <table id="">
+                                                        @if($headKey != null)
+                                                            @foreach($headKey as $k => $v)
+                                                                <tr class="oriParSelTr" dataId="{{$k}}" name="{{$v}}">
                                                                     <td style="font-size:15px;">{{$v}}</td>
                                                                     <td>
                                                                         <div style="margin:10px">
                                                                         @foreach($selData as  $vv)
                                                                             @if($vv->headName == $v)
-                                                                             <div class="pull-left"><a class="btn btn-default">{{$vv->name}}<a></div>
+                                                                                <div class="pull-left btn btn-default "><a data="{{$v}}" class="pull-left selOriContent">{{$vv->name}}<a></div>
                                                                             @endif
                                                                         @endforeach
                                                                         </div>
                                                                     </td>
+                                                                    <td class="selConTd">
+
+                                                                    </td>
                                                                 </tr>
-                                                            </table>
-                                                        @endforeach
-                                                    @else
-                                                        <div>无</div>
-                                                    @endif
+
+                                                            @endforeach
+                                                        @else
+                                                            <h3>无</h3>
+                                                        @endif
+                                                    </table>
+
+
+                                                    <div id="goodsSelConMaxBox">
+
+                                                    </div>
+
+
 
                                                 </div>
 
@@ -298,7 +321,6 @@
                             </div>
 
                         </div>
-                        <!-- /CONTENT MAIL -->
 
 
                     </div>
@@ -317,109 +339,6 @@
 </div>
     <br><br><br><br><br><br><br><br><br>
 </div>
-<!-- /page content -->
-
-<!-- footer content -->
-<footer>
-
-    <div class="clearfix"></div>
-</footer>
-<!-- /footer content -->
-</div>
-</div>
-
-<!-- compose -->
-<div class="compose col-md-6 col-xs-12">
-    <div class="compose-header">
-        New Message
-        <button type="button" class="close compose-close">
-            <span>×</span>
-        </button>
-    </div>
-
-    <div class="compose-body">
-        <div id="alerts"></div>
-
-        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor">
-            <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                </ul>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a data-edit="fontSize 5">
-                            <p style="font-size:17px">Huge</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a data-edit="fontSize 3">
-                            <p style="font-size:14px">Normal</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a data-edit="fontSize 1">
-                            <p style="font-size:11px">Small</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-                <div class="dropdown-menu input-append">
-                    <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
-                    <button class="btn" type="button">Add</button>
-                </div>
-                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-            </div>
-
-            <div class="btn-group">
-                <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-                <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-            </div>
-
-            <div class="btn-group">
-                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-            </div>
-        </div>
-
-        <div id="editor" class="editor-wrapper"></div>
-    </div>
-
-    <div class="compose-footer">
-        <button id="send" class="btn btn-sm btn-success" type="button">Send</button>
-    </div>
-
-
-
-</div>
-
 
 
 

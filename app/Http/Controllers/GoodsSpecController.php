@@ -95,7 +95,7 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * 删除head表中指定的ID
+     * 删除指定的属性头
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

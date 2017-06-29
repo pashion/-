@@ -36,6 +36,30 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
 
+	//mingliang
+
+	//商品资源路由
+	Route::resource('goods', 'GoogsController');
+
+
+	//商品规格
+	Route::resource('goodsSpec', 'GoodsSpecController');
+
+
+	//商品分类查询路由
+	Route::get('goodsType', 'GoodsTypeController@getKindType');
+	Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
+	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
+
+
+
+	//商品图片上传
+	Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
+	//商品图片删除
+	Route::get('goods/file/upload', 'GoodsFileController@canclePic');
+	//商品图片缩略图获取路由
+	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
+	//mingliang
 
 	//志远
 
@@ -60,29 +84,7 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	//文章封面图ajax路由
 	Route::post('Article/ajax','ArticleController@ajax');
 	//end志远
-
-
-	//商品资源路由
-	Route::resource('goods', 'GoogsController');
-
-
-	//商品规格
-	Route::resource('goodsSpec', 'GoodsSpecController');
-
-
-	//商品分类查询路由
-	Route::get('goodsType', 'GoodsTypeController@getKindType');
-	Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
-
-	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
-	//商品文件上传
-	Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
-	//商品图片取消
-	Route::get('goods/file/upload', 'GoodsFileController@canclePic');
-	//商品图片缩略图获取路由
-	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
-
-
+	
 	
 });
 

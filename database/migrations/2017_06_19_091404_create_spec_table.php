@@ -16,7 +16,7 @@ class CreateSpecTable extends Migration
         Schema::create('spec', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');//属性名称
-            $table->integer('sid');//规格id
+            $table->integer('gid');//规格id
             $table->integer('hid');//规格头id
             $table->timestamps();
         });

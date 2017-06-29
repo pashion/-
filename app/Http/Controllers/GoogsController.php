@@ -80,10 +80,10 @@ class GoogsController extends Controller
         $goodsData['desr'] = $_POST['desr'];        //描述
         $goodsData['state'] = $_POST['state'];      //状态
 
-        //移动图片
-        foreach ($_POST['pic'] as $v) {
-            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
-        }
+       //移动图片
+       foreach ($_POST['pic'] as $v) {
+           Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
+       }
 
 
         $info =  Goods::create($goodsData);
@@ -107,13 +107,38 @@ class GoogsController extends Controller
 
         //写入SpecPrice表,商品选项价格
         if (!empty($_POST['selPrice'])) {
-            $selPriceData = [];
+
+            //循环遍历每一个选项数组,获取选项名称去数据库查id时可能出现顺序问题,如果循序出问题,那么价格会对应不上
             foreach ($_POST['selPrice'] as $v) {
+                $selPriceData = [];
+                //准备数据值
+                $selVal =  explode('_', $v[3]);
+                //拼接条件文件语句
+                $strArr = [] ;
+                foreach ($selVal   as $vv) {
+                    $strArr[] = 'name = ?';
+                }
+                $sqlStr = implode(' or ', $strArr);
+                $sqlStr = '('.$sqlStr.')';
+
+                $selVal[] =  $goodId;   //添加商品ID
+                $sqlStr .= ' and gid = ?';
+
+                //查询数据库
+                $selIdArr = Option::select('id')->whereRaw($sqlStr, $selVal)->get();
+
+                dump($selIdArr);
+                //循环解开,拼接
+                $selNumArr = [];
+                foreach ($selIdArr as $vv) {
+                    $selNumArr[] = $vv['id'];
+                }
+                $selNumStr = implode('_',$selNumArr);
 
                 $selPriceData['store']      =   $v[0];//库存
                 $selPriceData['price']      =   $v[1];//价格
                 $selPriceData['str_bunch']  =   $v[3];//字符串
-                $selPriceData['num_bunch']  =   $v[2];//号码串
+                $selPriceData['num_bunch']  =   $selNumStr;//号码串
                 $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
@@ -146,7 +171,6 @@ class GoogsController extends Controller
 
     /**
      * 接收ID, 显示单个商品信息
-     *
      * @param  int  $id
      * @return Detail页面
      */
@@ -170,8 +194,9 @@ class GoogsController extends Controller
         }
 
 
+
         //获取风格,区域,种类,名称
-        $styleNameArr[0] = SecondType::select('name')->where('id',$goodsData['style'])->get();
+        $styleNameArr[0] = SecondType::select('name')->where('id', $goodsData['style'])->get();
         $styleNameArr[1] = SecondType::select('name')->where('id', $goodsData['area'])->get();
         $styleNameArr[2] = SecondType::select('name')->where('id', $goodsData['kind'])->get();
 
@@ -191,22 +216,32 @@ class GoogsController extends Controller
 
         //返回
         return view('zhuazi.production.goods.Detail', compact('goodsData', 'selData', 'specData', 'detail', 'picData', 'headKey', 'goodSelPrice', 'styleNameArr'));
+
     }
 
 
     /**
-     * Show the form for editing the specified resource.
+     * 返回商品选项,规格,选项价格三个表的信息
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+
+        $selData = DB::table('option')
+            ->join('head', 'option.hid', '=', 'head.id')
+            ->select('option.*', 'head.name as headName', 'head.id as headId')
+            ->where('gid', '=', $id)
+            ->get();
+
+
+        dd($selData);
+        return $selData;
     }
 
     /**
-     * Update the specified resource in storage.
+     * 商品编辑更新方法
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -215,14 +250,20 @@ class GoogsController extends Controller
     public function update(Request $request, $id)
     {
 
-        if ($_POST['table'] == 'goods' ) {
+        //不清楚哪里过来的路由调用了这个方法
+        if (!empty($_POST['table'])) {
+            if ($_POST['table'] == 'goods' ) {
+                $field  =  $_POST['field'];
+                $content = $_POST['content'];
+                Goods::where('id', $id)->update([ $field => $content ]);
+                return 1;
+            }
+        }
 
-            $field  =  $_POST['field'];
-            $content = $_POST['content'];
+        //删除或者添加,商品选项
+        switch ($_POST['goodsCon']) {
 
-            Goods::where('id', $id)->update([ $field => $content ]);
-
-            return 1;
+            case 'editSel': $this->editGoodsSel();
         }
 
     }
@@ -236,6 +277,43 @@ class GoogsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * 删除或者添加,商品选项
+     * */
+    public function editGoodsSel ()
+    {
+        //添加商品选项操作
+        $goodId = $_POST['gid'];
+        if (!empty($_POST['addSelData'])) {
+
+            $addSelData =  array_filter($_POST['addSelData']);
+            $arr = [];
+            foreach ($addSelData as $k => $v) {
+                foreach ($v as $vv) {
+                    $arr[] = ['hid' => $k, 'name' => $vv , 'gid' => $goodId];
+                }
+            }
+            $info =  Option::insert($arr);
+        }
+
+
+        //删除商品选项操作
+        if (!empty($_POST['delSelData'])) {
+
+            $delSelData =  array_filter($_POST['delSelData']);
+            foreach ($delSelData as $k => $v) {
+                foreach ($v as $vv) {
+                    $info =  Option::whereRaw('gid = ? and hid =? and name = ?', [$goodId, $k, $vv])->delete();
+                }
+            }
+
+
+        }
+
+
     }
 
 }

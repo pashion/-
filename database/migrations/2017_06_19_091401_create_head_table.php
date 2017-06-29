@@ -16,7 +16,8 @@ class CreateHeadTable extends Migration
         Schema::create('head', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');//选项名
-            $table->integer('tid');//类别id
+            $table->tinyInteger('tid');//类别id
+            $table->tinyInteger('must');//是否必须填写
             $table->timestamps();
         });
     }

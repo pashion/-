@@ -391,15 +391,13 @@
         //点击事件
         $('.addPar').on('click', function () {
 
-
-
+            //获取相关值
             var id = $('.seleKind').val();//获取选中的值
             var name= $(".seleKind option:selected").text();//获取选中的文本
 
-
-
-
+            //清空消息框
             $(this).next().html('');
+
             //检验是否合法 选项
             if (name ==  '请选择') {
                 $(this).next().html("<td style='color:red;'>不能选择该选项</td>");
