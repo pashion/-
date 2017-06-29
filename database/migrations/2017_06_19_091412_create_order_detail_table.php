@@ -17,9 +17,10 @@ class CreateOrderDetailTable extends Migration
             $table->increments('id');
 
 
-            $table->char('order_guid');//订单编号
+            $table->integer('order_id');//订单编号
             $table->integer('user_id');//商品id
             $table->integer('goods_id');//商品id
+            $table->string('goods_name');//商品名字
             $table->tinyInteger('order_status');//订单状态1,待收货;2,待发货;3,待收货;4,待评价;5,完成;6,取消
             $table->integer('commodity_number');//商品数量
             $table->string('cargo_price');//商品单价

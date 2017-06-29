@@ -1,6 +1,9 @@
 @extends('zhuazi.layout.master');
 @section('title' ,'链接添加')
 @section('content')
+<script type="text/javascript" src="{{url('ueditor')}}/ueditor.config.js"></script>
+<script type="text/javascript" src="{{url('ueditor')}}/ueditor.all.min.js"></script>
+<script type="text/javascript" src="{{url('ueditor')}}/lang/zh-cn/zh-ch.js"></script>
     {{--<form action="{{url('stroe')}}" method="post" class="form">--}}
         {{--链接名: <input type="text" name="urlname">--}}
         {{--<input type="radio" name="discover" value="1">显示--}}
@@ -47,6 +50,9 @@
                     <input type="radio" class="flat" name="type" id="typeY" value="0" checked="" required /> 不显示:
                     <input type="radio" class="flat" name="type" id="typeN" value="1" />
                 </p>
+                <label for="urladderss">描述 * :</label>
+                <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+
                 <label for="image">链接logo * :</label>
                 <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" name="image" /><br>
                 <input type="submit" class="btn btn-success">
@@ -56,4 +62,9 @@
 
         </div>
     </div>
+    <script type="text/javascript">
+
+        //实例化编辑器
+        var ue = UE.getEditor('editor');
+    </script>
 @endsection

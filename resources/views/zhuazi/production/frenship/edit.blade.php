@@ -46,6 +46,9 @@
                     <input type="radio" class="flat" name="type" id="typeN" value="1" {{($data->type==1)? 'checked':''}}/>
                 </p>
                 <label for="fullname">链接logo * :</label>
+                <img src="{{url('uploads')}}/{{$data->image}}" alt="" width="100" height="100">
+                <br>
+                <label for="fullname">上传新logo * :</label>
                 <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage"  name="image" /><br>
                 <input type="submit" class="btn btn-success"></input>
 
