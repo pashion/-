@@ -21,16 +21,49 @@
 
 
         createConBox()//创建编辑框架
-        paddContent()//填充原有值
         loadEditGoodsSel()//加载--修改商品选项按钮
         loadAddParBtn()//加载--添加属性按钮
         loadParEditConcelBtn()//加载--属性取消按钮
 
         loadAffParEditBtn()//加载--确定按钮
+
+
     });
 
 
 
+    //获取选项信息
+    function getGoodSelInfo ()
+    {
+        var  goodId = $('#goodsID').attr('data');
+
+        console.log(goodId);
+
+        $.get('goods/' + goodId +'/edit', function (data) {
+
+            var str = '<table id=""> <tr class="oriParSelTr" dataId="" name=""><td style="font-size:15px;"></td><td>';
+
+            for ( i in data) {
+
+
+
+                str  += ' <div style="margin:10px">' +
+                    '<div class="pull-left btn btn-default "><a data="{{$v}}" class="pull-left selOriContent">{{$vv->name}}<a></div></div>';
+
+
+                if (data[i] != data[i+1]) {
+
+                    str += '</td> <td class="selConTd"> </td> </tr> <h3>无</h3>';
+                }
+
+
+
+            }
+            str += '</table>';
+
+
+        }, 'json');
+    }
 
 
     //确定按钮
@@ -38,9 +71,13 @@
     {
         $('#affParEditBtn').on('click', function () {
 
-            console.log(SAVE_SEL_ADD_CON.length);
-            console.log(SAVE_SEL_DEL_CON.length);
+            getGoodSelInfo();
 
+            return false;
+            //关闭控制面板
+            $('#parEditConcelBtn').click();
+
+            //判断组内是否为空
             if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
                 throw SyntaxError();
             }
@@ -73,23 +110,10 @@
                     SAVE_SEL_DEL_CON.splice(0,SAVE_SEL_DEL_CON.length);
                 }
             });
-
-            console.log('执行后');
-            console.log(SAVE_SEL_ADD_CON);
-            console.log(SAVE_SEL_DEL_CON);
-
-
         });
 
 
-
-
-
-
     }
-
-
-
 
     //判断是否存在Kye值
     function isKey (text,arr)
@@ -233,7 +257,6 @@
             $(this).css('display', 'none');//隐形---修改商品选项
             $('#parSelConBox').css('display', 'block');//显示相关控件
 
-
             //获取ID
             var tid = $('#goodsKindText').attr('data');
 
@@ -247,6 +270,9 @@
                 $('#selList').html(str);
 
             }, 'json');
+
+
+            paddContent()//填充原有值
 
         });
     }

@@ -171,7 +171,6 @@ class GoogsController extends Controller
 
     /**
      * 接收ID, 显示单个商品信息
-     *
      * @param  int  $id
      * @return Detail页面
      */
@@ -222,18 +221,27 @@ class GoogsController extends Controller
 
 
     /**
-     * Show the form for editing the specified resource.
+     * 返回商品选项,规格,选项价格三个表的信息
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+
+        $selData = DB::table('option')
+            ->join('head', 'option.hid', '=', 'head.id')
+            ->select('option.*', 'head.name as headName', 'head.id as headId')
+            ->where('gid', '=', $id)
+            ->get();
+
+
+        dd($selData);
+        return $selData;
     }
 
     /**
-     * Update the specified resource in storage.
+     * 商品编辑更新方法
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -251,6 +259,8 @@ class GoogsController extends Controller
                 return 1;
             }
         }
+
+        //删除或者添加,商品选项
         switch ($_POST['goodsCon']) {
 
             case 'editSel': $this->editGoodsSel();
@@ -271,11 +281,11 @@ class GoogsController extends Controller
 
 
     /**
-     * 商品编辑页面,
+     * 删除或者添加,商品选项
      * */
     public function editGoodsSel ()
     {
-
+        //添加商品选项操作
         $goodId = $_POST['gid'];
         if (!empty($_POST['addSelData'])) {
 
@@ -290,15 +300,13 @@ class GoogsController extends Controller
         }
 
 
-        //问题:存在多处访问数据库,性能问题
+        //删除商品选项操作
         if (!empty($_POST['delSelData'])) {
 
             $delSelData =  array_filter($_POST['delSelData']);
-            $arr = [];
             foreach ($delSelData as $k => $v) {
                 foreach ($v as $vv) {
                     $info =  Option::whereRaw('gid = ? and hid =? and name = ?', [$goodId, $k, $vv])->delete();
-
                 }
             }
 
