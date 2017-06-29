@@ -17,7 +17,7 @@ class CreateSecondTypeTable extends Migration
             $table->string('name');//类名
             $table->integer('tid');//父类id
             $table->string('path');//关联路径
-            $table->increments('sort')//类型顺序
+            $table->integer('sort');//类型顺序
             $table->timestamps();
         });
     }

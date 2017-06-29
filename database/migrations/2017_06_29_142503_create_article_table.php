@@ -14,13 +14,13 @@ class CreateArticleTable extends Migration
     {
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',255);//标题
-            $table->string('description',255);//描述
-            $table->nullableTimestamps('date');//事件
+            $table->string('title');//标题
+            $table->string('description');//描述
+            $table->date('date');//时间
             $table->text('content');//内容
-            $table->string('cover',255);//封面图名字
-            $table->string('coverpath',255);//封面图路径
-            $table->string('author',255);//作者
+            $table->string('cover');//封面图名字
+            $table->string('coverpath');//封面图路径
+            $table->string('author');//作者
             $table->timestamps();
         });    
     }
