@@ -30,7 +30,7 @@ class PermissionTableSeeder extends Seeder
         	'name'=>'pilishen',
         	'email'=>'554018450@qq.com',
         	'password'=>bcrypt('123123')
-        	])->attachRole($admin);;
+        	])
 
         //创建初始的role
         $admin = Role::create([

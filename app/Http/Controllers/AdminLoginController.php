@@ -35,12 +35,12 @@ class AdminLoginController extends Controller
 
             }else{
 
-                echo "<script> alert('账号或密码错误');history.go(-1);window.location.reload();</script>";
+                echo "<script> alert('密码错误');history.go(-1);window.location.reload();</script>";
             }
 
         }else{
 
-            echo "<script> alert('账号或密码错误');history.go(-1);window.location.reload();</script>";
+            echo "<script> alert('账号错误');history.go(-1);window.location.reload();</script>";
 
         }
         

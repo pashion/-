@@ -6,6 +6,13 @@
 	    return view('web.index');
 	});
 
+	//前台登录相关操作
+	Route::controller('/home','HomeLoginController');
+
+
+
+
+
 
 
 	//后台登录页面和操作路由

@@ -17,7 +17,6 @@ class CreateUsersLoginDataTable extends Migration
             $table->increments('id');
             $table->integer('user_id');//用户id
             $table->string('login_name');//登录账号
-            $table->char('password');//登录密码
             $table->char('last_login_ip');//最后一次登录IP
             $table->timestamp('last_login_at');//最后一次登录时间
             $table->timestamps();

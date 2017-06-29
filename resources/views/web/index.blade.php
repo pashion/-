@@ -1,19 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="{{url('web/build')}}/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="{{url('web/build')}}/js/jquery.SuperSlide.2.1.1.js"></script>
-<link  href="{{url('web/build')}}/css/common.css" type="text/css" rel="stylesheet" />
-<link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
-<link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
-<!--[if lt IE 9]>
-<script src="{{url('web/build')}}/js/html5shiv.js" type="text/javascript"></script>
-<script src="{{url('web/build')}}/js/respond.min.js"></script>
-<script src="{{url('web/build')}}/js/css3-mediaqueries.js"  type="text/javascript"></script>
-  <![endif]-->
-<title>首页</title>
-</head>
+@extends('web/layout/master')
+
+@section('title','首页')
+
+@section('content')
 <script type="text/javascript">
 $(document).ready(function(){
  $(".q_code ").hover(function(){
@@ -55,7 +44,7 @@ $(document).ready(function(){
    <div class="Cart_Quantity "><span class="number">0</span></div>
    <div class="header_operating l_f">
     <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-    <a href="#">登录</a><a href="@">注册</a>
+    <a href="{{url('home/login')}}">登录</a><a href="{{url('home/index')}}">注册</a>
    </div>
    </div>
  </div>
@@ -303,13 +292,6 @@ jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",
     </span>
 </div>
 <!--二维码  e-->
+@endsection
 
 
-<div class="footer clearfix" style="margin-top:0; background:#f5f5f5; border-top:1px solid #e6e6e6;">
-<div class="footer_spacing clearfix">
-  <span class="left_link l_f"><a href="#">首页</a>|<a href="#">设计精粹</a>|<a href="#">场景方案</a>|<a href="#">单品大库</a>|<a href="#">奇货可享</a>|<a href="#">找找感觉</a></span>
-  <span class="copyright r_f">copyright©南京一家一世界网络科技有限公司 版权所有   苏ICP备16043372号-1</span>
-  </div>
-</div>
-</body>
-</html>

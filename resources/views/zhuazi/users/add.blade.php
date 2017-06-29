@@ -46,12 +46,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group required">
+                  <!--   <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-fullname">电话</label>
                         <div class="col-sm-10">
                             <input type="text" name="phone" class="form-control" value="{{old('phone')}}" />
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-fullname">邮箱</label>

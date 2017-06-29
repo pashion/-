@@ -15,12 +15,12 @@ class CreateUsersRegisterTable extends Migration
         //用户注册表
         Schema::create('users_register', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('username');//用户名称
-            $table->char('password');//密码
-            $table->string('phone');//手机号码
+
+            $table->string('username');//用户名称
+            $table->string('password');//密码
+            $table->string('email')->unique();//手机号码
             $table->char('third_party_id');//第三方ID
             $table->string('register_ip');//注册IP
-
 
             $table->timestamps();
         });

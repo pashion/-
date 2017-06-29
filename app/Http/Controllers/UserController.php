@@ -31,7 +31,7 @@ class UserController extends Controller
 
        $this->validate($request,[
             'username'=>'required|min:3|max:15',
-            'phone'=>'required|regex:/1[3-9]\d{9}/',
+            // 'phone'=>'required|regex:/1[3-9]\d{9}/',
             'email'=>'required|email',
             'password'=>'required|regex:/\w{6,}/',
             'repassword'=>'required|same:password',
@@ -39,14 +39,14 @@ class UserController extends Controller
         ],[
             //验证规则
             'username.required'=>'用户不能为空',
-            'phone.required'=>'电话号码不能为空',
+            // 'phone.required'=>'电话号码不能为空',
             'email.required'=>'邮箱不能为空',
             'password.required'=>'密码不能为空',
             'repassword.required'=>'密码不能为空',
 
             'username.min'=>'用户名最少为3位数', 
             'username.max'=>'用户名最多为15位数', 
-            'phone.regex'=>'电话号码格式不对',
+            // 'phone.regex'=>'电话号码格式不对',
             'email.email'=>'邮箱格式不对',
             'password.regex'=>'请输入不少于6位任意数字字母下划线',
             'repassword.same'=>'两次密码不一致，请重新输入',
@@ -135,7 +135,6 @@ class UserController extends Controller
     //执行用户添加验证
     public function postData() 
     {
-
        $users = DB::table('users_register')->where('username', $_POST['username'])->get();
         // dd($user);
        $patten = '/.{3,}/';
