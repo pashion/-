@@ -37,6 +37,13 @@
     function loadAffParEditBtn ()
     {
         $('#affParEditBtn').on('click', function () {
+
+            console.log(SAVE_SEL_ADD_CON.length);
+            console.log(SAVE_SEL_DEL_CON.length);
+
+            if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
+                throw SyntaxError();
+            }
             //循环对消两个数组中的重复值
             for ( i in SAVE_SEL_ADD_CON ) {
 
@@ -45,30 +52,31 @@
 
                 //对比返回add数组中不重复值,
                 var aa = SAVE_SEL_ADD_CON[i];
-
                 SAVE_SEL_ADD_CON[i] =  delTouArrRepat(SAVE_SEL_DEL_CON[i], SAVE_SEL_ADD_CON[i]);
-
                 SAVE_SEL_DEL_CON[i] =  delTouArrRepat(aa, SAVE_SEL_DEL_CON[i]);
-
             }
 
-            var arr = [12,12,12,12];
-            arr['addSelData'] = SAVE_SEL_ADD_CON;
-            console.log(arr);
-            console.log(SAVE_SEL_DEL_CON);
-
+            //准备数据
             var postData = {
                 _method : 'PUT',
                 _token :  $('#token').val(),
                 addSelData : SAVE_SEL_ADD_CON,
                 delSelData : SAVE_SEL_DEL_CON,
                 goodsCon : 'editSel',
+                gid : $('#goodsID').attr('data')
             }
 
+            //发送请求
             $.post('goods/1', postData, function (data) {
-                alert(data)
+                if (!data) {
+                    SAVE_SEL_ADD_CON.splice(0,SAVE_SEL_ADD_CON.length);
+                    SAVE_SEL_DEL_CON.splice(0,SAVE_SEL_DEL_CON.length);
+                }
             });
 
+            console.log('执行后');
+            console.log(SAVE_SEL_ADD_CON);
+            console.log(SAVE_SEL_DEL_CON);
 
 
         });

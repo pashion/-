@@ -16,7 +16,7 @@ class CreateOptionTable extends Migration
         Schema::create('option', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');//属性名称
-            $table->integer('oid');//选项id
+            $table->integer('gid');//选项id
             $table->integer('hid');//选项头id
             $table->string('picurl');//图片路径
             $table->timestamps();

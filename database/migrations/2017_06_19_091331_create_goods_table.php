@@ -15,6 +15,8 @@ class CreateGoodsTable extends Migration
         Schema::create('goods', function (Blueprint $table) {
             $table->increments('id');
             $table->string("goods");  //商品名
+            $table->integer("price");  //商品基础价格
+            $table->integer("stockall");  //商品基础价格
             $table->string("style");    //风格
             $table->string("area");     //区域
             $table->string("kind");     //种类
@@ -22,8 +24,6 @@ class CreateGoodsTable extends Migration
             $table->string("desr");     //描述
             $table->integer("state");      //状态
             $table->integer("clicknum");    //点击次数
-            $table->integer("option");      //属性选项id
-            $table->integer("sid");     //规格id
             $table->timestamps();
         });
     }

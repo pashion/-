@@ -275,17 +275,36 @@ class GoogsController extends Controller
      * */
     public function editGoodsSel ()
     {
-        foreach ($_POST['addSelData'] as $k => $v) {
 
-            $selAddArr = [];
-            foreach ($v as $vv) {
-                $arr = ['hid' => $k, 'name' => $vv];
-                $selAddArr[] = $arr;
+        $goodId = $_POST['gid'];
+        if (!empty($_POST['addSelData'])) {
+
+            $addSelData =  array_filter($_POST['addSelData']);
+            $arr = [];
+            foreach ($addSelData as $k => $v) {
+                foreach ($v as $vv) {
+                    $arr[] = ['hid' => $k, 'name' => $vv , 'gid' => $goodId];
+                }
             }
+            $info =  Option::insert($arr);
+        }
+
+
+        //问题:存在多处访问数据库,性能问题
+        if (!empty($_POST['delSelData'])) {
+
+            $delSelData =  array_filter($_POST['delSelData']);
+            $arr = [];
+            foreach ($delSelData as $k => $v) {
+                foreach ($v as $vv) {
+                    $info =  Option::whereRaw('gid = ? and hid =? and name = ?', [$goodId, $k, $vv])->delete();
+
+                }
+            }
+
 
         }
 
-        Option::create($selAddArr);
 
     }
 
