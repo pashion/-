@@ -1,6 +1,6 @@
 <?php
 
-	//前台登录路由
+	//前台路由
 	Route::get('/', function () {
 
 	    return view('web.index');
@@ -37,6 +37,7 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::resource('order','OrderController');
 
 
+	//志远
 
 	//添加子分类页面路由
 	Route::get('/SecoundType/increase','SecoundTypeController@increase');
@@ -58,6 +59,7 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::resource('Article','ArticleController');
 	//文章封面图ajax路由
 	Route::post('Article/ajax','ArticleController@ajax');
+	//end志远
 
 
 	//商品资源路由
@@ -83,7 +85,6 @@ Route::group(['middleware'=>'adminLogin'], function () {
 
 	
 });
-
 
 
 

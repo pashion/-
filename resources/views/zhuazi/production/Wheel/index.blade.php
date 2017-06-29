@@ -13,7 +13,7 @@
             <tr>
                 <td>{{$v->id}}</td>
                 <td>{{$v->picname}}</td>
-                <td><img src="http://localhost/test2/laravel{{$v->picurl}}" alt="" width="300px" height="100px"></td>
+                <td><img src="..{{$v->path}}/{{$v->picurl}}" alt="" width="300px" height="100px"></td>
                 <td><input type="text" value="{{$v->sort}}" onchange=" update( '{{$v->id}}' ,this ) "></td>
                 <td>
                     <a href="javascript:void(0)" onclick="del( '{{$v->id}}',this,'Wheel/' )">删除</a>
