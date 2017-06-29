@@ -15,10 +15,10 @@ class TalkingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $talkData=criticism::paginate(2);
-        return view('zhuazi/production/talking/index',compact('talkData'));
+        $talkData=criticism::where('comment_type','like','%'.$request->input('keywords').'%')->paginate(5);
+        return view('zhuazi/production/talking/index',['talkData'=>$talkData,'request'=>$request->all()]);
     }
 
     /**
@@ -42,12 +42,10 @@ class TalkingController extends Controller
 
         $data=$_POST;
         criticism::create($data);
-//        return view('zhuazi/production/talking/store',compact('data'));
         if($data>0){
-            echo "添加成功.<br/>";
-            echo '<a href="/talking">点击这里</a> 返回.';
+            return redirect('talking')->with('success','添加成功');
         }else{
-            echo "添加失败";
+            return back()->with('error','添加失败');
         }
     }
 
@@ -86,10 +84,9 @@ class TalkingController extends Controller
         $data=$_POST;
         $upData=criticism::find($id)->update($data);
         if($upData==true){
-            echo "修改成功.<br/>";
-            echo '<a href="/talking">点击这里</a> 返回.';
+             return redirect('talking')->with('success','修改成功');
         }else{
-            echo "修改失败";
+           return back()->with('error','添加失败');
         }
     }
 

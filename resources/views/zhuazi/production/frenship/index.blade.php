@@ -1,6 +1,15 @@
 @extends('zhuazi.layout.master');
 @section('title' ,'友情链接首页')
 @section('content')
+    <div>
+        <form class="form-inline" action="frenship" method="get">
+          <div class="form-group">
+            <label for="exampleInputName2">搜索:</label>
+            <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入链接名字" name="keywords">
+          </div>
+          <button type="submit" class="btn btn-default">查询</button>
+        </form>
+    </div>
     <table class="table" id="myTable">
         <tr>
             <th>链接id</th>
@@ -40,14 +49,15 @@
                 <td>{{$v['created_at']}}</td>
                 <td>{{$v['created_at']}}</td>
                 <td>
-                    <a href="frenship/{{$v->id}}/edit">编辑</a>
-                    <a href="javascript:;" onclick="delData('{{$v->id}}')">删除</a>
+                    <a href="frenship/{{$v->id}}/edit" class="btn btn-primary btn-sm">编辑</a>
+                    <a href="javascript:;" onclick="delData('{{$v->id}}')" class="btn btn-primary btn-sm">删除</a>
+                    <!-- <a href="frenship/{{$v->id}}/delete">删除</a> -->
                 </td>
             </tr>
         @endforeach
 
     </table>
-    {!! $urlData->links() !!}
+    {!! $urlData->appends($request)->links() !!}
 
 
 

@@ -25,14 +25,23 @@
             </div>
 
             <div class="x_content">
-
+                <div>
+                     <?php
+                        $comment_type=array('0'=>'实名评论','1'=>'匿名评论');
+                        $star=array('0'=>'1星','1'=>'2星','2'=>'3星','3'=>'4星','4'=>'5星');
+                    ?>
+                    <form class="form-inline" action="/talking" method="get">
+                      <div class="form-group">
+                        <label for="exampleInputName2">搜索:</label>
+                        <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入评论状态" name="keywords">
+                      </div>
+                      <button type="submit" class="btn btn-default">查询</button>
+                    </form>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                         <tr class="headings">
-                            <th>
-                                <input type="checkbox" id="check-all" class="flat">
-                            </th>
                             <th class="column-title">评论id </th>
                             <th class="column-title">商品id </th>
                             <th class="column-title">订单id </th>
@@ -46,15 +55,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        $comment_type=array('0'=>'实名评论','1'=>'匿名评论');
-                        $star=array('0'=>'1星','1'=>'2星','2'=>'3星','3'=>'4星','4'=>'5星');
-                        ?>
+                        
                             @foreach($talkData as $v)
                                 <tr class="even pointer" id="tr_{{$v['id']}}">
-                                    <td class="a-center ">
-                                        <input type="checkbox" class="flat" name="table_records">
-                                    </td>
                                     <td >{{$v['id']}}</td>
                                     <td >{{$v['goods_id']}}</td>
                                     <td >{{$v['order_id']}}</td>
@@ -65,14 +68,14 @@
                                     <td >{{$v['created_at']}}</td>
                                     <td class="a-right a-right ">{{$v['updated_at']}}</td>
                                     <td class="last">
-                                        <a href="talking/{{$v->id}}/edit">编辑</a>
-                                        <a href="javascript:;" onclick="TdelData('{{$v->id}}')">删除</a>
+                                        <a href="talking/{{$v->id}}/edit" class="btn btn-primary btn-sm">编辑</a>
+                                        <a href="javascript:;" onclick="TdelData('{{$v->id}}')" class="btn btn-primary btn-sm">删除</a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {!! $talkData->links() !!}
+                    {!! $talkData->appends($request)->links() !!}
                 </div>
 
 

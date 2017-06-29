@@ -20,11 +20,11 @@ class FrenshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $urlData=flink::paginate(2);
+        $urlData=flink::where('name','like','%'.$request->input('keywords').'%')->paginate(3);
 //        $urlData=flink::get();
-        return view('zhuazi/production/frenship/index',compact('urlData'));
+        return view('zhuazi/production/frenship/index',['urlData'=>$urlData,'request'=>$request->all()]);
     }
 
     /**
@@ -71,8 +71,12 @@ class FrenshipController extends Controller
 //        $data['type']=$_POST['type'];
 //        $data['image']=$_POST['image'];
        flink::create($data);
-        return view('zhuazi/production/frenship/store',compact('data'));
-//        return view('zhuazi/production/frenship/store',compact('data','file','newName'));
+        if($data>0){
+            return redirect('frenship')->with('success','添加成功');
+        }else{
+            return back()->with('error','添加失败');
+        }
+
     }
 
     /**
@@ -94,6 +98,9 @@ class FrenshipController extends Controller
      */
     public function edit($id)
     {
+        // $info = DB::table('flink')->where('id','=',$id)->first();
+        // $picname = $info->image;
+
         $data=DB::select('select * from flink where id = ?', [$id]);
        return view('zhuazi/production/frenship/edit')->with('data',$data[0]);
     }
@@ -107,15 +114,50 @@ class FrenshipController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $info = DB::table('flink')->where('id','=',$id)->first();
+        $picname = $info->image;
+        // $file = $request->file('image');
+        if($request -> hasFile('image')){
+            $extension = $request->file('image') -> getClientOriginalExtension();
+            $img = Image::make($_FILES['image']['tmp_name']);       // Image::make() 支持这种方式
+            $newName = md5(date('ymdhis').$img).'.'.$extension;
 
-        $data=$_POST;
-        $upData=flink::find($id)->update($data);
-        if($upData==true){
-            echo "修改成功.<br/>";
-            return redirect('/frenship');
+            //原型图片
+            $img->save("uploads/".$newName);
+            //大型图片
+            $img->fit(400, 400);
+            $img->save("uploads/_max".$newName);
+            //中型图片
+            $img->fit(200, 200);
+            $img->save("uploads/_s".$newName);
+            //小图片
+            $img->fit(10, 10);
+            $img->save("uploads/_min".$newName);
+            $_POST['image']=$newName;
+            $_POST['updated_at']=date('Y-m-d H:i:s');
+            $data=$_POST;
+            $upData=flink::find($id)->update($data);
+            unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_s'.$picname);
+            unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_min'.$picname);
+            unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_max'.$picname);
+            unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/'.$picname);
+            if($upData==true){
+                return redirect('frenship')->with('success','修改成功');
+            }else{
+                return back()->with('error','修改失败');
+            }
         }else{
-            echo "修改失败";
+            $_POST['updated_at']=date('Y-m-d H:i:s');
+            $data=$_POST;
+            $upData=flink::find($id)->update($data);
+            if($upData==true){
+                return redirect('frenship')->with('success','修改成功');
+            }else{
+                return back()->with('error','修改失败');
+            }
         }
+        
+
 //        return view('zhuazi/production/frenship/update',compact('upData'));
     }
 
@@ -125,16 +167,28 @@ class FrenshipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-       $deData= DB::delete('delete from flink where id = ?',[$id]);
-      // dd($deData);
-        if($deData==1){
+        $info = DB::table('flink')->where('id','=',$id)->first();
 
+        $picname = $info->image;
+        // dd($picname);
+         
+         // dd(1);
+       $deData= DB::delete('delete from flink where id = ?',[$id]);
+      
+        if($deData==1){
+           
            $data=[
+                
                'statu'=>0,
                'msg'=>'删除成功'
+
            ];
+            unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_s'.$picname);
+           unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_min'.$picname);
+           unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/_max'.$picname);
+           unlink('E:\aaa\wamp\www\shop-laravel\public\uploads'.'/'.$picname);
         }else{
             $data=[
                 'statu'=>1,

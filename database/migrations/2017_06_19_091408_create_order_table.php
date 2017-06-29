@@ -16,10 +16,7 @@ class CreateOrderTable extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');//用户id
-            $table->char('guid');       //订单编号
-            $table->string('cargo_message');//下单商品信息
-            $table->string('address_message');//下单商品信息
-            $table->string('pay_transaction');//支付交易号
+            $table->integer('address_id');//地址id
             $table->tinyInteger('pay_type');//1,支付宝;2,微信;3,其他
             $table->tinyInteger('pay_status');//1,待支付;2,已支付;3,取消支付
             $table->double('tatal_amount', 15, 8);//商品总金额
