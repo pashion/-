@@ -42,11 +42,11 @@ class WheelController extends Controller
                 //生成年月日时分秒用作图片名
                 $newFileName = 'Wheel_'.date('Y-m-d-H-i-s').'.'.$ext;
                 //存入数据库的路径
-                $path = '/public/uploads/';
+                $path = '/public/uploads/Wheel/'.date('Y-m-d');
                 //把新传入的图片写入文件夹
                 $request->file('picurl')->move('../'.$path,$newFileName);
                 //插入数据库信息,描述、排序、路径
-                DB::table('Wheel')->insert(['picname'=>$picname ,'sort'=>$sort,'picurl'=>$path.$newFileName]);
+                DB::table('Wheel')->insert(['picname'=>$picname ,'sort'=>$sort,'picurl'=>$newFileName,'path'=>$path]);
                 //跳转到轮播图首页
                 return redirect('Wheel');
             }else{
@@ -70,7 +70,6 @@ class WheelController extends Controller
     //编辑更新处理
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $picname = $request->input('picname');
         $sort = $request->input('sort');
         //判断请求中是否包含name=file的上传文件
@@ -91,19 +90,21 @@ class WheelController extends Controller
         $allowed_extensions = ["png", "jpg", "gif",'jpeg'];
         if(in_array($ext,$allowed_extensions)){
             //拿到之前图片路径
-            $picurl = DB::select('select picurl from Wheel where id ='.$id)[0]->picurl;
+            $list = DB::select('select path,picurl from Wheel where id ='.$id)[0];
+            $path = $list->path;
+            $picurl = $list->picurl;
             //删除该图片
-            $num = unlink('../'.$picurl);
+            $num = unlink('..'.$path.'/'.$picurl);
             //生成年月日时分秒用作图片名
             $newFileName = 'Wheel_'.date('Y-m-d-H-i-s').'.'.$ext;
             //存入数据库的路径
-            $path = '/public/uploads/';
+            $path = '/public/uploads/Wheel/'.date('Y-m-d');
             //把新传入的图片写入文件夹
             $request->file('picurl')->move('../'.$path,$newFileName);
             //更新数据库信息,描述、排序、路径
             $bool = DB::table('Wheel')
                 ->where('id', $id)
-                ->update( ['picname'=>$picname ,'sort'=>$sort,'picurl'=>$path.$newFileName] );
+                ->update( ['picname'=>$picname ,'sort'=>$sort,'picurl'=>$newFileName,'path'=>$path] );
             //跳转到轮播图首页
             return redirect('Wheel');
         }else{
@@ -115,9 +116,11 @@ class WheelController extends Controller
     public function destroy($id)
     {
         //获取路径
-        $url = DB::select('select picurl from Wheel where id ='.$id)[0]->picurl;
+        $list = DB::select('select picurl,path from Wheel where id ='.$id)[0];
+        $path = $list->path;
+        $url = $list->picurl;
         //删除原图
-        $bool = unlink('..'.$url);
+        $bool = unlink('..'.$path.'/'.$url);
         //删除数据库
         $bool = DB::table('Wheel')->where('id', '=', $id)->delete();
         //返回>1则删除成功

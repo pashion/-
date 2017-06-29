@@ -13,8 +13,8 @@
 
 //测试图形缩放类
 Route::get('/', function(){
-    $img = Image::make('../public/uploads/Wheel_Sfm.jpg')->resize(300, 200);
-    return $img->response('jpg');
+    $img = Image::make('../public/uploads/Wheel_2017-06-26-18-56-53.jpg')->resize(300, 100)->save('../public/uploads/test_abc.jpg');
+//    return $img->response('jpg');
 });
 
 //添加子分类页面路由
@@ -34,8 +34,7 @@ Route::resource('/Wheel','WheelController');
 Route::post('/Wheel/sort','WheelController@sort');
 
 //文章模块路由
-Route::resource('Article','ArticleController');
+Route::resource('/Article','ArticleController');
 //文章封面图ajax路由
-Route::post('Article/ajax','ArticleController@ajax');
-
+Route::post('/Article/ajax','ArticleController@ajax');
 
