@@ -1,6 +1,11 @@
 
 
 
+    var SAVE_SEL_ADD_CON = []; //存储选项添加按钮操作值
+    var SAVE_SEL_DEL_CON = []; //存储选项删除按钮操作值
+
+    var NUM = 0; //计数器.用于创建不同样的删除选项按钮名
+
     $(function () {
 
         loadInfoEditBtn();//加载总体修改按钮点击事件
@@ -28,29 +33,104 @@
 
 
 
+    //确定按钮
     function loadAffParEditBtn ()
     {
         $('#affParEditBtn').on('click', function () {
+            //循环对消两个数组中的重复值
+            for ( i in SAVE_SEL_ADD_CON ) {
+
+                //问题1,因为对消完第一次后,对消数组已经发生改变,所以第二次对消另外一个对象的时候,就无法对消
+                //问题2:调用的方法使用的键值a与目前的键值a发生重叠改变
+
+                //对比返回add数组中不重复值,
+                var aa = SAVE_SEL_ADD_CON[i];
+
+                SAVE_SEL_ADD_CON[i] =  delTouArrRepat(SAVE_SEL_DEL_CON[i], SAVE_SEL_ADD_CON[i]);
+
+                SAVE_SEL_DEL_CON[i] =  delTouArrRepat(aa, SAVE_SEL_DEL_CON[i]);
+
+            }
+
+            var arr = [12,12,12,12];
+            arr['addSelData'] = SAVE_SEL_ADD_CON;
+            console.log(arr);
+            console.log(SAVE_SEL_DEL_CON);
+
+            var postData = {
+                _method : 'PUT',
+                _token :  $('#token').val(),
+                addSelData : SAVE_SEL_ADD_CON,
+                delSelData : SAVE_SEL_DEL_CON,
+                goodsCon : 'editSel',
+            }
+
+            $.post('goods/1', postData, function (data) {
+                alert(data)
+            });
 
 
-            alert();
-            // $('#marParSelTr').each(function () {
-            //
-            //
-            //
-            // });
 
         });
+
+
+
+
+
+
+    }
+
+
+
+
+    //判断是否存在Kye值
+    function isKey (text,arr)
+    {
+        for(k in arr){
+            if(k == text){
+                return arr[k] ;
+            }
+        }
+        return false;
+    }
+
+    //用于保存操作值,保存对选项值的操作(属性值, 选项内容, 保存数组数组)
+    function saveAddCon (par, sel, saveArr)
+    {
+        //判断属性是否在数组里面
+        if ( isKey(par, saveArr) ) {
+            saveArr[par].push(sel) ;
+        } else {
+            saveArr[par] = [];
+            saveArr[par].push(sel);
+        }
+        console.log(saveArr);
+    }
+
+
+    //两个数组对比,返回数组2中不重复值
+    function delTouArrRepat (arr1, arr2)
+    {
+        var temp = [];
+        var tempSvae = [];
+        for ( a  in arr1 ) {
+            temp[arr1[a]] = true;
+        }
+        for ( a in arr2) {
+            if (!temp[arr2[a]]) {
+                if (arr2[a] != null) {
+                    tempSvae.push(arr2[a]);
+                }
+            }
+        }
+        return tempSvae;
     }
 
 
 
 
 
-
-
-
-//=========================================================================================================================选项控制器
+    //=========================================================================================================================选项控制器
 
     //创建控制盒子
     function createConBox ()
@@ -96,28 +176,41 @@
             str += '<tr class="marParSelTr" data="'+val+'">' +
                 '<td>'+name+'</td><td>';
 
-            // 获取tr下所有的内容标签
+            var cancelBtnNameArr  = [] ;//用于保存新删除选项按钮名,给下放遍历设置事件
             $(this).contents().find('.selOriContent').each(function () {
-                var selName = $(this).html();
+
+                var text = $(this).html();
+                //创建新名称
+                NUM += 1;
+                var selCancelBtnName = 'sC'+ NUM;
                 //拼接标签
                 str  += ' <div class="pull-left btn btn-default">' +
-                    '<a class="pull-left selContent">'+selName+'<a>' +
-                    '<label style="display:block;"class="selClose">' +
-                    '&nbsp;&nbsp;X</label></div>';//拼接表单
+                    '<a class="pull-left selContent">'+text+'<a>' +
+                    '<label id="'+selCancelBtnName+'" pid="'+val+'"  data = "'+text+'" style="display:block;"class="selClose">' +
+                    '&nbsp;&nbsp;X</label></div>';
+
+                //存储名字
+                cancelBtnNameArr.push(selCancelBtnName);
             });
 
             str+= '</td>' +
                 '<td  class="selConTd">' +
                 '<input type="text">' +
-                ' <button type="button" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
+                ' <button type="button" pid="'+val+'" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
                 '<button type="button" class="btn btn-default btn-sm '+selDelBtnName+'">删除</button><span></span>' +
                 '</td></tr>';
 
             $('#parSelConTable').append(str);
 
+            //加载事件
             loadSelAddBtn(selDddBtnName);
             loadSelDelBtn(selDelBtnName);
-            loadSelDel();
+
+            //循环设置事件
+            for ( a in cancelBtnNameArr ) {
+                loadSelDel(cancelBtnNameArr[a]);
+            }
+
         });
 
 
@@ -180,7 +273,7 @@
                 '<td></td>' +
                 '<td  class="selConTd">' +
                 '<input type="text">' +
-                ' <button type="button" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
+                ' <button type="button" pid="'+val+'" class="btn btn-default btn-sm '+selDddBtnName+'">添加</button>' +
                 '<button type="button" class="btn btn-default btn-sm '+selDelBtnName+'">删除</button><span></span>' +
                 '</td>' +
                 '</tr>';
@@ -221,6 +314,9 @@
             var val = $(this).prev().val();
             var addBtnObj = $(this);
 
+            NUM += 1;
+            var selCancelBtnName = 'sC'+ NUM;//创建新名称
+
             //验证输入内容
             bool = new   RegExp('^[a-zA-Z0-9,\u4E00-\u9FA5\uF900-\uFA2D,-|=]{1,40}$').test(val);
             if (!bool) {
@@ -231,24 +327,28 @@
             //验证是否重复
             $(this).parent().prev().contents().find('.selContent').each(function () {
                 var  text =  $(this).html();
-                console.log(text);
                 if (text == val) {
                     addBtnObj.next().next().html('不能提交相同的值');
                     throw SyntaxError();
                 }
             });
 
-            //拼接标签
+            parId =  $(this).attr('pid');
+            //拼接标签,写入文本,写入商品属性ID给,pid属性
             var str  = ' <div class="pull-left btn btn-default">' +
                 '<a class="pull-left selContent">'+val+'<a>' +
-                '<label style="display:block;"class="selClose">' +
+                '<label id="'+selCancelBtnName+'" style="display:block;" pid="'+parId+'" data = "'+val+'" class="selClose">' +
                 '&nbsp;&nbsp;X</label></div>';//拼接表单
 
             //写入标签
             $(this).parent().prev().append(str);
 
             //加载按钮
-            loadSelDel()
+            loadSelDel(selCancelBtnName);
+
+            //保存--添加操作
+            saveAddCon(parId, val, SAVE_SEL_ADD_CON);
+
         });
     }
 
@@ -257,15 +357,20 @@
     function loadSelDelBtn (name)
     {
         $('.' + name).on('click', function () {
+            $(this).parent().prev().contents().find('.selClose').click();
             $(this).parent().parent().remove();
+
         });
     }
 
     //选项删除
-    function loadSelDel  ()
+    function loadSelDel  (name)
     {
-        $('.selClose').on('click', function () {
+        $('#'+ name ).on('click', function () {
             $(this).parent().parent().remove();
+            var val = $(this).attr('data');
+            var parId = $(this).attr('pid');
+            saveAddCon(parId, val, SAVE_SEL_DEL_CON);//存储删除数据
         });
 
     }

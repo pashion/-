@@ -80,10 +80,10 @@ class GoogsController extends Controller
         $goodsData['desr'] = $_POST['desr'];        //描述
         $goodsData['state'] = $_POST['state'];      //状态
 
-//        //移动图片
-//        foreach ($_POST['pic'] as $v) {
-//            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
-//        }
+       //移动图片
+       foreach ($_POST['pic'] as $v) {
+           Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
+       }
 
 
         $info =  Goods::create($goodsData);
@@ -108,6 +108,7 @@ class GoogsController extends Controller
         //写入SpecPrice表,商品选项价格
         if (!empty($_POST['selPrice'])) {
 
+            //循环遍历每一个选项数组,获取选项名称去数据库查id时可能出现顺序问题,如果循序出问题,那么价格会对应不上
             foreach ($_POST['selPrice'] as $v) {
                 $selPriceData = [];
                 //准备数据值
@@ -241,14 +242,18 @@ class GoogsController extends Controller
     public function update(Request $request, $id)
     {
 
-        if ($_POST['table'] == 'goods' ) {
+        //不清楚哪里过来的路由调用了这个方法
+        if (!empty($_POST['table'])) {
+            if ($_POST['table'] == 'goods' ) {
+                $field  =  $_POST['field'];
+                $content = $_POST['content'];
+                Goods::where('id', $id)->update([ $field => $content ]);
+                return 1;
+            }
+        }
+        switch ($_POST['goodsCon']) {
 
-            $field  =  $_POST['field'];
-            $content = $_POST['content'];
-
-            Goods::where('id', $id)->update([ $field => $content ]);
-
-            return 1;
+            case 'editSel': $this->editGoodsSel();
         }
 
     }
@@ -262,6 +267,26 @@ class GoogsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * 商品编辑页面,
+     * */
+    public function editGoodsSel ()
+    {
+        foreach ($_POST['addSelData'] as $k => $v) {
+
+            $selAddArr = [];
+            foreach ($v as $vv) {
+                $arr = ['hid' => $k, 'name' => $vv];
+                $selAddArr[] = $arr;
+            }
+
+        }
+
+        Option::create($selAddArr);
+
     }
 
 }
