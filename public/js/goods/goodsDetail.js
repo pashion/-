@@ -34,7 +34,7 @@
 
                         var sebBtnName = 'selBtn' + data[i]['id'];
 
-                        str += '<div id="'+sebBtnName+'" class="pull-left btn btn-default cheng'+sebBtnName+'">'+data[i]['name']+'</div>';
+                        str += '<div id="'+sebBtnName+'" class="pull-left btn btn-default cheng '+sebBtnName+'">'+data[i]['name']+'</div>';
                         loadSelBtnEven(sebBtnName);
 
                     }
