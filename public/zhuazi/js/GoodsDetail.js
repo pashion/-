@@ -38,6 +38,7 @@
     function getGoodSelInfo ()
     {
         var  goodId = $('#goodsID').attr('data');
+        console.log(goodId);
         $.get('goods/' + goodId +'/edit', function (data) {
 
             //声明一个数字用于抽取装载,属性名

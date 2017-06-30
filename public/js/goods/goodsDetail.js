@@ -1,23 +1,19 @@
 
 
+    var  SAVE_SEL_ARR = [];
+
     $(function () {
 
         showGoodParSel();
-
-        $('#aaa').on('click', function () {
-            console.log();
-        });
-
 
     })
 
 
     function  showGoodParSel ()
     {
-        var goodId = $('#goodId').val();
-        alert(goodId);
-        $.get('../getgoodSel?gid=' + goodId, function (data) {
+        var goodId = $('#goodsId').val();
 
+        $.get('../getgoodSel?gid=' + goodId, function (data) {
 
             //抽取属性名,ID
             var head = [];
@@ -26,39 +22,65 @@
             }
 
             //拼接数据
-            var str = '<table style="width:600px; background:red;">' ;
+            var str = '' ;
+            var sebBtnName = [];
             for (a in head) {
-                str += '<tr><td></td><td>';
+                str += '<dl class="tb-prop clearfix"><dt class="label_name">颜色分类</dt> <dd class="content"> <ul>';
                 for (i in data) {
                     if (data[i]['headId'] == a ) {
 
-                        var sebBtnName = 'selBtn' + data[i]['id'];
-
-                        str += '<div id="'+sebBtnName+'" class="pull-left btn btn-default cheng '+sebBtnName+'">'+data[i]['name']+'</div>';
-                        loadSelBtnEven(sebBtnName);
+                        var name = 'selBtn' + data[i]['id'];
+                        sebBtnName[data[i]['id']] = name;
+                        str += '<li id="'+name+'" pid="'+a+'" sid="'+data[i]['id']+'"><a href="#" role="button" tabindex="0" ><span>'+data[i]['name']+'</span></a></li>';
 
                     }
                 }
-                str += '</td></tr>';
+                str += '</ul> </dd></dl>';
+                SAVE_SEL_ARR[a] = 0;
             }
-            str += '</table>' ;
 
             //写入标签
-            console.log(str);
-            $('.goodParSelBox').html(str);
+            $('#goodParSelBox').html(str);
+
+
+            //设置事件
+            for ( a in sebBtnName ) {
+                loadSelBtnEven(sebBtnName[a]);
+            }
 
         },'json');
     }
 
 
+    //选项点击处理事件,
+    // 问题:应该加已验证后再发送,而不应该任意点发送查询请求
+    //
     function loadSelBtnEven (name)
     {
-        console.log(name);
-        $('.cheng').on('click', function () {
+        $('#' + name).on('click', function () {
 
-            console.log(13);
+            console.log(SAVE_SEL_ARR);
 
-            alert();
+            var pid = $(this).attr('pid');
+
+            SAVE_SEL_ARR[pid] = $(this).attr('sid');
+
+            var selStr = SAVE_SEL_ARR.join('_');
+
+            console.log(selStr);
+
+            var  re =  new RegExp('^_*')
+
+            var sel =  selStr.replace(re,'');
+
+            var goodId = $('#goodsId').val();
+
+            $.get('../getgoodSelPrice?sel=' + sel +'&gid=' + goodId , function (data) {
+
+
+
+            });
+
         });
 
     }

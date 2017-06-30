@@ -11,11 +11,12 @@
 Route::controller('/home','HomeLoginController');
 
 
-//前台商品显示
+//前台商品显示,包括商品详情,商品列表,商品选项价格查询
 Route::resource('goodsShow', 'GoodsShowController');
-
+//返回商品选
 Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
-
+//返回单个商品的选项价格
+Route::get('getgoodSelPrice', 'GoodInfoController@getGoodSelPrice');
 
 
 	//后台登录页面和操作路由

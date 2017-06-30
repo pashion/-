@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Option;
 
+use App\SpecPrice;
+
 class GoodInfoController extends Controller
 {
     /*
@@ -26,6 +28,29 @@ class GoodInfoController extends Controller
 
 
         return $selData;
+
+    }
+
+
+    /*
+    *返回单个上的选项价格
+    * */
+    function getGoodSelPrice ()
+    {
+
+        if (empty($_GET['sel'])) {
+            return  '缺乏选项串';
+        }
+
+
+
+        $gid  = $_GET['gid'];
+        $sel  =  $_GET['sel'];
+
+        $selPrice  = SpecPrice::whereRaw('num_bunch = ? and gid = ?', [$sel, $gid])->get();
+
+        return $selPrice;
+
 
     }
 }

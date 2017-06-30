@@ -14,9 +14,9 @@ use App\GoodsDetail;      //商品详情表
 class GoodsShowController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 返回普通商品列表,或赛选后的商品列表
      *
-     * @return \Illuminate\Http\Response
+     *
      */
     public function index()
     {
@@ -45,7 +45,7 @@ class GoodsShowController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 显示单个商品 的详情信息
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -59,23 +59,28 @@ class GoodsShowController extends Controller
             ->where('goods.id', '=', $id)
             ->get();
 
-//        dd($goodData);
-        //切割商品图片
+        if (empty($goodData)) {
+
+            echo '不存在该商品';
+            exit ;
+
+        }
         $picArr = explode(',', $goodData[0]->pic);
+
 
 
         return view('web.good_detail', compact('goodData'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 返回单个商品的 选项信息???
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        echo 1;
     }
 
     /**
