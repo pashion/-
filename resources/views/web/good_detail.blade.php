@@ -97,9 +97,13 @@
         </div>
     </div>
     <!--产品详细介绍-->
+    <form action="order" method="post" id="from">
 
-    <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
-    <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <input type="hidden" name="num_bunch" value="">
+
+
     
     
     <div class="content_style clearfix">
@@ -149,7 +153,7 @@
                        <p class="clearfix"> <label class="label_name">原价</label><span class="content Original_price"><em>￥</em>99.00</span></p>
                        <p class="clearfix Tuangou"><label class="label_name">团购价</label><span class="price content"><em>￥</em>59.00</span></p>
                        </div>-->
-                    <dl class="pic_price putong clearfix"><dt class="label_name">价格</dt><dd class="price content"><em>￥</em>59.00</dd></dl>
+                    <dl class="pic_price putong clearfix"><dt class="label_name">价格</dt><dd class="price content"><em>￥</em><div  id="price" class=".priceaa">{{$goodData[0]->price}}</div></dd></dl>
                     <!-- 合作商家  <dl class="Cooperation clearfix">合作商家：简约装饰旗舰店</dl>-->
                     <dl class="Deadline clearfix"><dt class="label_name">供货期</dt><dd class="Description content">下单后三天内发货</dd></dl>
 
@@ -160,7 +164,7 @@
                     <dl class="tb-amount tm-clear">
                         <dt class="label_name">数量</dt>
                         <dd id="J_Amount content" ><span class="tb-amount-widget mui-amount-wrap ">
-                       <input type="text" class="tb-text mui-amount-input" value="1" maxlength="8" title="请输入购买量">
+                       <input type="text" name="num" class="tb-text mui-amount-input" value="1" maxlength="8" title="请输入购买量">
                         <span class="mui-amount-btn clearfix">
                            <span class="mui-amount-increase">∧</span>
                             <span class="mui-amount-decrease">∨</span>
@@ -173,11 +177,12 @@
                     </dl>
                     <div class="purchasing_btn clearfix">
                         <div class="tb-btn-buy tb-btn-sku">
-                            <a id="J_LinkBuy" href="#" rel="nofollow" data-addfastbuy="true"  title="点击此按钮，到下一步确认购买信息。" role="button" data-spm-anchor-id="">立即购买</a>
+                            <a id="J_LinkBuy" clss="" rel="nofollow" data-addfastbuy="true"  title="点击此按钮，到下一步确认购买信息。" role="button" data-spm-anchor-id="">立即购买</a>
                         </div>
                         <div class="tb-btn-basket tb-btn-sku ">
                             <a href="#" rel="nofollow" id="J_LinkBasket" role="button"><i class="icon_shop"></i>加入购物车</a></div>
                     </div>
+
                     <dl class="clearfix">
                         <dt class="label_name ">承诺</dt>
                         <dd class="content color" >质量保证</dd>
@@ -190,6 +195,7 @@
                     </dl>
 
                 </div>
+    </form>
                 <!--猜你喜欢-->
                 <div class="pic_like">
                     <div class="title_name"><span>猜你喜欢</span></div>

@@ -25,32 +25,20 @@ class GoodInfoController extends Controller
             ->select('option.*', 'head.name as headName', 'head.id as headId')
             ->where('gid', '=', $_GET['gid'])
             ->get();
-
-
         return $selData;
 
     }
-
 
     /*
     *返回单个上的选项价格
     * */
     function getGoodSelPrice ()
     {
-
-        if (empty($_GET['sel'])) {
-            return  '缺乏选项串';
+        if (empty($_GET['gid'])) {
+            return  '缺乏商品id';
         }
-
-
-
         $gid  = $_GET['gid'];
-        $sel  =  $_GET['sel'];
-
-        $selPrice  = SpecPrice::whereRaw('num_bunch = ? and gid = ?', [$sel, $gid])->get();
-
+        $selPrice  = SpecPrice::whereRaw('gid = ?', [$gid])->get();
         return $selPrice;
-
-
     }
 }

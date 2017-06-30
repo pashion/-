@@ -19,6 +19,8 @@ Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
 Route::get('getgoodSelPrice', 'GoodInfoController@getGoodSelPrice');
 
 
+
+
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
