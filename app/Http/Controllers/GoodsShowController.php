@@ -6,69 +6,65 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Head;
-
-use App\SecondType;
-
 use Illuminate\Support\Facades\DB;
 
-class GoodsSpecController extends Controller
+use App\Goods;             //商品表
+use App\GoodsDetail;      //商品详情表
+
+class GoodsShowController extends Controller
 {
     /**
-     * 显示所有规格
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //查询到类头
-        $typeHead =  SecondType::where('name', '种类')->get();
-        $id = $typeHead[0]['id'];
-        $typeData =  SecondType::where('tid', $id)->get();
-
-        $kindData = [];
-        foreach ($typeData as $v) {
-            $kindData[$v['id']] = SecondType::where('tid', $v['id'])->get();
-        }
-//        dd($kindData);
-
-        return view('zhuazi.production.goods.GoodsSpec', compact('typeData', 'kindData'));
 
     }
 
-    /**s
-     *规格键值添加
+    /**
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        echo 1 ;
+        //
     }
 
     /**
-     * 添加规格名
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
-        return Head::create($_POST);
-
+        //
     }
 
     /**
-     * 返回商品规格键值
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $kindData = Head::where('tid',  '=', $id)->get();//查询规格属性
-        return $kindData;
+
+        $goodData = DB::table('goods')
+            ->leftJoin('Goods_Detail', 'goods.id', '=', 'Goods_Detail.gid')
+            ->select('goods.*', 'Goods_Detail.id as deId', 'Goods_Detail.content')
+            ->where('goods.id', '=', $id)
+            ->get();
+
+//        dd($goodData);
+        //切割商品图片
+        $picArr = explode(',', $goodData[0]->pic);
+
+
+        return view('web.good_detail', compact('goodData'));
     }
 
     /**
@@ -95,14 +91,13 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * 删除指定的属性头
+     * Remove the specified resource from storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-
-        return Head::where('id', $id)->delete();
-
+        //
     }
 }

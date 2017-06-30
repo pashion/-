@@ -232,8 +232,6 @@ class GoogsController extends Controller
             ->where('gid', '=', $id)
             ->get();
 
-
-        dd($selData);
         return $selData;
     }
 

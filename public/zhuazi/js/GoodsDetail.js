@@ -72,8 +72,7 @@
     {
         $('#affParEditBtn').on('click', function () {
 
-
-
+            alert();
             //判断组内是否为空
             if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
                 throw SyntaxError();
@@ -103,6 +102,7 @@
             //发送请求
             $.post('goods/1', postData, function (data) {
                 if (!data) {
+                    alert();
                     SAVE_SEL_ADD_CON.splice(0,SAVE_SEL_ADD_CON.length);
                     SAVE_SEL_DEL_CON.splice(0,SAVE_SEL_DEL_CON.length);
                     getGoodSelInfo();//获取选项数据0
