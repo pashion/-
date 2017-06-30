@@ -1,3 +1,4 @@
+
 @extends('zhuazi.layout.master')
 
 @section('content')
@@ -19,7 +20,7 @@
 
             <div class="form-group">
                 <label for="exampleInputEmail1">显示名称:</label>
-                <input type="text" name="display_name" class="form-control" id="exampleInputEmail1" >
+                <input type="text" name="label" class="form-control" id="exampleInputEmail1" >
             </div>
 
             <div class="form-group">

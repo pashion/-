@@ -42,7 +42,7 @@ class HomeLoginController extends Controller
 
                 $request->session()->put(['username'=>$users['0']->username]);
                 // dd(session('admin_email'));
-                return view('/');
+                return view('web.index');
 
             }else{
 

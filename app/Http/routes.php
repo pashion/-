@@ -10,11 +10,10 @@
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
+Route::controller('/user/detail','UserDetailController');
 
-//前台商品显示
-Route::resource('goodsShow', 'GoodsShowController');
 
-Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
+
 
 
 
@@ -22,7 +21,7 @@ Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
 	Route::controller('/admins', 'AdminLoginController');
 
 //后台路由群，由中间件控制用户访问是否登录
-Route::group(['middleware'=>'adminLogin'], function () {
+// Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
@@ -40,6 +39,11 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::resource('order','OrderController');
 
 	//mingliang
+
+	//前台商品显示
+	Route::resource('goodsShow', 'GoodsShowController');
+
+	Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
 
 	//商品资源路由
 	Route::resource('goods', 'GoogsController');
@@ -89,7 +93,7 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	//end志远
 	
 	
-});
+// });
 
 
 
