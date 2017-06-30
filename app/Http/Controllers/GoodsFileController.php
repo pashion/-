@@ -42,8 +42,8 @@ class GoodsFileController extends Controller
             Goods::where('id', $_POST['id'])->update(['pic' => $pic]);
         }
 
-
-        return $newName;//返回文件名
+        $arr['name'] =  $newName;
+        return $arr;//返回文件名
 
     }
 
@@ -69,10 +69,12 @@ class GoodsFileController extends Controller
         return 2 ;
     }
 
-    //缩略图访问接口
+    //缩略图访问接口,问题:可以访问方法,不能返回图片
     public function reduce ()
     {
-        $img = Image::make(public_path($_GET['name']))->resize(100, 100);
+        dd(public_path($_GET['name']));
+        $img = Image::make()->resize(1000, 1000);
+        $img = Image::canvas(800, 900, '#ccc');//创建一个空图片
         return $img->response('jpg');
     }
 

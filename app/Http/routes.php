@@ -6,12 +6,15 @@
 	    return view('web.index');
 	});
 
-	//前台登录相关操作
-	Route::controller('/home','HomeLoginController');
+
+//前台登录相关操作
+Route::controller('/home','HomeLoginController');
 
 
+//前台商品显示
+Route::resource('goodsShow', 'GoodsShowController');
 
-
+Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
 
 
 

@@ -67,7 +67,6 @@ class GoogsController extends Controller
      */
     public function store(Requests\GoodsPostRquest  $request)
     {
-
         //写入goods,商品信息表
         $goodsData = [] ;
         $goodsData['goods'] = $_POST['goodName'];      //商品名
@@ -85,9 +84,7 @@ class GoogsController extends Controller
            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
        }
 
-
         $info =  Goods::create($goodsData);
-
         //准备商品id
         $goodId =  $info['id'];
 
@@ -235,8 +232,6 @@ class GoogsController extends Controller
             ->where('gid', '=', $id)
             ->get();
 
-
-        dd($selData);
         return $selData;
     }
 
