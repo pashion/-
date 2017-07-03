@@ -7,14 +7,23 @@
 	});
 
 
+
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
 Route::controller('/user/detail','UserDetailController');
 
 
-
-
+//商品详情评论模块
+Route::get('good/detail',function()
+	{
+		return view('web.good_detail');
+	});
+//商品详情评论模块
+Route::get('order/',function()
+	{
+		return view('web.order');
+	});
 
 
 	//后台登录页面和操作路由
@@ -94,6 +103,8 @@ Route::controller('/user/detail','UserDetailController');
 	
 	
 // });
+
+
 
 
 

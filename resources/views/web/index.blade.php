@@ -42,14 +42,14 @@
                 </div>
                 <div class="Cart_user r_f">
                     <div class="header_operating l_f" >
-                        @if ( !session('username') )
+                        @if ( !session('user') )
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
                             <a href="{{url('home/login')}}">登录</a><a href="{{url('home/index')}}">注册</a>
                         @else
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
                             欢迎您，<div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{session('username')}} <span class="caret"></span>
+                                    {{session('user')->username}} <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{url('user/detail/index')}}">个人中心</a></li>

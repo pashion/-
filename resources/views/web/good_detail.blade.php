@@ -41,6 +41,7 @@ $('.pagination').css({
 
 </script>
 <body>
+
 <div class="header">
  <div class="header_top">
    <div class="top_info clearfix">
@@ -61,7 +62,7 @@ $('.pagination').css({
    <div class="Cart_Quantity "><span class="number">0</span></div>
    <div class="header_operating l_f">
     <span class="header_touxiang"><img src="images/touxiang_03.png" /></span>
-    <a href="#">登录</a><a href="@">注册</a>
+    <a href="/login">登录</a><a href="@">注册</a>
    </div>
    </div>
  </div>
@@ -309,6 +310,31 @@ $('.pagination').css({
       <ul class="Evaluation">
       </ul>
       <ul class="comment_style">
+        <?php 
+          $userContent = DB::table('criticism')
+            ->leftJoin('users_register', 'users_register.id', '=', 'criticism.user_id')
+            ->leftJoin('goods', 'goods.id', '=', 'criticism.goods_id')
+            ->get();
+            foreach ($userContent as $key => $value) {
+              echo "<li class='comment_list clearfix'>";
+              echo "
+              <div class='comment_Avatar'> 
+              <div class='user_Avatar'><div class='Avatar_bg'></div>
+              <img src='{images/touxiang.jpg}' width='60' height='60'></div>
+              <h3>$value->username</h3>
+              </div>";
+              echo "
+              <div class='comment_info'>
+              <p class='comments'>$value->comment_info</p>
+              <p class='Basic_Information'>
+              <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：$value->goods</span>
+              </p>
+              </div>
+              ";
+              echo "<div class='comment_time'>$value->created_at</div>";
+            }
+
+         ?>
        <li class="comment_list clearfix">       
           <div class="comment_Avatar"> 
           <div class="user_Avatar"><div class="Avatar_bg"></div>

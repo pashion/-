@@ -40,8 +40,7 @@ class HomeLoginController extends Controller
 
             if ( $users['0']->email == $email && Hash::check($pass,$users['0']->password) ) {
 
-                $request->session()->put(['username'=>$users['0']->username]);
-                // dd(session('admin_email'));
+                $request->session()->put(['user'=>$users['0']]);
                 return view('web.index');
 
             }else{
