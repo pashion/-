@@ -103,88 +103,23 @@ $(document).ready(function(){
 <script type="text/javascript">
 jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click" });
 </script>
-<!--banner轮播  e-->
 
-<!--场景方案  s-->
-<div class="wrap_c bgcolor_f9">
-    <div class="i_title">
-    场景方案
-    </div>
-	<div class="clear"></div>
-    <div class="c_main">
-    	<div class="c_mianbox1 mar_14">
-        	<div class="c_tips">
-            	<a href="#">客厅</a><a href="#">卫生间</a><a href="#">书房</a><a href="#">主卧</a><a href="#">次卧</a><a href="#">阳台/露台</a><a href="#">儿童房</a><a href="#">茶室</a><a href="#">客厅</a><a href="#">客厅</a>
-            </div>
-            <div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-        </div>
-    	<div class="c_mianbox1 mar_14">
-        	<div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-            <div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-        </div>
-        <div class="c_mianbox2 mar_14">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-        </div>
-        <div class="c_mianbox1 mar_14">
-        	<div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-            <div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-        </div>
-        <div class="c_mianbox1">
-        	<div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-            <div class="c_pic">
-            	<a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-        </div>
-    </div>
-    <div class="clear"></div>
-</div>
-<!--场景方案  e-->
+<!--遍历模板  s-->
+        @foreach($modeData as $v)
 
-<!--单品大库  s-->
-<div class="wrap_p">
-	<div class="p_title">
-    	单品大库
-    </div>
-    <div class="p_main">
-    	<div class="p_box1">
-        	<a href="#" class="p_box1pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-            <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-            <p class="p_pirce">￥2439</p>
-        </div>
-        <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-            <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-            <p class="p_pirce">￥2439</p>
-        </div>
-        <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-            <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-            <p class="p_pirce">￥2439</p>
-        </div>
-        <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-            <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-            <p class="p_pirce">￥2439</p>
-        </div>
-        <div class="p_box2">
-        	<a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-            <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-            <p class="p_pirce">￥2439</p>
-        </div>
-    </div>
-</div>
+            <div class="wrap_p">
+                <div class="p_title">
+                    {{$v['modeName']}}
+                </div>
+                <div class="p_main">
+
+             @include($v['file_name'])
+
+                </div>
+            </div>
+
+        @endforeach
+
 <!--单品大库  e-->
 
 <!--关于我们  s-->

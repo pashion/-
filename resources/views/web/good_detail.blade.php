@@ -2,6 +2,10 @@
 
 @section('title','产品详细')
 
+
+    @section('head')
+        <link rel="stylesheet" href="{{url('web ')}}/css/goodsGetail.css">
+        @endsection
 @section('content')
     <script type="text/javascript">
         $(document).ready(function(){
@@ -9,7 +13,6 @@
                     $(this).find(".q_code_layer").addClass("hover").css("display","block");
                 },function(){
                     $(this).find(".q_code_layer").removeClass("hover").css("display","none");
-
                 }
             );
             $(".diagram").hover(function(){
@@ -96,6 +99,9 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="styleID" value="{{$goodData[0]->style}}">
+    <input type="hidden" id="areaID" value="{{$goodData[0]->area}}">
     <!--产品详细介绍-->
     <form action="order" method="post" id="from">
 
@@ -112,66 +118,54 @@
                 <div class="left_pic_ad">
                     <div class="pro_detail_img float-lt">
                         <div class="gallery">
-                            <div class="tb-booth tb-pic tb-s310"> <a href="images/product/01.jpg"><img src="images/product/01_mid.jpg"  alt="展品细节展示放大镜特效" rel="images/product/01.jpg" class="jqzoom" /></a> </div>
-                            <ul class="tb-thumb" id="thumblist">
-                                <li class="tb-selected">
-                                    <div class="tb-pic tb-s40"><a href="#"><img src="images/product/01_small.jpg" mid="images/product/01_mid.jpg" big="images/product/01.jpg"></a></div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40"><a href="#"><img  src="images/product/02_small.jpg"  mid="images/product/02_mid.jpg" big="images/product/02.jpg"></a></div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40"><a href="#"><img src="images/product/03_small.jpg"  mid="images/product/03_mid.jpg" big="images/product/03.jpg"></a></div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40"><a href="#"><img src="images/product/03_small.jpg"  mid="images/product/03_mid.jpg" big="images/product/03.jpg"></a></div>
-                                </li>
-                                <li style="margin-right:0px;">
-                                    <div class="tb-pic tb-s40"><a href="#"><img src="images/product/04_small.jpg"  mid="images/product/04_mid.jpg" big="images/product/04.jpg"></a></div>
-                                </li>
+                            <div class="tb-booth tb-pic tb-s310"> <a ><img id="origin" src="{{url('goodsPic')}}/{{$picArr[0]}}"  alt="展品细节展示放大镜特效" rel="{{url('goodsPic')}}/{{$picArr[0]}}" class="jqzoom" /></a> </div>
+                            <ul style="float:left;"class="tb-thumb " id="thumblist">
+
+                                @foreach($picArr as $v)
+                                    <li style="margin:4px;" class= tb-selected">
+                                        <div  class="tb-pic tb-s40"><a ><img width="80px" height="80px" src="{{url('goodsPic')}}/{{$v}}" mid="{{url('goodsPic')}}/{{$v}}" big="{{url('goodsPic')}}/{{$v}}"></a></div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
-                        <script type="text/javascript">
-                            function ShowDiv(name,id){
-                                layer.confirm('你确定收藏该商品吗？', {
-                                    btn: ['确认','取消'] //按钮
-                                }, function(){
-                                    layer.msg('收藏成功！', {icon: 1});
-                                    $("#h1").html("<i class='icon_Collection icon'></i>已收藏");
-                                });
-                            }
-                        </script>
 
                     </div>
-                    <div class="Collection"><a id="h1" class="addcart" onclick="ShowDiv('MyDiv2','fade2')" /><i class="icon_Collection"></i>加入收藏</a></div>
                 </div>
                 <!--购买信息-->
                 <div class="pic_Purchase_operation">
-                    <div class="pic_title_name"><h2>优丽美家 台灯遥控卧室床头水晶客厅床头灯护眼温馨创意 金色</h2><h5>唯美水晶台灯新上架，买一送一（赠送6吋玫瑰相框），惊喜多多</h5></div>
+                    <div class="pic_title_name"><h2>{{$goodData[0]->goods}}</h2><h5>{{$goodData[0]->desr}}</h5></div>
                     <!--   <div class="pic_price clearfix">
                        <p class="clearfix" style="padding:5px 10px; color:#333">团购规则：满500元团购商品，最低2件起购</p>
                        <p class="clearfix"> <label class="label_name">原价</label><span class="content Original_price"><em>￥</em>99.00</span></p>
                        <p class="clearfix Tuangou"><label class="label_name">团购价</label><span class="price content"><em>￥</em>59.00</span></p>
                        </div>-->
-                    <dl class="pic_price putong clearfix"><dt class="label_name">价格</dt><dd class="price content"><em>￥</em><div  id="price" class=".priceaa">{{$goodData[0]->price}}</div></dd></dl>
+                    <dl class="pic_price putong clearfix"><dt class='parText'>价格</dt><dd class="price content"><em style="margin-top:16px;" class="pull-left">￥</em><div style="margin-top:6px;" id="price" class=".priceaa">{{$goodData[0]->price}}</div></dd></dl>
                     <!-- 合作商家  <dl class="Cooperation clearfix">合作商家：简约装饰旗舰店</dl>-->
-                    <dl class="Deadline clearfix"><dt class="label_name">供货期</dt><dd class="Description content">下单后三天内发货</dd></dl>
+                    <dl class="Deadline clearfix"><dt class="infoParText">供货期</dt><dd class="Description content">下单后{{$goodData[0]->supply_date}}天内发货</dd></dl>
+
+                    {{--js遍历选项内容--}}
+                    <div style="width:500px;" id="goodParSelBox">
 
 
-                    <div id="goodParSelBox">123</div>
+                    </div>
 
 
                     <dl class="tb-amount tm-clear">
-                        <dt class="label_name">数量</dt>
+                        <dt class="infoParText">数量</dt>
                         <dd id="J_Amount content" ><span class="tb-amount-widget mui-amount-wrap ">
-                       <input type="text" name="num" class="tb-text mui-amount-input" value="1" maxlength="8" title="请输入购买量">
+                       <input id="inputNum" type="text" name="num" class="tb-text mui-amount-input" value="1" maxlength="8" title="请输入购买量">
+
                         <span class="mui-amount-btn clearfix">
-                           <span class="mui-amount-increase">∧</span>
-                            <span class="mui-amount-decrease">∨</span>
+
+                           <span id="numAdd" class="numAdd mui-amount-increase">∧</span>
+
+                            <span id="numSub" class="mui-amount-decrease">∨</span>
                         </span>
+
                         <span class="mui-amount-unit">件</span>
                         </span>
-                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">库存260件</em>
+                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">库存{{$goodData[0]->stockall}}件</em>
+                            <div></div>
                             <span id="J_StockTips"></span>
                         </dd>
                     </dl>
@@ -184,14 +178,24 @@
                     </div>
 
                     <dl class="clearfix">
-                        <dt class="label_name ">承诺</dt>
-                        <dd class="content color" >质量保证</dd>
+                        <dt class="infoParText ">承诺</dt>
+                        <dd class="content color" >
+                            @if ($goodData[0]->promise == 1)
+                                下单后7天可退款
+                            @else
+                                下单后7天可退款
+                            @endif
+                        </dd>
                     </dl>
                     <dl class="Pay_by clearfix">
-                        <dt class="label_name">支付方式</dt>
-                        <dd><i class="icon_zfb"></i>支付宝</dd>
-                        <dd><i class="icon_weixin"></i>微信之烦恼</dd>
-                        <dd><i class="icon_yinlian"></i>银联支付</dd>
+                        <dt  style="margin-top:25px;" class="infoParText">支付方式</dt>
+                        @if ($goodData[0]->mode_pay == 2)
+                            <dd><i class="icon_zfb"></i><img src="{{url('web')}}/images/icon_Payment_03.png" alt="">
+                                <i class="icon_zfb"></i><img src="{{url('web')}}/images/icon_Payment_05.png" alt="">
+                                <i class="icon_zfb"></i><img width="70" height="70" src="{{url('web')}}/images/55345f53N39cabedd.jpg" alt=""></dd>
+                            <dd></dd>
+
+                        @endif
                     </dl>
 
                 </div>
@@ -205,7 +209,7 @@
                             <a href="javascript:ovid()" class="prev"></a>
                         </div>
                         <div class="bd">
-                            <ul class="picList">
+                            <ul  id='youlick' class="picList">
                                 <li><a href="#"><img src="images/product/p-7.jpg"  width="145" height="145"/></a></li>
                                 <li><a href="#"><img src="images/product/p-8.jpg"  width="145" height="145"/></a></li>
                                 <li><a href="#"><img src="images/product/p-4.jpg"  width="145" height="145"/></a></li>
@@ -218,26 +222,11 @@
             <!--信息-->
             <div class=" clearfix">
                 <div class="left_Package">
-                    <!--入住店铺-->
-                    <div class="Shop_info">
-                        <img src="images/dp_logo.jpg"  width="150" height="100"/>
-                        <h3>简约家居旗舰店</h3>
-                        <div class="link_btn">
-                            <a href="#" class="reservation">预约</a>
-                            <a href="#" class="shops_link">进店</a>
-                        </div>
-                    </div>
 
                     <div class="Package_list">
                         <div class="title_name"><span>套系参考</span></div>
-                        <ul class="list">
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
-                            <li><a href="#"><img  src="images/product/01_small.jpg"  width="150px" height="150px"/><span class="Package_price">￥45.60</span></a></li>
+                        <ul id="coordin" class="list">
+
                         </ul>
                     </div>
                 </div>
@@ -247,11 +236,19 @@
                             <ul><li><em class="jt"></em>商品详细</li><li><em class="jt"></em>陈设点评</li><li><em class="jt"></em>用户评论<span class="Quantity">345</span></li></ul>
                         </div>
                         <div class="bd">
-                            <ul class="Introduction">
+
+                            {{--商品详细--}}
+                            <ul id="content" class="Introduction">
+
+                               {!! $goodData[0]->content !!}
 
                             </ul>
+
+                            {{--陈设点评--}}
                             <ul class="Evaluation">
                             </ul>
+
+
                             <ul class="comment_style">
                                 <li class="comment_list clearfix">
                                     <div class="comment_Avatar">

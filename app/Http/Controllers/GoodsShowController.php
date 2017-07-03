@@ -66,10 +66,10 @@ class GoodsShowController extends Controller
 
         }
         $picArr = explode(',', $goodData[0]->pic);
+//        dd($picArr);
 
 
-
-        return view('web.good_detail', compact('goodData'));
+        return view('web.good_detail', compact('goodData', 'picArr'));
     }
 
     /**

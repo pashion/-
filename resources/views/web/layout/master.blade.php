@@ -17,6 +17,8 @@
 <link  href="{{url('web/build')}}/css/common.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
+  @yield('head')
+
 <title>@yield('title')</title>
 </head>
 

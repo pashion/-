@@ -48,7 +48,6 @@ class GoogsController extends Controller
      */
     public function create()
     {
-
         $tType = SecondType::whereRaw("tid = ? and name = ?", ['0', '种类'])->select('id')->get();//获取种类数据
         $id = $tType[0]['id'];
         $tType=  SecondType::whereRaw('tid = ? ', [$id])->get();
@@ -101,7 +100,6 @@ class GoogsController extends Controller
         }
 
 
-
         //写入SpecPrice表,商品选项价格
         if (!empty($_POST['selPrice'])) {
 
@@ -139,6 +137,8 @@ class GoogsController extends Controller
                 $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
+
+
             }
         }
 
@@ -162,7 +162,7 @@ class GoogsController extends Controller
 
         GoodsDetail::create($GoodsDetailData);
 
-        return 1;
+        return redirect('goods/create');
     }
 
 

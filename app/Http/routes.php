@@ -11,12 +11,33 @@
 Route::controller('/home','HomeLoginController');
 
 
+
+
+
 //前台商品显示,包括商品详情,商品列表,商品选项价格查询
 Route::resource('goodsShow', 'GoodsShowController');
 //返回商品选
 Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
 //返回单个商品的选项价格
 Route::get('getgoodSelPrice', 'GoodInfoController@getGoodSelPrice');
+//返回配套商品
+Route::get('getgoodSelCoordin', 'GoodInfoController@getGoodSelCoordin');
+//返回商品首页
+Route::get('index', 'GoodInfoController@getGoodsIndex');
+//返回首页的方案模块内容
+Route::get('getDesign', 'GoodInfoController@getDesignScheme');
+
+//返回单个方案内容
+Route::get('caseDetail', 'ShowDesignController@caseDetail');
+//接受方案评论内容
+Route::post('sendComment', 'ShowDesignController@saveDesignComment');
+//返回方案列表
+Route::resource('scene', 'DesignController');
+
+
+
+
+
 
 
 
@@ -42,21 +63,24 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
 
-	//mingliang
 
+//=============================================================================商品控制
 	//商品资源路由
 	Route::resource('goods', 'GoogsController');
-
-
 	//商品规格
 	Route::resource('goodsSpec', 'GoodsSpecController');
-
-
 	//商品分类查询路由
 	Route::get('goodsType', 'GoodsTypeController@getKindType');
 	Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
 	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
-
+    //商品首页模板控制
+    Route::get('indexModeCon', 'GoodsControlController@indexModeCon');
+    //获取模板列表
+    Route::get('getModeList', 'GoodsControlController@getModeList');
+    //首页商品模块添加
+    Route::post('postModeCon', 'GoodsControlController@addIndexMode');
+    //返回设计方案
+    Route::resource('design', 'DesignController');
 
 
 	//商品图片上传
@@ -67,7 +91,17 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 	//mingliang
 
-	//志远
+
+
+
+
+
+
+
+
+
+
+	//=============================================================================志远
 
 	//添加子分类页面路由
 	Route::get('/SecoundType/increase','SecoundTypeController@increase');
