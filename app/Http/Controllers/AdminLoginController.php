@@ -50,7 +50,7 @@ class AdminLoginController extends Controller
     public function getLogout (Request $request)
     {
         //删除session
-        $request->session()->forget('admin_data');
+        $request->session()->forget('admin_name');
         return redirect('/admins');
 
     }

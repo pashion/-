@@ -40,8 +40,8 @@ class HomeLoginController extends Controller
 
             if ( $users['0']->email == $email && Hash::check($pass,$users['0']->password) ) {
 
-                $request->session()->put(['username'=>$users['0']->username]);
-                // dd(session('admin_email'));
+                $request->session()->put(['user'=>$users]);
+                // dd(session('user')[0]->username);
                 return view('web.index');
 
             }else{
@@ -249,5 +249,12 @@ class HomeLoginController extends Controller
               echo "<script> alert('密码重置失败，请重新填写');history.go(-1);window.location.reload();</script>";
         }
 
+    }
+
+    //进行退出操作
+    public function getLogout(Request $request)
+    {
+        $request->session()->forget('user');
+        return redirect('/home/login');
     }
 }

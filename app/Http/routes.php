@@ -10,6 +10,7 @@
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
+//个人中心
 Route::controller('/user/detail','UserDetailController');
 
 

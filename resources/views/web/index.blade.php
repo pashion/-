@@ -42,18 +42,28 @@
                 </div>
                 <div class="Cart_user r_f">
                     <div class="header_operating l_f" >
-                        @if ( !session('username') )
+                        @if ( !session('user') )
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-                            <a href="{{url('home/login')}}">登录</a><a href="{{url('home/index')}}">注册</a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    网站导航 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('home/index')}}">注册</a></li>
+                                    <li><a href="{{url('home/login')}}">登录</a></li>
+                                </ul>
+                            </div>
                         @else
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
                             欢迎您，<div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{session('username')}} <span class="caret"></span>
+                                    {{session('user')[0]->username}} <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url('user/detail/index')}}">个人中心</a></li>
-                                    <li><a href="#">退出</a></li>
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('/user/detail/order')}}">个人中心</a></li>
+                                    <li><a href="{{url('home/logout')}}">退出</a></li>
                                 </ul>
                             </div>
                         @endif
@@ -80,14 +90,7 @@
                     <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
                 </ul>
                 <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
-                <div class="q_code">
-                    <a href="" class="q_code_applnk" rel="nofollow"></a>
-                    <div class="q_code_layer" style="display: none;">
-                        <a href="" class="qcode_lnk" rel="nofollow">
-                            <span class="qcode_title">只分享装修干货</span>
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

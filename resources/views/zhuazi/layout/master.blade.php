@@ -10,7 +10,7 @@
     <title>Gentelella Alela!</title>
 
     <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
-    <title>Gentelella Alela! | </title>a
+    <title>Gentelella Alela! | </title>
 
 
 
