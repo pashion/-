@@ -190,7 +190,9 @@
                                                     <div>
                                                         <img id="addLog" num="0" width="100" height="100" src="{{url('zhuazi')}}/images/addPicLog.jpg" alt="">
                                                         <span class="mig" ></span>
+
                                                         <input type="file" class="fileUp" style="display:none;" name="pic" >
+
                                                     </div>
                                                 </td>
                                             </tr>

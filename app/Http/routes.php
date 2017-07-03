@@ -39,7 +39,6 @@ Route::controller('/user/detail','UserDetailController');
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
 
-	//mingliang
 
 	//前台商品显示
 	Route::resource('goodsShow', 'GoodsShowController');
@@ -48,17 +47,20 @@ Route::controller('/user/detail','UserDetailController');
 
 	//商品资源路由
 	Route::resource('goods', 'GoogsController');
-
-
 	//商品规格
 	Route::resource('goodsSpec', 'GoodsSpecController');
-
-
 	//商品分类查询路由
 	Route::get('goodsType', 'GoodsTypeController@getKindType');
 	Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
 	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
-
+    //商品首页模板控制
+    Route::get('indexModeCon', 'GoodsControlController@indexModeCon');
+    //获取模板列表
+    Route::get('getModeList', 'GoodsControlController@getModeList');
+    //首页商品模块添加
+    Route::post('postModeCon', 'GoodsControlController@addIndexMode');
+    //返回设计方案
+    Route::resource('design', 'DesignController');
 
 
 	//商品图片上传
@@ -68,6 +70,16 @@ Route::controller('/user/detail','UserDetailController');
 	//商品图片缩略图获取路由
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 	//mingliang
+
+
+
+
+
+
+
+
+
+
 
 	//志远
 

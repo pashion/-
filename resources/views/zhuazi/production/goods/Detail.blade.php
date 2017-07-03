@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2 id="goodsID" data="{{$goodsData['id']}} ">商品ID: {{$goodsData['id']}} </h2>
+                    <h2 id="goodsID" data="{{$goodsData['id']}}">商品ID: {{$goodsData['id']}} </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <button id='infoEditBtn' type="button" class="btn btn-success ">修改</button>
                         <button id="infoEditBtnAff" type="button" class="btn btn-warning ">确定</button>
