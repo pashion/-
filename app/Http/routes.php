@@ -27,12 +27,14 @@ Route::get('index', 'GoodInfoController@getGoodsIndex');
 //返回首页的方案模块内容
 Route::get('getDesign', 'GoodInfoController@getDesignScheme');
 
-//返回单个方案内容
-Route::get('caseDetail', 'ShowDesignController@caseDetail');
-//接受方案评论内容
-Route::post('sendComment', 'ShowDesignController@saveDesignComment');
-//返回方案列表
+//返回方案列表,单个方案详情
 Route::resource('scene', 'DesignController');
+//保存方案评论内容
+Route::post('sendComment', 'DesignCommentController@saveDesignComment');
+//返回方案评论内容
+Route::get('getComment', 'DesignCommentController@getDesignComment');
+//保存方案评论回复sendRealyContent
+Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 
 
 

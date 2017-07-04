@@ -1,6 +1,11 @@
 @extends('web.layout.master')
 
 @section('title','案例详细')
+@section('head')
+
+    <link href="{{url('web')}}/css/designDetail.css" type="text/css" rel="stylesheet" />
+
+@endsection
 
 @section('content')
 <script type="text/javascript">
@@ -25,7 +30,7 @@ $(document).ready(function(){
 <div class="header">
  <div class="header_top">
    <div class="top_info clearfix">
-   <div class="logo_style l_f"><a href="#"><img src="images/logo.jpg" /></a></div>
+   <div class="logo_style l_f"><a href="#"><img src="{{url('web')}}/images/logo.jpg" /></a></div>
    <div class="Search_style l_f">
    <form>
    <div class="select">
@@ -41,7 +46,7 @@ $(document).ready(function(){
    <div class="Cart_user r_f">
    <div class="Cart_Quantity "><span class="number">0</span></div>
    <div class="header_operating l_f">
-    <span class="header_touxiang"><img src="images/touxiang_03.png" /></span>
+    <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
     <a href="#">登录</a><a href="@">注册</a>
    </div>
    </div>
@@ -49,21 +54,14 @@ $(document).ready(function(){
  <div class="header_menu">
  <!--菜单导航栏-->
  <ul class="menu" id="nav">
-   <li class="nLi"><a href="#">网站首页</a></li>
-   <li class="nLi"><a href="#">设计精粹</a></li>                
-   <li class="nLi Down"><a href="#">场景方案</a><em class="icon_jiantou"></em>
-    <ul class="sub">
-      <li><a href="#">新闻首页</a></li>
-      <li><a href="#">新闻人物</a></li>
-      <li><a href="#">新闻电视</a></li>
-      <li><a href="#">新闻图片</a></li>
-      <li><a href="#">新闻视频</a></li>
-      <li><a href="# ">新闻专题</a></li>
-    </ul>
-   </li>             
-   <li class="nLi Down"><a href="#">单品大库</a><em class="icon_jiantou"></em></li>      
-   <li class="nLi Down"><a href="#">奇货可享</a><em class="icon_jiantou"></em></li>
-   <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
+
+     <li class="nLi Down"><a href="#">网站首页</a><em class="icon_jiantou"></em></li>
+     <li class="nLi Down"><a href="#">设计精粹</a><em class="icon_jiantou"></em></li>
+     <li class="nLi Down"><a href="#">场景方案</a><em class="icon_jiantou"></em></li>
+       <li class="nLi Down"><a href="#">单品大库</a><em class="icon_jiantou"></em></li>
+       <li class="nLi Down"><a href="#">奇货可享</a><em class="icon_jiantou"></em></li>
+       <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
+
  </ul>
  <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
  <div class="q_code">
@@ -102,7 +100,7 @@ $(document).ready(function(){
   </div>
   <div class="Design_display" >
   <div class="Design_Into clearfix">
-    <div class="title_name">文艺个性相片墙设计效果图</div>
+    <div class="title_name">{{$caseData[0]->dtitle}}</div>
     <div class="operating">
     <a href="#" class=""><em class="icon_Point_praise"></em>12345</a> 
     <a href="#" class=""><em class="icon_Collection"></em>收藏</a> 
@@ -194,28 +192,8 @@ $(document).ready(function(){
         <ul id="commentContent">
 
 
-        @foreach($Comment as $v)
-
-
-                 <li class="clearfix">
-                  <div class="comment_Avatar">
-                  <div class="Avatar_bg"></div>
-                  <img src="{{url('web')}}/images/tempuser1897df321023210412.png" width="60" height="60" /></div>
-                  <div class="comment_info">
-                    <p class="name">游客: {{$v['tempuser']}}<span class="time">{{$v['created_at']}}</span> <a href="#" class="Reply_link">回复</a></p>
-                    <p class="comments">
-                      {{$v['comtent']}}
-                    </p>
-                      <div>
-                          <p>用户:</p>
-                      </div>
-                  </div>
-                 </li>
-
-            @endforeach
-
         </ul>
-       <div class="load" style=" text-align:center"><a href="#" class="More">加载更多</a> </div>
+       <div id="loadMore" class="load" style=" text-align:center"><a href="javascript:\\" class="More">加载更多</a> </div>
        </div>
      </div>
     </div>

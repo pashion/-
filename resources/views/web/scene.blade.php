@@ -121,10 +121,12 @@ $(function(){
         <div id="dropBox" class="">
           <ul class="sideMenu_list">
 
+              {{--遍历方案图片--}}
               @foreach($areaData as $v)
                   <li class="Menu_Bar"><a href="scene?styleId={{$v['id']}}" class="one_menu">{{$v['name']}}</a></li>
               @endforeach
-            </li>						
+
+            </li>
           </ul>
         </div>
 
@@ -139,7 +141,7 @@ $(function(){
            <div class="sub">
                <div id="dropBox" class="">
                    <ul class="sideMenu_list">
-
+                       {{--遍历类似风格方案--}}
                        @foreach($styleData as $v)
                            <li class="Menu_Bar"><a href="scene?areaId={{$v['id']}}" class="one_menu">{{$v['name']}}</a></li>
                        @endforeach
@@ -171,7 +173,6 @@ $(function(){
   <!--方案列表-->
   <div class="Program_list clearfix">
 
-
       @foreach($dData as $v)
 
           <div class="clearfix">
@@ -190,7 +191,7 @@ $(function(){
       @endforeach
 
   </div>
-
+      {{--分页--}}
           {{$dData->links()}}
 
   </div>

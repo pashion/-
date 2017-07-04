@@ -309,9 +309,8 @@
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
       </div>
     </div>
-
-    @yield('footJS')
-
 	
   </body>
 </html>
+
+@yield('footJS')

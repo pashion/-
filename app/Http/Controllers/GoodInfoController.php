@@ -75,7 +75,6 @@ class GoodInfoController extends Controller
         return $selPrice;
     }
 
-
     /*
      * 返回套系参考配套商品
      * */
