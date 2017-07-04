@@ -16,7 +16,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{'/'}}">回到首页</a>
                             </li>
-                            <li><a href="{{'order/create'}}">添加评论</a>
+                            <li><a href="{{'order'}}">添加评论</a>
                             </li>
                         </ul>
                     </li>

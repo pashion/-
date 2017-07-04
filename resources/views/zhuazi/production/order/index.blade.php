@@ -1,5 +1,5 @@
 @extends('zhuazi.layout.master');
-@section('title' ,'订单首页')
+@section('title' ,'订单详情')
 @section('content')
 
     <div class="col-md-12 col-sm-12 col-xs-12">
