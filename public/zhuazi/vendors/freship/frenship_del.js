@@ -2,7 +2,7 @@
 
 function delData(cate_id)
 {
-    confirm('您确定要删除吗?')?shop():stop();
+    confirm('您确定要删除这个链接吗?')?shop():stop();
 
 
     function shop() {
