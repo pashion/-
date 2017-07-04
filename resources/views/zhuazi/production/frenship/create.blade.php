@@ -1,5 +1,5 @@
 @extends('zhuazi.layout.master');
-@section('title' ,'链接添加')
+@section('title' ,'链接的添加')
 @section('content')
 <script type="text/javascript" src="{{url('ueditor')}}/ueditor.config.js"></script>
 <script type="text/javascript" src="{{url('ueditor')}}/ueditor.all.min.js"></script>
