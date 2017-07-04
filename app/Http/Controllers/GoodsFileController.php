@@ -16,11 +16,14 @@ class GoodsFileController extends Controller
     //存入图片返回图片名
     public function uploadGoodsFile (Request $req)
     {
+
+
         $file = $req->file('image');//获取文件对象
 
         if ( !$file -> isValid() ) {
             return  0;
         }
+
         //记录数据
         $clientName =   $file -> getClientOriginalName();
         $tmpName    =   $file ->getFileName();

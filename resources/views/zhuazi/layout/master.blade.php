@@ -10,7 +10,7 @@
     <title>Gentelella Alela!</title>
 
     <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
-    <title>Gentelella Alela! | </title>a
+    <title>Gentelella Alela! | </title>
 
 
 
@@ -68,6 +68,8 @@
                 <h3>只能添加店铺</h3>
                 <ul class="nav side-menu">
                  <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
+                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
+                  <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制</a>
 
                   <li><a><i class="fa fa-user"></i> 用户管理 </span></a>
                     <ul class="nav child_menu">
@@ -75,7 +77,7 @@
                       <li><a href="{{url('admin/user/add')}}">会员添加</a></li>
                     </ul>
                   </li>
-                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
+
 
                   <li><a><i class="fa fa-desktop"></i> 类别管理 </span></a>
                     <ul class="nav child_menu">
@@ -119,7 +121,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{url('order')}}">查看订单</a></li>
                       <li><a href="{{url('order/create')}}">添加订单</a></li>
-                      <li><a href="{{url('order/create')}}">订单分类管理</a></li>
+                      <li><a href="{{url('detail')}}">订单详情</a></li>
                     </ul>
                   </li>
                 </ul>

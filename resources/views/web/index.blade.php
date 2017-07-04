@@ -44,16 +44,26 @@
                     <div class="header_operating l_f" >
                         @if ( !session('user') )
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-                            <a href="{{url('home/login')}}">登录</a><a href="{{url('home/index')}}">注册</a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    网站导航 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('home/index')}}">注册</a></li>
+                                    <li><a href="{{url('home/login')}}">登录</a></li>
+                                </ul>
+                            </div>
                         @else
                             <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
                             欢迎您，<div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{session('user')->username}} <span class="caret"></span>
+                                    {{session('user')[0]->username}} <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url('user/detail/index')}}">个人中心</a></li>
-                                    <li><a href="#">退出</a></li>
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('/user/detail/order')}}">个人中心</a></li>
+                                    <li><a href="{{url('home/logout')}}">退出</a></li>
                                 </ul>
                             </div>
                         @endif
@@ -80,14 +90,7 @@
                     <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
                 </ul>
                 <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
-                <div class="q_code">
-                    <a href="" class="q_code_applnk" rel="nofollow"></a>
-                    <div class="q_code_layer" style="display: none;">
-                        <a href="" class="qcode_lnk" rel="nofollow">
-                            <span class="qcode_title">只分享装修干货</span>
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -117,86 +120,9 @@
     </script>
     <!--banner轮播  e-->
 
-    <!--场景方案  s-->
-    <div class="wrap_c bgcolor_f9">
-        <div class="i_title">
-            场景方案
-        </div>
-        <div class="clear"></div>
-        <div class="c_main">
-            <div class="c_mianbox1 mar_14">
-                <div class="c_tips">
-                    <a href="#">客厅</a><a href="#">卫生间</a><a href="#">书房</a><a href="#">主卧</a><a href="#">次卧</a><a href="#">阳台/露台</a><a href="#">儿童房</a><a href="#">茶室</a><a href="#">客厅</a><a href="#">客厅</a>
-                </div>
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-            </div>
-            <div class="c_mianbox1 mar_14">
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-            </div>
-            <div class="c_mianbox2 mar_14">
-                <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-            </div>
-            <div class="c_mianbox1 mar_14">
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-            </div>
-            <div class="c_mianbox1">
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-                <div class="c_pic">
-                    <a href="#"><img src="{{url('web')}}/images/c_img.jpg" /></a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <!--场景方案  e-->
 
-    <!--单品大库  s-->
-    <div class="wrap_p">
-        <div class="p_title">
-            单品大库
-        </div>
-        <div class="p_main">
-            <div class="p_box1">
-                <a href="#" class="p_box1pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-                <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-                <p class="p_pirce">￥2439</p>
-            </div>
-            <div class="p_box2">
-                <a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-                <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-                <p class="p_pirce">￥2439</p>
-            </div>
-            <div class="p_box2">
-                <a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-                <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-                <p class="p_pirce">￥2439</p>
-            </div>
-            <div class="p_box2">
-                <a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-                <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-                <p class="p_pirce">￥2439</p>
-            </div>
-            <div class="p_box2">
-                <a href="#" class="p_box2pic"><img src="{{url('web')}}/images/p_img01.jpg" /></a>
-                <p><a href="#">锥形木质脚布艺拉扣环抱式沙发 三人位</a></p>
-                <p class="p_pirce">￥2439</p>
-            </div>
-        </div>
-    </div>
+
+
     <!--单品大库  e-->
 
     <!--关于我们  s-->

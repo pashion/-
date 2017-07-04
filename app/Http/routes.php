@@ -11,6 +11,7 @@
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
+//个人中心
 Route::controller('/user/detail','UserDetailController');
 
 
@@ -20,10 +21,32 @@ Route::get('good/detail',function()
 		return view('web.good_detail');
 	});
 //商品详情评论模块
-Route::get('order/',function()
-	{
-		return view('web.order');
-	});
+Route::post('order/add', 'createOrderController@index');
+Route::post('order/work', 'workOrderController@index');
+
+
+//前台商品显示,包括商品详情,商品列表,商品选项价格查询
+Route::resource('goodsShow', 'GoodsShowController');
+//返回商品选
+Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
+//返回单个商品的选项价格
+Route::get('getgoodSelPrice', 'GoodInfoController@getGoodSelPrice');
+//返回配套商品
+Route::get('getgoodSelCoordin', 'GoodInfoController@getGoodSelCoordin');
+//返回商品首页
+Route::get('index', 'GoodInfoController@getGoodsIndex');
+//返回首页的方案模块内容
+Route::get('getDesign', 'GoodInfoController@getDesignScheme');
+//返回单个方案内容
+Route::get('caseDetail', 'ShowDesignController@caseDetail');
+//接受方案评论内容
+Route::post('sendComment', 'ShowDesignController@saveDesignComment');
+//返回方案列表
+Route::resource('scene', 'DesignController');
+
+
+
+
 
 
 	//后台登录页面和操作路由
@@ -46,28 +69,10 @@ Route::get('order/',function()
 	Route::resource('talking','TalkingController');
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
-
-	//mingliang
-
-	//前台商品显示
-	Route::resource('goodsShow', 'GoodsShowController');
-
-	Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
-
-	//商品资源路由
-	Route::resource('goods', 'GoogsController');
+	Route::get('detail','detailController@index');
 
 
-	//商品规格
-	Route::resource('goodsSpec', 'GoodsSpecController');
-
-
-	//商品分类查询路由
-	Route::get('goodsType', 'GoodsTypeController@getKindType');
-	Route::get('goodsgetstyle', 'GoodsTypeController@getGoodsStyle');
-	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
-
-
+	
 
 	//商品图片上传
 	Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
@@ -76,6 +81,16 @@ Route::get('order/',function()
 	//商品图片缩略图获取路由
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 	//mingliang
+
+
+
+
+
+
+
+
+
+
 
 	//志远
 

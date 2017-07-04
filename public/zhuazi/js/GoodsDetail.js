@@ -38,6 +38,7 @@
     function getGoodSelInfo ()
     {
         var  goodId = $('#goodsID').attr('data');
+        console.log(goodId);
         $.get('goods/' + goodId +'/edit', function (data) {
 
             //声明一个数字用于抽取装载,属性名
@@ -72,7 +73,8 @@
     {
         $('#affParEditBtn').on('click', function () {
 
-            alert();
+
+
             //判断组内是否为空
             if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
                 throw SyntaxError();
@@ -89,6 +91,11 @@
                 SAVE_SEL_DEL_CON[i] =  delTouArrRepat(aa, SAVE_SEL_DEL_CON[i]);
             }
 
+
+
+            console.log(SAVE_SEL_ADD_CON);
+            console.log(SAVE_SEL_DEL_CON);
+
             //准备数据
             var postData = {
                 _method : 'PUT',
@@ -101,17 +108,13 @@
 
             //发送请求
             $.post('goods/1', postData, function (data) {
-                if (!data) {
-                    alert();
-                    SAVE_SEL_ADD_CON.splice(0,SAVE_SEL_ADD_CON.length);
-                    SAVE_SEL_DEL_CON.splice(0,SAVE_SEL_DEL_CON.length);
-                    getGoodSelInfo();//获取选项数据0
-                    $('#parEditConcelBtn').click(); //关闭控制面板
-                }
+                getGoodSelInfo();//获取选项数据0
             });
 
-
-
+            //清空数组
+            SAVE_SEL_ADD_CON = [] ;
+            SAVE_SEL_DEL_CON = [];
+            $('#parEditConcelBtn').click(); //关闭控制面板
         });
 
 
@@ -456,6 +459,7 @@
             //回调方法
             function gg  (data) {
 
+                data = data['name'];
                 if (data.length == 36) {
                     $('#picConMig').html('<span style="color:green;">添加成功</span>');
                     var name = data.substr(0, 6);

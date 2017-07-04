@@ -111,65 +111,52 @@ $(function(){
     <div class="Scene_sort clearfix" id="Scene_sort">
      <ul class="sort_list">
       <li class="sort_style">
-       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="images/product/p-4.jpg"  width="80px" height="80"/></div>
+       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="{{url('web')}}/images/product/p-4.jpg"  width="80px" height="80"/></div>
        <div class="sort_name">
         <h2>区域分类</h2>
         <h4>多种场景方案供你选择</h4>
        </div>
+
        <div class="sub">
-        <div class="Filter_section sideMenu">
+        <div id="dropBox" class="">
           <ul class="sideMenu_list">
-            <li class="Menu_Bar"><a href="#" class="one_menu">客厅</a>
-            <ul class="Secondary_menu">
-             <li><a href="#">20㎡</a></li>
-             <li><a href="#">25㎡</a></li>
-             <li><a href="#">30㎡</a></li>
-             <li><a href="#">40㎡</a></li>
-            </ul>
-            </li>
-            <li class="Menu_Bar"><a href="#" class="one_menu">餐厅</a></li>
-            <li class="Menu_Bar"><a href="#" class="one_menu">主卧</a></li>
-            <li class="Menu_Bar"><a href="#" class="one_menu">次卧</a></li>	
-            <li class="Menu_Bar"><a href="#" class="one_menu">书房</a></li>	
-            <li class="Menu_Bar"><a href="#" class="one_menu">棋牌室</a></li>	
-            <li class="Menu_Bar"><a href="#" class="one_menu">门厅</a></li>	
-            <li class="Menu_Bar"><a href="#" class="one_menu">阳台</a></li>	
-            <li class="Menu_Bar"><a href="#" class="one_menu">厨房</a>
-             <ul class="Secondary_menu">
-             <li><a href="#">20㎡</a></li>
-             <li><a href="#">25㎡</a></li>
-             <li><a href="#">30㎡</a></li>
-             <li><a href="#">40㎡</a></li>
-            </ul>
-            </li>
-            <li class="Menu_Bar"><a href="#" class="one_menu">卫生间</a>
-             <ul class="Secondary_menu">
-             <li><a href="#">20㎡</a></li>
-             <li><a href="#">25㎡</a></li>
-             <li><a href="#">30㎡</a></li>
-             <li><a href="#">40㎡</a></li>
-            </ul>
+
+              @foreach($areaData as $v)
+                  <li class="Menu_Bar"><a href="scene?styleId={{$v['id']}}" class="one_menu">{{$v['name']}}</a></li>
+              @endforeach
             </li>						
           </ul>
         </div>
+
+
        </div>
       </li>
        <li class="sort_style">
-       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="images/product/p-4.jpg"  width="80px" height="80"/></div>
+       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="{{url('web')}}/images/product/p-4.jpg"  width="80px" height="80"/></div>
        <div class="sort_name">
         <h2>风格分类</h2>
         <h4>看不同风格  装喜爱之家</h4>
+           <div class="sub">
+               <div id="dropBox" class="">
+                   <ul class="sideMenu_list">
+
+                       @foreach($styleData as $v)
+                           <li class="Menu_Bar"><a href="scene?areaId={{$v['id']}}" class="one_menu">{{$v['name']}}</a></li>
+                       @endforeach
+                           </li>
+                   </ul>
+               </div>
        </div>
       </li>
        <li class="sort_style">
-       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="images/product/p-4.jpg"  width="80px" height="80"/></div>
+       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="{{url('web')}}/images/product/p-4.jpg"  width="80px" height="80"/></div>
        <div class="sort_name">
         <h2>色彩分类</h2>
         <h4>多种色咖 专治审美疲劳</h4>
        </div>
       </li>
        <li class="sort_style">
-       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="images/product/p-4.jpg"  width="80px" height="80"/></div>
+       <div class="sort_img"><span class="sort_yuan_bg"></span><img src="{{url('web')}}/images/product/p-4.jpg"  width="80px" height="80"/></div>
        <div class="sort_name">
         <h2>我的小区</h2>
         <h4>看看同个小区的选择吧</h4>
@@ -183,92 +170,33 @@ $(function(){
   </div>
   <!--方案列表-->
   <div class="Program_list clearfix">
-  <div class="clearfix">
-     <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
+
+
+      @foreach($dData as $v)
+
+          <div class="clearfix">
+             <div class="Program_single_style">
+              <a href="scene/{{$v['id']}}" class="Program_single_img">
+              <p><img src="designPic/{{$v['pic']}}"  width="280px" height="400"/></p>
+              <h3>{{$v['dtitle']}}</h3>
+              </a>
+             <div class="Program_operating">
+            <span class="Evaluation"><a href="javascript://"><em class="iconfont icon_Evaluation">赞</em>{{$v['laud_num']}}</a></span>
+            <span class="Collection"><a href="javascript://"><em class="iconfont icon_Collection">评</em>{{$v['comment_num']}}</a></span>
+            <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
+             </div>
+          </div>
+
+      @endforeach
+
   </div>
-  <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
+
+          {{$dData->links()}}
+
   </div>
-  <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
-  </div>
-  <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
-  </div>
-  <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
-  </div>
-  <div class="Program_single_style">
-      <a href="#" class="Program_single_img">
-      <p><img src="images/product/zs_4.jpg"  width="280px" height="400"/></p>
-      <h3>现代简约设计效果图</h3>
-      </a>
-     <div class="Program_operating">
-    <span class="Evaluation"><a href="#"><em class="iconfont icon_Evaluation"></em>567</a></span>
-    <span class="Collection"><a href="#"><em class="iconfont icon_Collection"></em>567</a></span>
-    <span class="share"><a href="#"><em class="iconfont icon_share"></em></a></span></p>
-     </div>
-  </div>
-  </div>
-      <div class="pic_page_style clearfix">
-      <ul class="page_example pagination">
-       <li><li class="first disabled" data-page="1"><a href="javascript:void(0);"> 〈 上一页 </a></li></li>
-       <li class="page active" data-page="1"><a href="javascript:void(0);">1</a></li>
-       <li class="page" data-page="2"><a href="javascript:void(0);">2</a></li>
-       <li class="page" data-page="3"><a href="javascript:void(0);">3</a></li>
-       <li class="page" data-page="4"><a href="javascript:void(0);">4</a></li>
-       <li class="page" data-page="5"><a href="javascript:void(0);">5</a></li>
-       <li class="page" data-page="6"><a href="javascript:void(0);">6</a></li>     
-       <li class="page" data-page="7"><a href="javascript:void(0);">7</a></li>
-       <li class="page" data-page="8"><a href="javascript:void(0);">8</a></li>
-       <li class="page" data-page="9"><a href="javascript:void(0);">9</a></li>
-       <li class="page" data-page="10"><a href="javascript:void(0);">10</a></li>
-       <li class="page" data-page=""><a href="javascript:void(0);">...</a></li>
-       <li class="last" data-page="35"><a href="javascript:void(0);">下一页 〉</a></li>
-      </ul>
-      </div>
-</div>
 </div>
 @endsection
 
+    @section('footJs')
+        <script src="{{url('js')}}/design/designList.js"></script>
+    @endsection

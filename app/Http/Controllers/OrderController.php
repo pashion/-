@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Order;
+
+use App\OrderDetail;
 class OrderController extends Controller
 {
     /**
@@ -13,9 +16,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $orderData=order::where('id','like','%'.$request->input('keywords').'%')->paginate(3);
+        return view('zhuazi/production/order/index',['orderData'=>$orderData,'request'=>$request->all()]);
     }
 
     /**
@@ -83,4 +87,5 @@ class OrderController extends Controller
     {
         //
     }
+   
 }

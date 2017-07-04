@@ -5,7 +5,7 @@
 @section('content')
     <body>
     <div class="login_style">
-        <div class="login_top"><a href="#"><img src="{{url('web')}}/images/logo.jpg"  /></a></div>
+        <div class="login_top"><a href="{{url('/')}}"><img src="{{url('web')}}/images/logo.jpg"  /></a></div>
         <div class="login_add_style clearfix">
             <div class="login_ad">
                 <img src="{{url('web')}}/images/bg_login_03.png" />
