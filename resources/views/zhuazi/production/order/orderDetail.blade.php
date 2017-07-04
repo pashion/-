@@ -32,6 +32,8 @@
                         $order_status=array('0'=>'待发货','1'=>'待收货','2'=>'完成','3'=>'取消');
                         $ruturn_status=array('0'=>'不退货','1'=>'退货');
                         $comment_status=array('0'=>'未评论','1'=>'已评论');
+                        // var_dump($orderData);
+
                     ?>
                     <form class="form-inline" action="/order" method="get">
                       <div class="form-group">
@@ -63,6 +65,10 @@
                         <tbody>
                         
                             @foreach($orderData as $v)
+                                <?php
+                                $str = $v['goods_pic'];
+                                $array = explode(',', $str);
+                                ?>
                                 <tr class="even pointer" id="tr_{{$v['id']}}">
                                     <td >{{$v['id']}}</td>
                                     <td >{{$v['order_id']}}</td>
@@ -71,7 +77,7 @@
                                     <td >{{$order_status[$v["order_status"]]}}</td>
                                     <td >{{$v['commodity_number']}}</td>
                                     <td >{{$v['cargo_price']}}</td>
-                                    <td ><img src='{{url('uploads')}}/_s{{$v->image}}'></td>
+                                    <td ><img src='{{url("goodsPic")}}/{{$array["0"]}}'></td>
                                     <td >{{$ruturn_status[$v["ruturn_status"]]}}</td>
                                     <td >{{$comment_status[$v["comment_status"]]}}</td>
                                     <td >{{$v['created_at']}}</td>

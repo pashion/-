@@ -53,7 +53,8 @@ class workOrderController extends Controller
     			$orderDetail['cargo_price'] = $price;
     			$orderDetail['ruturn_status'] = 0;
     			$orderDetail['comment_status'] = 0;
-
+                $orderDetail['created_at'] = date('Y-m-d H:i:s');
+                $orderDetail['updated_at'] = date('Y-m-d H:i:s');
     		}
     		// dd($orderDetail);
 
