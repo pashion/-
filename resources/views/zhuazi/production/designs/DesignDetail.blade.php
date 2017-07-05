@@ -6,5 +6,11 @@
 
 
 
+
+
+    <script src="{{url('zhuazi/js/PicUpload.js')}}"></script>
+    <script src="{{url('zhuazi/js/DesignAdd.js')}}"></script>
 @endsection
+
+
 
