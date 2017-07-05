@@ -308,6 +308,7 @@
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/order_del.js"></script>
+    <script src="{{url('zhuazi')}}/vendors/freship/detail_del.js"></script>
       </div>
     </div>
 

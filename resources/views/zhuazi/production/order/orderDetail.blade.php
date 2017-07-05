@@ -83,8 +83,8 @@
                                     <td >{{$v['created_at']}}</td>
                                     <td class="a-right a-right ">{{$v['updated_at']}}</td>
                                     <td class="last">
-                                        <a href="talking/{{$v->id}}/edit" class="btn btn-primary btn-sm">编辑</a>
-                                        <a href="javascript:;" onclick="TdelData('{{$v->id}}')" class="btn btn-primary btn-sm">删除</a>
+                                        <a href="detail/{{$v->id}}/edit" class="btn btn-primary btn-sm">编辑</a>
+                                        <a href="javascript:;" onclick="DdelData('{{$v->id}}')" class="btn btn-primary btn-sm">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -71,6 +71,7 @@ Route::resource('scene', 'DesignController');
 	Route::resource('order','OrderController');
 	Route::get('order/{id}/delete','OrderController@destroy');
 	Route::resource('detail','detailController');
+	Route::get('detail/{id}/delete','detailController@destroy');
 
 
 	
