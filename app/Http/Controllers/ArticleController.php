@@ -162,6 +162,7 @@ class ArticleController extends Controller
 
         $request->file('file')->move('uploads/cover/'.date('Y-m-d'), $newName);
         Image::make('../public/uploads/cover/'.date('Y-m-d').'/'.$newName)->resize(290,150)->save('../public/uploads/cover/'.date('Y-m-d').'/t_'.$newName);
+
         return $newName;//返回文件名
     }
 

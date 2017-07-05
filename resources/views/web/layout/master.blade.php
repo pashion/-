@@ -12,11 +12,14 @@
   <script type="text/javascript" src="{{url('web/build')}}/js/common.js"></script>
   <script type="text/javascript" src="{{url('web/build')}}/js/jquery.imagezoom.min.js"></script>
   <script src="{{url('web/build')}}/js/accordion.js" type="text/javascript"></script>
+  <script type="text/javascript" src="{{url('/js/del.js')}}"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
  
 
 <link  href="{{url('web/build')}}/css/common.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
+<link href="{{url('web/build')}}/css/good_list.css" type="text/css" rel="stylesheet" />
 <title>@yield('title')</title>
 </head>
 

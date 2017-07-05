@@ -19,7 +19,8 @@
         </div>
         <div class="form-group">
             <label for="exampleInputFile">请选择封面图</label>
-            <input type="file" name="" onchange="cover_upload('../../../')" id="inputId">
+            <input type="file" name="" 
+            onchange="cover_upload('../../../')" id="inputId">
             <input type="hidden" name="cover" value="" id="cover">
             <input type="hidden" name="coverpath" id="coverpath">
             <input type="hidden" name="date" value="{{date('Y:m:d H:d:m')}}">

@@ -9,17 +9,16 @@
 	//前台登录相关操作
 	Route::controller('/home','HomeLoginController');
 
-
-
-
+	// 创建隐式控制器,先生成控制器再写路由,控制器的路径注意层级！！
+	Route::controller('goods_list','Goods_listController');
 
 
 
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
-//后台路由群，由中间件控制用户访问是否登录
-Route::group(['middleware'=>'adminLogin'], function () {
+	//后台路由群，由中间件控制用户访问是否登录
+	Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
@@ -84,8 +83,9 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	//文章封面图ajax路由
 	Route::post('Article/ajax','ArticleController@ajax');
 	//end志远
-	
-	
+
+
+
 });
 
 

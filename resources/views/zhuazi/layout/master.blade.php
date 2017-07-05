@@ -6,10 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gentelella Alela!</title>
 
     <script type="text/javascript" src="{{url('js')}}/jquery-1.10.2.min.js"></script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="{{url('ueditor/ueditor.config.js')}}"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="{{url('ueditor/ueditor.all.js')}}"></script>
     <title>Gentelella Alela! | </title>a
 
 
@@ -106,6 +110,12 @@
                     <ul class="nav child_menu">
                       <li><a href="{{url('frenship')}}">查看友情链接</a></li>
                       <li><a href="{{url('frenship/create')}}">添加友情链接</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>文章管理<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('Article')}}">文章管理</a></li>
+                      <li><a href="{{url('Article/create')}}">添加文章</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i>评论管理<span class="fa fa-chevron-down"></span></a>
@@ -305,6 +315,7 @@
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
+    <script src="/test2/shop-laravel/public/js/del.js"></script>
       </div>
     </div>
 
