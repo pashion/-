@@ -1,3 +1,14 @@
-/**
- * Created by Administrator on 2017/7/5 0005.
- */
+
+
+    //初始化
+    $(function () {
+        loadSubmitEven();//加载提交按钮事件
+    })
+
+    //加载提交按钮事件
+    function loadSubmitEven ()
+    {
+        $('#submitBtn').on('click', function () {
+            $('#fileSelCase').remove();
+        });
+    }

@@ -14,20 +14,17 @@ class DesignsAdminController extends Controller
 {
     /**
      * 显示方案列表
-     *
-     * @return \Illuminate\Http\Response
+     * @return  返回列表显示页面 :zhuazi.production.designs.DesignList
      */
     public function index()
     {
        $designData =  Designs::paginate(7);
-
        return view('zhuazi.production.designs.DesignList', compact('designData'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 返回创建设计方案表单文件
+     * @return zhuazi.production.designs.DesignAd
      */
     public function create()
     {
@@ -37,24 +34,23 @@ class DesignsAdminController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        echo 'store';
+        dd($_POST);
     }
 
     /**
-     * Display the specified resource.
-     *
+     * 显示单个方案信息
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return zhuazi.production.designs.DesignDetail2
      */
     public function show($id)
     {
-        echo 233;
+        $data = Designs::with('CommentArr')->take(1)->find($id);
+        return view('zhuazi.production.designs.DesignDetail2', compact('data'));
     }
 
     /**
@@ -66,6 +62,7 @@ class DesignsAdminController extends Controller
     public function edit($id)
     {
         echo 123214;
+
     }
 
     /**
@@ -81,10 +78,9 @@ class DesignsAdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     *删除单个设计方案
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return 1 为成功 其他为失败
      */
     public function destroy($id)
     {

@@ -3,6 +3,8 @@
 
 @section('content')
 
+  <input id="token" type="hidden"  value="{{csrf_token()}}">
+
     <div class="">
       <div class="page-title">
         <div class="title_left">
@@ -63,6 +65,7 @@
 
                 <tbody>
 
+                <span id="conMig"></span>
                 @foreach($data as $v)
 
 
@@ -74,17 +77,26 @@
                   <td class=" ">{{$v['id']}}</td>
                   <td class=" ">{{$v['goods']}}</td>
                   <td class=" ">
-                    {{--<img width="50"  height="50" src="{{url('goodsPic').'/'.$picNamep[$v['id']]}}" alt="">--}}
-
                     <img width="50"  height="50" src="{{url('goodsPic')}}/{{$picNamep[$v['id']]}}" alt="">
                     </td>
-                  <td class=" ">{{$v['price']}} <i class="success fa fa-long-arrow-up"></i></td>
+                  <td class=" ">{{$v['price']}}</td>
                   <td class=" ">{{$v['desr']}}</td>
-                  <td class=" ">{{$v['state']}}</td>
+
+                  <td class=" ">
+                    @if($v['state'] == 0)
+                      <button type="button" class="btn btn-success">在售</button>
+                    @elseif($v['state'] == 1)
+                      <button type="button" class="btn btn-danger">下架</button>
+                    @elseif($v['state'] == 2)
+                      <button type="button" class="btn btn-default">失效</button>
+                    @elseif($v['state'] == 3)
+                      <button type="button" class="btn btn-warning">缺货</button>
+                    @endif
+                  </td>
                   <td>
                     <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
-                    <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑 </a>
-                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除 </a>
+                    <a href="#" class="btn btn-info btn-xs goodEdit" data-id="{{$v['id']}}"><i class="fa fa-pencil"></i> 编辑 </a>
+                    <a href="#" data-id="{{$v['id']}}" class="btn btn-danger btn-xs goodsDel"><i class="fa fa-trash-o "></i> 删除 </a>
                   </td>
                 </tr>
 
@@ -99,5 +111,5 @@
 @section('footJS')
 
               <script src="{{url('zhuazi')}}/js/GoodsList.js"></script>
-  @endsection
+@endsection
 

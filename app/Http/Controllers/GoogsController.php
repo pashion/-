@@ -264,14 +264,27 @@ class GoogsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * 删除单个商品
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $id = $_POST['id'];
+        $picStr = Goods::select('pic')->find($id);
+        $picArr = explode(',', $picStr['pic']);
+
+        Goods::destroy(['gid', $id]);       //删除商品
+        Option::destroy(['gid', $id]);      //删除属性
+        SpecPrice::destroy(['gid', $id]);   //删除商品属性价格
+        Spec::destroy(['gid', $id]);        //删除商品规格
+        GoodsDetail::destroy(['gid', $id]); //删除商品详情
+
+        //删除图片
+        foreach ( $picArr as $v) {
+            Storage::disk('local')->delete('goodsPic/'.$v);
+        }
+        return 1;
     }
 
 

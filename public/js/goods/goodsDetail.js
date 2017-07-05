@@ -26,6 +26,10 @@
         var goodId = $('#goodsId').val();
         $.get('../getgoodSel?gid=' + goodId, function (data) {
 
+            if (data.length <= 0 ) {
+                $('#isSel').val('A');
+            }
+
             //抽取属性名,ID
             var head = [];
             for (a in data) {
@@ -175,5 +179,7 @@
         $('#addShop').on('click', function () {
 
             $('#from').attr('action', '../shopCart').submit();
+
         })
     }
+

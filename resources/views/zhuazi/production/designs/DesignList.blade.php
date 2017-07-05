@@ -83,7 +83,7 @@
                   <td class=" ">{{$v['dstyle']}}</td>
                   <td class=" ">{{$v['comment_num']}}</td>
                   <td>
-                    <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
+                    <a href="{{url('designAdmin')}}/{{$v['id']}}" class="btn btn-primary btn-xs intoDetail"  goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
                     <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑 </a>
                     <a href="#" deID="{{$v['id']}}" class="btn btn-danger btn-xs desiDel"><i  class="fa fa-trash-o "></i> 删除 </a>
                   </td>

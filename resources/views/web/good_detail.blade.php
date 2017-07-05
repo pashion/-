@@ -54,6 +54,10 @@
     <!--产品详细介绍-->
     <form action="order" method="post" id="from">
 
+
+        <input id="isSel" type="hidden" name="isSel" value="">
+
+
         <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="num_bunch" value="">

@@ -84,11 +84,11 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 
 	//返回设计方案
-// Route::resource('design', 'DesignController');
-
+// Route::resource('design', 'DesignController')
     //后台方案模块路由
     Route::resource('designAdmin', 'DesignsAdminController');
-
+    //列表页商品小修改
+    Route::post('summaryGoodsEdit', 'GoodInfoController@summaryGoodsEdit');
 
 
 

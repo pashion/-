@@ -109,6 +109,14 @@ class GoodInfoController extends Controller
         return $data ;
     }
 
+    //缺乏数据校验
+    function  summaryGoodsEdit ()
+    {
+        unset($_POST['_token']);
+        $info =  Goods::where('id', '=', $_POST['id'])->update($_POST);
+        return  $info ;
+    }
+
 
 
 }
