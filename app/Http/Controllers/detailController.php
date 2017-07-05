@@ -25,18 +25,16 @@ class detailController extends Controller
         $data=DB::select('select * from orderDetail where id = ?', [$id]);
        return view('zhuazi/production/order/edit')->with('data',$data[0]);
     }
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-
-        $_POST['user_id']="1";
-        $_POST['goods_id']="1";
+    	$_POST['updated_at'] = date('Y-m-d H:i:s');
         $data=$_POST;
         // dd($data);
-        criticism::create($data);
-        if($data>0){
-            return redirect('talking')->with('success','添加成功');
+        $upData=orderDetail::find($id)->update($data);
+        if($upData==true){
+             return redirect('detail')->with('success','修改成功');
         }else{
-            return back()->with('error','添加失败');
+           return back()->with('error','添加失败');
         }
     }
     public function destroy($id)

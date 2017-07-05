@@ -29,27 +29,26 @@
                 {{csrf_field()}}
                 <input type="hidden"  class="form-control" name="_method" required  value="PUT"/>
                 <input type="hidden"  class="form-control" name="id" required  value="{{$data->id}}"/>
-                <label for="urlname">链接名 * :</label>
-                <input type="text" id="urlname" class="form-control" name="name" required  value="{{$data->name}}"/>
-
-                <label for="urladderss">链接地址 * :</label>
-                <input type="text" id="urladderss" class="form-control" name="url" data-parsley-trigger="change" required  value="{{$data->url}}"/>
-
+                <input type="hidden"  class="form-control" name="order_id" required  value="{{$data->order_id}}"/>
+                <input type="hidden"  class="form-control" name="goods_id" required  value="{{$data->goods_id}}"/>
+                <input type="hidden"  class="form-control" name="goods_name" required  value="{{$data->goods_name}}"/>
+                <input type="hidden"  class="form-control" name="commodity_number" required  value="{{$data->commodity_number}}"/>
+                <input type="hidden"  class="form-control" name="cargo_price" required  value="{{$data->cargo_price}}"/>
+                <input type="hidden"  class="form-control" name="ruturn_status" required  value="{{$data->ruturn_status}}"/>
+                <input type="hidden"  class="form-control" name="comment_status" required  value="{{$data->comment_status}}"/>
+                <input type="hidden"  class="form-control" name="goods_pic" required  value="{{$data->goods_pic}}"/>
+                <input type="hidden"  class="form-control" name="created_at" required  value="{{$data->created_at}}"/>
                 <label>是否显示 *:</label>
                 <p>
-                    显示:
-                    <input type="radio" class="flat" name="type" id="typeY" value="0" {{($data->type==0)? 'checked':''}}/> 不显示:
-                    <input type="radio" class="flat" name="type" id="typeN" value="1" {{($data->type==1)? 'checked':''}}/>
+                    待发货:
+                    <input type="radio" class="flat" name="order_status" id="typeY" value="0" {{($data->order_status==0)? 'checked':''}}/> 待收货:
+                    <input type="radio" class="flat" name="order_status" id="typeN" value="1" {{($data->order_status==1)? 'checked':''}}/> 完成订单:
+                    <input type="radio" class="flat" name="order_status" id="typeN" value="2" {{($data->order_status==2)? 'checked':''}}/> 取消订单:
+                    <input type="radio" class="flat" name="order_status" id="typeN" value="3" {{($data->order_status==3)? 'checked':''}}/>
                 </p>
-                <label for="fullname">链接logo * :</label>
-                <img src="{{url('uploads')}}/{{$data->image}}" alt="" width="100" height="100">
-                <br>
-                <label for="fullname">上传新logo * :</label>
-                <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage"  name="image" /><br>
                 <input type="submit" class="btn btn-success"></input>
 
             </form>
-            <!-- end form for validations -->
 
         </div>
     </div>
