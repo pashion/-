@@ -31,7 +31,8 @@ class DesignsAdminController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('zhuazi.production.designs.DesignAdd');
     }
 
     /**
