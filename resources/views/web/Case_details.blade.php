@@ -9,73 +9,30 @@
 
 @section('content')
 <script type="text/javascript">
-$(document).ready(function(){
- $(".q_code ").hover(function(){
-			$(this).find(".q_code_layer").addClass("hover").css("display","block");
-		},function(){
-			$(this).find(".q_code_layer").removeClass("hover").css("display","none");  
+    $(document).ready(function(){
+     $(".q_code ").hover(function(){
+                $(this).find(".q_code_layer").addClass("hover").css("display","block");
+            },function(){
+                $(this).find(".q_code_layer").removeClass("hover").css("display","none");
 
-		}
-	); 
-	 $(".diagram ").hover(function(){
-			$(this).addClass("hover");
-		},function(){
-			$(this).removeClass("hover");  
+            }
+        );
+         $(".diagram ").hover(function(){
+                $(this).addClass("hover");
+            },function(){
+                $(this).removeClass("hover");
 
-		}
-	); 
-})
+            }
+        );
+    })
 </script>
 <body>
-<div class="header">
- <div class="header_top">
-   <div class="top_info clearfix">
-   <div class="logo_style l_f"><a href="#"><img src="{{url('web')}}/images/logo.jpg" /></a></div>
-   <div class="Search_style l_f">
-   <form>
-   <div class="select">
-    <select name="" size="1">
-      <option value="1">设计精髓</option>
-      <option value="2">设计店家</option>
-    </select>
-    </div>
-    <input name="" type="text"  class="add_Search"/>
-    <input name="" type="submit"  value="" class="submit_Search"/>
-    </form>
-   </div>
-   <div class="Cart_user r_f">
-   <div class="Cart_Quantity "><span class="number">0</span></div>
-   <div class="header_operating l_f">
-    <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-    <a href="#">登录</a><a href="@">注册</a>
-   </div>
-   </div>
- </div>
- <div class="header_menu">
- <!--菜单导航栏-->
- <ul class="menu" id="nav">
 
-     <li class="nLi Down"><a href="#">网站首页</a><em class="icon_jiantou"></em></li>
-     <li class="nLi Down"><a href="#">设计精粹</a><em class="icon_jiantou"></em></li>
-     <li class="nLi Down"><a href="#">场景方案</a><em class="icon_jiantou"></em></li>
-       <li class="nLi Down"><a href="#">单品大库</a><em class="icon_jiantou"></em></li>
-       <li class="nLi Down"><a href="#">奇货可享</a><em class="icon_jiantou"></em></li>
-       <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
+{{--导入导航条--}}
+@include('web.layout.nav')
 
- </ul>
- <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
- <div class="q_code">
-  <a href="" class="q_code_applnk" rel="nofollow"></a>
-    <div class="q_code_layer" style="display: none;">
-    <a href="" class="qcode_lnk" rel="nofollow">
-      <span class="qcode_title">只分享装修干货</span>
-    </a>  
-    </div>
-  </div>
- </div>
- </div>
-</div>
 <div class="content_style clearfix">
+
  <!--案例详细-->
 <div class="page_Style">
  <div class="left_style">
@@ -112,7 +69,7 @@ $(document).ready(function(){
 	 <div id="play">
 	  <ul class="img_ul">
 
-
+          {{--遍历方案图片--}}
           @foreach($picArr as $v)
               <li><a class="img_a"><img src="designPic/{{$v['picname']}}" style="height: 500px;"></a></li>
           @endforeach
@@ -169,7 +126,7 @@ $(document).ready(function(){
      </div>
      <!--案例评论-->
      <div class="comment_style">
-       <div id="commentNum" class="commentNum title_name"></div>
+       <div id="commentNum" class="commentNum title_name">评论方案</div>
        <div class="comment_content">
         <div class="Post_comment clearfix">
          <div class="left_Avatar">

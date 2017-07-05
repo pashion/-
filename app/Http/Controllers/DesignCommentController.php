@@ -55,7 +55,7 @@ class DesignCommentController extends Controller
             ->limit(7)
             ->orderBy('created_at', 'desc')
             ->get();
-        dd($data);
+
         //重整数据
         $commentData = [];
         foreach ($data as $k => $v) {

@@ -1,10 +1,7 @@
 <?php
 
 	//前台路由
-	Route::get('/', function () {
-
-	    return view('web.index');
-	});
+	Route::get('/', 'GoodInfoController@getGoodsIndex');
 
 
 //前台登录相关操作
@@ -48,7 +45,7 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	Route::controller('/admins', 'AdminLoginController');
 
 //后台路由群，由中间件控制用户访问是否登录
-Route::group(['middleware'=>'adminLogin'], function () {
+    Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
@@ -77,22 +74,20 @@ Route::group(['middleware'=>'adminLogin'], function () {
 	Route::post('goodsgetstyles', 'GoodsTypeController@getStyle');
     //商品首页模板控制
     Route::get('indexModeCon', 'GoodsControlController@indexModeCon');
-    //获取模板列表
-    Route::get('getModeList', 'GoodsControlController@getModeList');
-    //首页商品模块添加
-    Route::post('postModeCon', 'GoodsControlController@addIndexMode');
-    //返回设计方案
-    Route::resource('design', 'DesignController');
-
-
+    Route::get('getModeList', 'GoodsControlController@getModeList');//获取模板列表
+    Route::post('postModeCon', 'GoodsControlController@addIndexMode'); //首页商品模块添加
 	//商品图片上传
 	Route::post('goods/file/upload', 'GoodsFileController@uploadGoodsFile');
 	//商品图片删除
 	Route::get('goods/file/upload', 'GoodsFileController@canclePic');
 	//商品图片缩略图获取路由
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
-	//mingliang
 
+        //返回设计方案
+// Route::resource('design', 'DesignController');
+
+    //后台方案模块路由
+    Route::resource('designAdmin', 'DesignsAdminController');
 
 
 
