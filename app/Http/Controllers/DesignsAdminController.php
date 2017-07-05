@@ -43,7 +43,7 @@ class DesignsAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo 'store';
     }
 
     /**
@@ -54,7 +54,7 @@ class DesignsAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        echo 233;
     }
 
     /**
@@ -65,7 +65,7 @@ class DesignsAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo 123214;
     }
 
     /**
@@ -77,7 +77,7 @@ class DesignsAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        echo 1333;
     }
 
     /**
@@ -88,6 +88,7 @@ class DesignsAdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $info =  Designs::where('id', '=', $_POST['id'])->delete();
+        return $info;
     }
 }

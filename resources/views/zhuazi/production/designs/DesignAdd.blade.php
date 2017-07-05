@@ -8,9 +8,15 @@
         <div style="background:white; width:1000px; padding:40px; padding-bottom:40px;">
 
 
-    <table>
+    <table class="table">
+        <tr>
+            <td><h2>设计者名称</h2></td>
+            <td>
+                <input style="width:150px;" type="text" class="form-control" >
+            </td>
+        </tr>
         <tr id="pic" height="100">
-            <td width="20%"><h2>方案图片</h2></td>
+            <td width="15%"><h2>方案图片</h2></td>
             <td colspan="2">
                 <table>
                     <tr>
@@ -35,7 +41,7 @@
             </td>
         </tr>
         <tr>
-           <td> </td>
+           <td></td>
             <td><button class="btn btn-defauld">提交</button></td>
         </tr>
     </table>

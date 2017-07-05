@@ -83,17 +83,11 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	//商品图片缩略图获取路由
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 
-        //返回设计方案
+	//返回设计方案
 // Route::resource('design', 'DesignController');
 
     //后台方案模块路由
     Route::resource('designAdmin', 'DesignsAdminController');
-
-
-
-
-
-
 
 
 

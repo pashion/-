@@ -117,7 +117,7 @@
                             <a id="J_LinkBuy" clss="" rel="nofollow" data-addfastbuy="true"  title="点击此按钮，到下一步确认购买信息。" role="button" data-spm-anchor-id="">立即购买</a>
                         </div>
                         <div class="tb-btn-basket tb-btn-sku ">
-                            <a href="#" rel="nofollow" id="J_LinkBasket" role="button"><i class="icon_shop"></i>加入购物车</a></div>
+                            <a href="javascript://" id="addShop" rel="nofollow" id="J_LinkBasket" role="button"><i class="icon_shop"></i>加入购物车</a></div>
                     </div>
 
                     <dl class="clearfix">

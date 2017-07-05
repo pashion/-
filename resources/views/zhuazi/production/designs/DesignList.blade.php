@@ -3,13 +3,15 @@
 
 @section('content')
 
+  <span id="conMig"></span>
+  <input type="hidden" id="token" value="{{csrf_token()}}">
     <div class="">
       <div class="page-title">
         <div class="title_left">
 
         </div>
 
-        <div class="title_right">
+           <div class="title_right">
 
         </div>
       </div>
@@ -83,7 +85,7 @@
                   <td>
                     <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
                     <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑 </a>
-                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除 </a>
+                    <a href="#" deID="{{$v['id']}}" class="btn btn-danger btn-xs desiDel"><i  class="fa fa-trash-o "></i> 删除 </a>
                   </td>
                 </tr>
 
@@ -97,6 +99,6 @@
 @endsection
 
 @section('footJS')
-      <script src="{{url('zhuazi')}}/js/designList.js"></script>
+       <script src="{{url('zhuazi')}}/js/DesignList.js"></script>
 @endsection
 
