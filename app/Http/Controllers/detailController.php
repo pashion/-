@@ -15,4 +15,5 @@ class detailController extends Controller
         // dd($orderData);
         return view('zhuazi/production/order/orderDetail',['orderData'=>$orderData,'request'=>$request->all()]);
     }
+    
 }

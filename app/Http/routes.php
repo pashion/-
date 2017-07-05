@@ -69,6 +69,7 @@ Route::resource('scene', 'DesignController');
 	Route::resource('talking','TalkingController');
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
+	Route::get('order/{id}/delete','OrderController@destroy');
 	Route::resource('detail','detailController');
 
 

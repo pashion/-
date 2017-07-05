@@ -307,6 +307,7 @@
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
+    <script src="{{url('zhuazi')}}/vendors/freship/order_del.js"></script>
       </div>
     </div>
 
