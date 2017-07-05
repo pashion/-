@@ -27,29 +27,29 @@
                     <dl>
                         <dt>我的交易</dt>
                         <dd><a href="{{url('/user/detail/orders')}}" class="hover" target="main">我的订单</a></dd>
-                        <dd><a href="#" target="main">我的积分</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">我的积分</a></dd>
                     </dl>
                     <dl>
                         <dt>VIP专区</dt>
-                        <dd><a href="#" target="main">VIP活动专区</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">VIP活动专区</a></dd>
                     </dl>
                     <dl>
                         <dt>我的收藏</dt>
-                        <dd><a href="#" target="main">设计师案例</a></dd>
-                        <dd><a href="#" target="main">场景方案</a></dd>
-                        <dd><a href="#" target="main">单品</a></dd>
-                        <dd><a href="#" target="main">话题</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">设计师案例</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">场景方案</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">单品</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">话题</a></dd>
                     </dl>
                     <dl>
                         <dt>我的足迹</dt>
-                        <dd><a href="#" target="main">秀秀记录</a></dd>
-                        <dd><a href="#" target="main">浏览记录</a></dd>
-                        <dd><a href="#" target="main">评论记录</a></dd>
-                        <dd><a href="#" target="main">点赞记录</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">秀秀记录</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">浏览记录</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">评论记录</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">点赞记录</a></dd>
                     </dl>
                     <dl>
                         <dt>我的邀请</dt>
-                        <dd><a href="#" target="main">已邀请用户</a></dd>
+                        <dd><a href="{{url('/user/detail/abord')}}" target="main">已邀请用户</a></dd>
                     </dl>
                     <dl>
                         <dt>设置</dt>

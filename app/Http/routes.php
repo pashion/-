@@ -10,8 +10,12 @@
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
-//个人中心
-Route::controller('/user/detail','UserDetailController');
+//这个路由群组限制没有登录用户
+Route::group(['middleware'=>'homeLogin'],function () {
+	//个人中心
+	Route::controller('/user/detail','UserDetailController');
+});
+
 
 
 
@@ -21,7 +25,7 @@ Route::controller('/user/detail','UserDetailController');
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
-//后台路由群，由中间件控制用户访问是否登录
+//后台路由群，由中间件控制用户访问是否登录，没有登录跳转到登录页面
 // Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');

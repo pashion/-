@@ -213,5 +213,5 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 
-        // 'upload'=>'./Uploads/'.data('Y-m-d'),
+        // 'upload'=>'./uploads/'.data('Y-m-d'),
 ];
