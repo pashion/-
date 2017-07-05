@@ -3,13 +3,15 @@
 
 @section('content')
     <input id="token" type="hidden" value="{{csrf_token()}}">
-    
+    <h4>设计方案添加</h4>
+    <center>
+        <div style="background:white; width:1000px; padding:40px; padding-bottom:40px;">
+
 
     <table>
         <tr id="pic" height="100">
-            <td><h2>商品图片</h2></td>
+            <td width="20%"><h2>方案图片</h2></td>
             <td colspan="2">
-
                 <table>
                     <tr>
                         <td>
@@ -25,9 +27,22 @@
                 </table>
             </td>
         </tr>
+        <tr>
+            <td><h2>文字内容</h2></td>
+            <td>
+                <br>
+                <textarea style="width:500px;" name="designContent" id="" cols="30" rows="10"></textarea>
+            </td>
+        </tr>
+        <tr>
+           <td> </td>
+            <td><button class="btn btn-defauld">提交</button></td>
+        </tr>
     </table>
 
     <script src="{{url('zhuazi/js/PicUpload.js')}}"></script>
+        </div>
+    </center>
 @endsection
 
 

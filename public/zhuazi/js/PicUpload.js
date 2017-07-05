@@ -1,4 +1,4 @@
-
+var MUST_INPUT_TMP = [];
 $(function () {
     loadEvenAddLog();//加载 图片添加按钮 事件
     fileChang();
@@ -9,7 +9,7 @@ function loadEvenAddLog ()
 {
     $('#addLog').on('click', function () {
         var num = parseInt( $(this).attr('num') ); //转换数据类型
-        if(num >= 5){ //判断有多少张图片
+        if(num >= 10){ //判断有多少张图片
             $(this).next().html('<center>最多只能添加5展示张图片</center>');
             return false;
         }
@@ -46,13 +46,14 @@ function fileChang ()
             var str  = '<td>' +
                 '<div sytle="margin:10px;">' +
 
-                '<img width="130" height="130" class="img-thumbnail" src="../tempPicDir/'+picName+'">' +
+                '<img width="200" height="200" class="img-thumbnail" src="../tempPicDir/'+picName+'">' +
 
                 '</div>' +
                 '<center  style="color:green">上传成功</center>' +
                 '<center picName="'+picName+'" class="del'+MUST_INPUT_TMP['pic']+'" ><label>删除</label></center>' +
                 '<input type="hidden" name="pic[]" value="'+picName+'">'+
                 '</td>';
+
             fileObj.parent().parent().before(str);//显示图片
             //添加次数
             var num = (parseInt($('#addLog').attr('num')) + 1);
@@ -60,7 +61,6 @@ function fileChang ()
             fileObj.prev().html('<center style="color:green">上传成功</center>');//显示信息
 
             var inputStr = '<input type="hidden" name="picName[]" value="'+picName+'">';
-            $('#pic').attr('class', 'bg-success');//改变颜色
 
             priDleBtnEven()//加载删除事件
         }
@@ -79,15 +79,11 @@ function priDleBtnEven ()
         var delObj = $(this);
         var picName = $(this).attr('picName')
 
-        $.get('file/upload?name=' + picName,  function (delData) {
+        $.get('../goods/file/upload?name=' + picName,  function (delData) {
             if (delData) {
                 delObj.next().html('删除成功');
                 delObj.parent().remove();
                 MUST_INPUT_TMP['pic'] -= 1 ;
-                if ( !MUST_INPUT_TMP['pic']) {
-                    $('#pic').attr('class', 'bg-danger');
-                }
-
             }
         });
 
