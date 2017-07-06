@@ -4,6 +4,7 @@
 	Route::get('/', function () {
 
 	    return view('web.index');
+	     // return view('web.layout.userdetail.orders');
 	});
 
 
@@ -72,6 +73,11 @@ Route::resource('scene', 'DesignController');
 	Route::get('order/{id}/delete','OrderController@destroy');
 	Route::resource('detail','detailController');
 	Route::get('detail/{id}/delete','detailController@destroy');
+
+	//前台订单收发货处理
+	Route::get('web/order' ,'AllOrderController@index');
+	//前台订单详情处理
+	Route::get('web/detail/{id}' ,'AllOrderDetailController@index');
 
 
 	

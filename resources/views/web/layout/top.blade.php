@@ -18,6 +18,11 @@
     <link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
     <link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
     <title>我的订单</title>
+    <style>
+        .cart_shop{
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
 <div class="user_lanmu">
@@ -30,7 +35,8 @@
             </ul>
         </div>
         <div class="cart_shop">
-            <em class="icon_cart"></em><a href="#">我的购物车(0)</a>
+            <img src="{{url('web/images/icon_s08.jpg')}}"/>
+            <a href="#">我的购物车(0)</a>
         </div>
     </div>
 </div>

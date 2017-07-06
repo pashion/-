@@ -18,6 +18,11 @@
     <link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
     <link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
     <title>我的订单</title>
+<style>
+    #menu{
+        text-align: center;
+    }
+</style>
 </head>
 <body>
 <div class="user_style  clearfix">

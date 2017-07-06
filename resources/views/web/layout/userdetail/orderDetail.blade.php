@@ -87,7 +87,7 @@
                                  </div>
                                  <div style="float: left;border-left: 1px #addff8 solid;width: 11%;height:200px;text-align: center ;">
                                     <dl style="margin-top: 50px;">卖家已发货</dl>
-                                    <dl><a href="{{url('web/detail')}}/{{$v->id}}">订单详情</a></dl>
+                                    <dl><a href="{{url('web/orderDetail')}}/{{$v->id}}">订单详情</a></dl>
                                     <dl>查看物流</dl>
                                  </div>
                                  <div style="float: left;border-left: 1px #addff8 solid;width: 11%;height:200px;text-align: center ;">
