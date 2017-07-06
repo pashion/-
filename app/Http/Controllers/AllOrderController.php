@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Order;
+use App\OrderDetail;
 
 class AllOrderController extends Controller
 {
@@ -14,7 +14,7 @@ class AllOrderController extends Controller
     {
     	// dd(session('user')['0']->id);
     	$user_id = session('user')['0']->id;
-    	$data = order::where('user_id',$user_id)->get();
+    	$data = orderDetail::where('user_id',$user_id)->get();
     	// dd($data);
     	return view('web.layout.userdetail.orders' ,compact("data"));
     }

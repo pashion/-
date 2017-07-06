@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>@yield('content')</title>
+		<title>@yield('title')</title>
 		<meta name="keywords" content="">
 		<meta name="description" content="">
 		<link rel="stylesheet" href="{{url('web/build')}}/css/safe/css.css" />

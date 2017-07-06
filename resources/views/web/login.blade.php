@@ -3,6 +3,7 @@
 @section('title','会员登录')
 
 @section('content')
+
     <body>
     <div class="login_style">
         <div class="login_top"><a href="{{url('/')}}"><img src="{{url('web')}}/images/logo.jpg"  /></a></div>
@@ -14,6 +15,18 @@
                 <div class="login_content Reg_log_style ">
                     <div class="login_name"><span>账号登录</span></div>
                     <ul>
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Success:</span>
+                            {{session('success')}}
+                        </div>
+                    @endif
+                     @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{session('error')}}
+                        </div>
+                    @endif
                     <form action="{{url('home/dologin')}}" method="post">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <li class="frame_style form_error"><input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="邮箱" ></li>

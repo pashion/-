@@ -1,0 +1,43 @@
+
+
+.reBox {
+    margin:7px;
+    width:700px;
+    border:1px solid rgb(221,221,221);
+}
+
+.imgPro {
+    z-index:9999;
+}
+.repalyPro {
+    width:80px;
+    height:80px;
+    float:left;
+    margin-right:10px;
+    background:url('../web/images/tempuser1897df321023210412.png');
+}
+.repalyTitle {
+    width:680px;
+    margin:5px;
+}
+
+.repalyRBtn {
+    float:right;
+}
+
+.repalyTextBox {
+    width:600px;
+    margin-left:10px;
+    border:1px solid rgb(221,221,221);
+}
+
+.closeRealyText {
+    position:relative;
+    right:0px;
+    top:0;
+}
+
+.contentRealy {
+    height:100px;
+}
+

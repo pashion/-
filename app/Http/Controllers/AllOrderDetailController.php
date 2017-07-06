@@ -12,8 +12,8 @@ class AllOrderDetailController extends Controller
 {
 	public function index($id){
 		$data = orderDetail::where('order_id',$id)->get();
-    	// dd($data);
-    	return view('web.layout.userdetail.orders' ,compact("data"));
+    	// dd($id);
+    	return view('web.layout.userdetail.orderDetail' ,compact("data"));
 	}
 
     	

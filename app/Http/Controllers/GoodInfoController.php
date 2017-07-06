@@ -52,7 +52,7 @@ class GoodInfoController extends Controller
      * */
     function getGoodSel ()
     {
-        dd();
+    
         $selData = DB::table('option')
             ->join('head', 'option.hid', '=', 'head.id')
             ->select('option.*', 'head.name as headName', 'head.id as headId')
@@ -66,7 +66,7 @@ class GoodInfoController extends Controller
     * */
     function getGoodSelPrice ()
     {
-        dd();
+    
         if (empty($_GET['gid'])) {
             return  '缺乏商品id';
         }
@@ -74,7 +74,6 @@ class GoodInfoController extends Controller
         $selPrice  = SpecPrice::whereRaw('gid = ?', [$gid])->get();
         return $selPrice;
     }
-
 
     /*
      * 返回套系参考配套商品

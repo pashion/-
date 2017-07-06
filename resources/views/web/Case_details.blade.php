@@ -1,83 +1,38 @@
 @extends('web.layout.master')
 
 @section('title','案例详细')
+@section('head')
+
+    <link href="{{url('web')}}/css/designDetail.css" type="text/css" rel="stylesheet" />
+
+@endsection
 
 @section('content')
 <script type="text/javascript">
-$(document).ready(function(){
- $(".q_code ").hover(function(){
-			$(this).find(".q_code_layer").addClass("hover").css("display","block");
-		},function(){
-			$(this).find(".q_code_layer").removeClass("hover").css("display","none");  
+    $(document).ready(function(){
+     $(".q_code ").hover(function(){
+                $(this).find(".q_code_layer").addClass("hover").css("display","block");
+            },function(){
+                $(this).find(".q_code_layer").removeClass("hover").css("display","none");
 
-		}
-	); 
-	 $(".diagram ").hover(function(){
-			$(this).addClass("hover");
-		},function(){
-			$(this).removeClass("hover");  
+            }
+        );
+         $(".diagram ").hover(function(){
+                $(this).addClass("hover");
+            },function(){
+                $(this).removeClass("hover");
 
-		}
-	); 
-})
+            }
+        );
+    })
 </script>
 <body>
-<div class="header">
- <div class="header_top">
-   <div class="top_info clearfix">
-   <div class="logo_style l_f"><a href="#"><img src="images/logo.jpg" /></a></div>
-   <div class="Search_style l_f">
-   <form>
-   <div class="select">
-    <select name="" size="1">
-      <option value="1">设计精髓</option>
-      <option value="2">设计店家</option>
-    </select>
-    </div>
-    <input name="" type="text"  class="add_Search"/>
-    <input name="" type="submit"  value="" class="submit_Search"/>
-    </form>
-   </div>
-   <div class="Cart_user r_f">
-   <div class="Cart_Quantity "><span class="number">0</span></div>
-   <div class="header_operating l_f">
-    <span class="header_touxiang"><img src="images/touxiang_03.png" /></span>
-    <a href="#">登录</a><a href="@">注册</a>
-   </div>
-   </div>
- </div>
- <div class="header_menu">
- <!--菜单导航栏-->
- <ul class="menu" id="nav">
-   <li class="nLi"><a href="#">网站首页</a></li>
-   <li class="nLi"><a href="#">设计精粹</a></li>                
-   <li class="nLi Down"><a href="#">场景方案</a><em class="icon_jiantou"></em>
-    <ul class="sub">
-      <li><a href="#">新闻首页</a></li>
-      <li><a href="#">新闻人物</a></li>
-      <li><a href="#">新闻电视</a></li>
-      <li><a href="#">新闻图片</a></li>
-      <li><a href="#">新闻视频</a></li>
-      <li><a href="# ">新闻专题</a></li>
-    </ul>
-   </li>             
-   <li class="nLi Down"><a href="#">单品大库</a><em class="icon_jiantou"></em></li>      
-   <li class="nLi Down"><a href="#">奇货可享</a><em class="icon_jiantou"></em></li>
-   <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
- </ul>
- <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
- <div class="q_code">
-  <a href="" class="q_code_applnk" rel="nofollow"></a>
-    <div class="q_code_layer" style="display: none;">
-    <a href="" class="qcode_lnk" rel="nofollow">
-      <span class="qcode_title">只分享装修干货</span>
-    </a>  
-    </div>
-  </div>
- </div>
- </div>
-</div>
+
+{{--导入导航条--}}
+@include('web.layout.nav')
+
 <div class="content_style clearfix">
+
  <!--案例详细-->
 <div class="page_Style">
  <div class="left_style">
@@ -102,7 +57,7 @@ $(document).ready(function(){
   </div>
   <div class="Design_display" >
   <div class="Design_Into clearfix">
-    <div class="title_name">文艺个性相片墙设计效果图</div>
+    <div class="title_name">{{$caseData[0]->dtitle}}</div>
     <div class="operating">
     <a href="#" class=""><em class="icon_Point_praise"></em>12345</a> 
     <a href="#" class=""><em class="icon_Collection"></em>收藏</a> 
@@ -114,7 +69,7 @@ $(document).ready(function(){
 	 <div id="play">
 	  <ul class="img_ul">
 
-
+          {{--遍历方案图片--}}
           @foreach($picArr as $v)
               <li><a class="img_a"><img src="designPic/{{$v['picname']}}" style="height: 500px;"></a></li>
           @endforeach
@@ -171,7 +126,7 @@ $(document).ready(function(){
      </div>
      <!--案例评论-->
      <div class="comment_style">
-       <div id="commentNum" class="commentNum title_name"></div>
+       <div id="commentNum" class="commentNum title_name">评论方案</div>
        <div class="comment_content">
         <div class="Post_comment clearfix">
          <div class="left_Avatar">
@@ -194,28 +149,8 @@ $(document).ready(function(){
         <ul id="commentContent">
 
 
-        @foreach($Comment as $v)
-
-
-                 <li class="clearfix">
-                  <div class="comment_Avatar">
-                  <div class="Avatar_bg"></div>
-                  <img src="{{url('web')}}/images/tempuser1897df321023210412.png" width="60" height="60" /></div>
-                  <div class="comment_info">
-                    <p class="name">游客: {{$v['tempuser']}}<span class="time">{{$v['created_at']}}</span> <a href="#" class="Reply_link">回复</a></p>
-                    <p class="comments">
-                      {{$v['comtent']}}
-                    </p>
-                      <div>
-                          <p>用户:</p>
-                      </div>
-                  </div>
-                 </li>
-
-            @endforeach
-
         </ul>
-       <div class="load" style=" text-align:center"><a href="#" class="More">加载更多</a> </div>
+       <div id="loadMore" class="load" style=" text-align:center"><a href="javascript:\\" class="More">加载更多</a> </div>
        </div>
      </div>
     </div>

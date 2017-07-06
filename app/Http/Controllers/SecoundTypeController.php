@@ -118,5 +118,5 @@ class SecoundTypeController extends Controller
         $info = DB::select('select id,name from second_type where tid = '.$a);
         return $info;
     }
-
+    
 }

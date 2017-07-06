@@ -36,11 +36,10 @@
                                   </div>
                                  <div id="profile" class="tab-pane active" style="padding: 00px 00px;">
                                  <div style="width: 100%;height: 50px;border: 1px #ccc solid;line-height: 50px;background-color: #fdfdfd">
-                                    <span style="color: #858585;margin-left: 60px;">用户id</span>
-                                    <span style="color: #858585;margin-left: 160px;">商品id</span>
-                                    <span style="color: #858585;margin-left: 180px;">单价(元)</span>
-                                  
-                                    <span style="color: #858585;margin-left: 35px;">商品操作</span>
+                                    <span style="color: #858585;margin-left: 120px;">宝贝</span>
+                                    <span style="color: #858585;margin-left: 220px;">单价(元)</span>
+                                    <span style="color: #858585;margin-left: 20px;">数量</span>
+                                    <span style="color: #858585;margin-left: 95px;">商品操作</span>
                                     <span style="color: #858585;margin-left: 50px;">实付款(元)</span>
                                     <span style="color: #858585;margin-left: 45px;">交易状态</span>
                                     <span style="color: #858585;margin-left: 45px;">交易操作</span>
@@ -53,24 +52,40 @@
                                         <input type="button" style="border:0px;display: inline-block;background-color: #fff;background-image: url({{url('web')}}/images/我的订单/组-40.png);background-repeat: no-repeat;width: 58px;height: 20px;" />
                                     </div>
                                  </div>
+                                <?php
+                                     $order_status=array('0'=>'待发货','1'=>'待收货','2'=>'完成','3'=>'取消');
+                                    $ruturn_status=array('0'=>'不退货','1'=>'退货');
+                                    $comment_status=array('0'=>'去评论','1'=>'已评论');
+                                    // var_dump($orderData);
 
+                                ?>
                                  <div style="margin-top: 30px;width: 100%;height: 250px;border: 1px #addff8 solid;">
                                  <div style="width: 100%;height: 50px;background-color: #eaf9ff;vertical-align: middle;font-size: 12px;">
                                 <!-- <input type="checkbox" style="line-height: 50px;margin-left: 20px;"/> -->
                                 @foreach($data as $v)
+                                <?php
+                                    $str = $v['goods_pic'];
+                                    $array = explode(',', $str);
+                                ?>
                                  <div style="margin-top: 30px;width: 100%;height: 250px;border: 1px #addff8 solid;">
                                  <div style="width: 100%;height: 50px;background-color: #eaf9ff;vertical-align: middle;font-size: 12px;">
                                 <input type="checkbox" style="line-height: 50px;margin-left: 20px;"/>
                                  <span style="line-height: 50px;">{{$v->created_at}}</span>
-                                  <span style="line-height: 50px;margin-left: 20px;">订单号：{{$v->id}}</span>
+                                  <span style="line-height: 50px;margin-left: 20px;">订单号：{{$v->order_id}}</span>
 
                                 <img src="{{url('web')}}/images/speech-bubble-3-拷贝.png" style="margin-left: 100px;"/> <span>和我联系</span>
                                  </div> 
                                   <div style="float: left;width: 65%;height: 93px;">
-                                    <div style="width: 100%;">
-                                    <dl style="width: 220px;float: left;margin-left: 20px;margin-top: 70px;">{{$v->user_id}}</dl>
-                                    <dl style="width: 220px;float: left;margin-left: 20px;margin-top: 70px;">{{$v->address_id}}</dl>
-                                    <dl style="float: left;margin-left: 10px;margin-top: 70px;">{{$v->tatal_amount}}</dl>
+                                    <div style="width: 100%; margin-top:0px;">
+                                    <img src="{{url('goodsPic')}}/{{$array['0']}}" style="height: 100px;float: left;margin-left: 20px;margin-top: 30px;" />
+                                    <dl style="width: 220px;float: left;margin-left: 20px;margin-top: 70px;">{{$v->goods_name}}</dl>
+
+                                     <dl style="float: left;margin-left: 20px;margin-top: 70px;">{{$v->cargo_price}}</dl>
+                               
+                                          <span style="margin-left: 50px;line-height: 160px;">{{$v->commodity_number}}</span>
+                               
+                                   
+                                    
                                     
                                     <dl style="float: right;margin-right: 20px;margin-top: 50px;">退款/退货
                                     <br />投诉卖家
@@ -81,13 +96,13 @@
                                  </div> 
                                  <div style="float: left;border-left: 1px #addff8 solid;width: 11%;height:200px;text-align: center;">
                                     
-                                    <span style="font-weight: bold;margin-top: 60px;display: block;">{{$v->tatal_amount}}</span>
+                                    <span style="font-weight: bold;margin-top: 60px;display: block;">{{$v->cargo_price}}</span>
                                     <dl>(含运费:00)</dl>
                                     
                                  </div>
                                  <div style="float: left;border-left: 1px #addff8 solid;width: 11%;height:200px;text-align: center ;">
-                                    <dl style="margin-top: 50px;">卖家已发货</dl>
-                                    <dl><a href="{{url('web/orderDetail')}}/{{$v->id}}">订单详情</a></dl>
+                                    <dl style="margin-top: 50px;">{{$order_status[$v["order_status"]]}}</dl>
+                                    <dl><a href="{{url('web/orderDetail')}}/{{$v->id}}">{{$comment_status[$v["comment_status"]]}}</a></dl>
                                     <dl>查看物流</dl>
                                  </div>
                                  <div style="float: left;border-left: 1px #addff8 solid;width: 11%;height:200px;text-align: center ;">
