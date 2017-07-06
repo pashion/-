@@ -5,8 +5,9 @@
 
     @section('head')
         <link rel="stylesheet" href="{{url('web ')}}/css/goodsGetail.css">
-        @endsection
-    @section('content')
+    @endsection
+
+@section('content')
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -73,7 +74,7 @@
 
                                 {{--遍历猜你喜欢--}}
                                 @foreach($picArr as $v)
-                                    <li style="margin:4px;" class= tb-selected">
+                                    <li style="margin:4px;" class="tb-selected">
                                         <div  class="tb-pic tb-s40"><a ><img width="80px" height="80px" src="{{url('goodsPic')}}/{{$v}}" mid="{{url('goodsPic')}}/{{$v}}" big="{{url('goodsPic')}}/{{$v}}"></a></div>
                                     </li>
                                 @endforeach
@@ -265,5 +266,3 @@
         </script>
 
 @endsection
-
-

@@ -4,7 +4,7 @@
             <div class="panel-heading">
             <div class="pull-left">
                  <i class="fa fa-btn fa-user"></i>
-                {{ $role->display_name or $role->name }}
+                {{ $role->label or $role->name }}
             </div>
                     @include('auth.roles._deleteForm')
 
@@ -15,9 +15,9 @@
             </div>
             <div class="panel-body">
                 <ul class="da-ul">
-                    @foreach( $role->perms as $perm )
+                    @foreach( $perms as $perm )
                         <li><i class="fa fa-btn fa-tag"></i>
-                            {{ $perm->display_name or $perm->name }}</li>
+                            {{ $perm->label or $perm->name }}</li>
                     @endforeach
                 </ul>
             </div>

@@ -7,6 +7,7 @@
 //前台登录相关操作
 Route::controller('/home','HomeLoginController');
 
+<<<<<<< HEAD
 
 
 
@@ -34,6 +35,13 @@ Route::post('sendComment', 'DesignCommentController@saveDesignComment');
 Route::get('getComment', 'DesignCommentController@getDesignComment');
 //保存方案评论回复sendRealyContent
 Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
+=======
+//这个路由群组限制没有登录用户
+Route::group(['middleware'=>'homeLogin'],function () {
+	//个人中心
+	Route::controller('/user/detail','UserDetailController');
+});
+>>>>>>> 1b584baf3143af13c103834b3a901ddb12807e61
 
 
 
@@ -44,9 +52,14 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
+<<<<<<< HEAD
 	//后台路由群，由中间件控制用户访问是否登录
 //后台路由群，由中间件控制用户访问是否登录
     // Route::group(['middleware'=>'adminLogin'], function () {
+=======
+//后台路由群，由中间件控制用户访问是否登录，没有登录跳转到登录页面
+// Route::group(['middleware'=>'adminLogin'], function () {
+>>>>>>> 1b584baf3143af13c103834b3a901ddb12807e61
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
@@ -64,6 +77,14 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	Route::resource('order','OrderController');
 
 
+<<<<<<< HEAD
+=======
+	//前台商品显示
+	Route::resource('goodsShow', 'GoodsShowController');
+
+	Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
+
+>>>>>>> 1b584baf3143af13c103834b3a901ddb12807e61
 	//商品资源路由
 	Route::resource('goods', 'GoogsController');
 	//商品规格
@@ -98,7 +119,7 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 
 
 
-	//=============================================================================志远
+	//志远
 
 	//添加子分类页面路由
 	Route::get('/SecoundType/increase','SecoundTypeController@increase');
@@ -127,9 +148,14 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	//购物车路由
 	Route::controller('shopCart','ShopCartController');
 	//end志远
+<<<<<<< HEAD
 
 
 
+=======
+	
+	
+>>>>>>> 1b584baf3143af13c103834b3a901ddb12807e61
 // });
 
 

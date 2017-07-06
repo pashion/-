@@ -29,14 +29,14 @@
                     <tr>
                         <td>
                             <i class="fa fa-user"></i>
-                            {{$role->display_name or $role->name}}
+                            {{$role->label or $role->name}}
                         </td>
                         <td>
                            <ul class="da-ul">
                                 @foreach($role->perms as $perm)
                                 <li>
                                     <i class="fa-li fa fa-tag"></i>
-                                    {{$perm->display_name or $perm}}
+                                    {{$perm->label or $perm}}
                                 </li>
                                 @endforeach
                            </ul>

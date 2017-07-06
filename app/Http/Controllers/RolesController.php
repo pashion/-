@@ -18,9 +18,13 @@ class RolesController extends Controller
 
     public function getIndex()
     {	
-    	$roles = Role::with('perms')->paginate(2);
-        $perms = Permission::get();
-    	return view('auth.roles.index',compact('roles','perms'));
+
+     //    $roles = new App\Role;
+     //    $roles->
+
+     //    dd($roles);
+     //    $perms = Permission::table('permissions')->get();
+    	// return view('auth.roles.index',compact('roles','perms'));
     }
 
     public function getAdd()
@@ -34,7 +38,7 @@ class RolesController extends Controller
     {
     	$role = Role::create([
     			'name'=>$request->name,
-    			'display_name'=>$request->display_name,
+    			'label'=>$request->label,
     			'description'=>$request->description
 
     		]);
@@ -47,6 +51,7 @@ class RolesController extends Controller
 
     public function getCreate()
     {
+
     	return view('auth.roles._createPower');
     }
 
@@ -57,7 +62,7 @@ class RolesController extends Controller
         //fill类似于create 但是不会更改ID
         $role->fill([
             'name'=>$request->name,
-            'display_name'=>$request->display_name,
+            'label'=>$request->label,
             'description'=>$request->description
             ])->save();
         $role->savePermissions($request->perm);

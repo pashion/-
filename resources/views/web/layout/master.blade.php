@@ -22,6 +22,7 @@
 <link href="{{url('web/build')}}/css/good_list.css" type="text/css" rel="stylesheet" />
 
   {{--head头位置--}}
+
   @yield('head')
 
 <title>@yield('title')</title>

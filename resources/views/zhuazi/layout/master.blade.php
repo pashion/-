@@ -15,6 +15,7 @@
     <!-- 编辑器源码文件 -->
     <script type="text/javascript" src="{{url('ueditor/ueditor.all.js')}}"></script>
     <title>Gentelella Alela! | </title>a
+    <title>Gentelella Alela! | </title>
 
 
 

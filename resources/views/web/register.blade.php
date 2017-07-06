@@ -6,7 +6,7 @@
     <body>
     <div class="login_style register_style">
         <div class="login_top">
-            <a href="#"><img src="{{url('web')}}/images/logo.jpg" /></a>
+            <a href="{{url('/')}}"><img src="{{url('web')}}/images/logo.jpg" /></a>
         </div>
         <div class="login_add_style clearfix">
             <div class="login_ad">
