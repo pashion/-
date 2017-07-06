@@ -194,27 +194,29 @@ $(document).on('click','.filter_link a',function(){
 })
 
 
-//减少商品数量
+//前台“-” 减少商品数量
 function decrease($obj,$gid,$bunch){
-    console.log($gid);
+    //获取当前的商品数量
     var originNum = $obj.next().val();
+    //当前商品数量减1
     var newNum = originNum - 1;
-
+    //获取当前商品总价
     var price = $obj.parent().parent().prev().html();
-
+    // 获取购物车总计价格
     var total = $('.Total_price').html();
+    // 修改购物车总计价格
     $('.Total_price').html(total*1 - price*1);
 
+    //当数量<=0时删除该商品
     if(newNum <= 0){
+        //删除该session商品
         delCart($obj,$gid,$bunch);
         return '删除成功'
     }
 
+    //修改商品数量到前台
     $obj.next().val(newNum);
-
-
-
-
+    // 修改该商品总价
     $obj.parent().parent().next('.statistics').html(newNum*price);
 
     $.ajaxSetup({
@@ -223,6 +225,7 @@ function decrease($obj,$gid,$bunch){
         }
     });
 
+    //ajax请求修改session该商品数量
     $.ajax({
         type: 'post',
         url: '../shopCart/operation',
@@ -231,21 +234,23 @@ function decrease($obj,$gid,$bunch){
             console.log(data);
         }
     });
-
-
 }
 
-//增加商品数量
+//前台“+” 增加商品数量
 function increase($obj,$gid,$bunch){
+    //获取该商品原数量
     var originNum = $obj.prev().val();
+    //该商品数量+1
     var newNum = originNum*1 + 1;
+    //修改该商品数量
     $obj.prev().val(newNum);
-
+    //获取该商品价格
     var price = $obj.parent().parent().prev().html();
-
+    //获取原购物车总价
     var total = $('.Total_price').html();
+    //修改该商品总价
     $('.Total_price').html(price*1+total*1);
-
+    //修改该商品总价
     $obj.parent().parent().next('.statistics').html(newNum*price);
 
     $.ajaxSetup({
@@ -254,6 +259,7 @@ function increase($obj,$gid,$bunch){
         }
     });
 
+    //ajax请求修改session该商品数量
     $.ajax({
         type: 'post',
         url: '../shopCart/operation',
@@ -270,21 +276,28 @@ function increase($obj,$gid,$bunch){
 
 //前台显示单个商品总计
 $(function(){
-
+    //定义前台购物车总数为空
     var total = ''*1;
 
+    // 获取所有商品的价格跟数量,并相加总价
     for(var i=0;i<$('.statistics').length;i++){
         var num = $($('.statistics')[i]).prev().children('.Numbers').children('.number_text').val();
         var price = $($('.statistics')[i]).prev().prev().html();
         $($('.statistics')[i]).html(num*price);
+
+
         total += num*price*1;
     }
 
     //前台显示所有商品总计
     $('.Total_price').html(total);
 
+    //页面自动加载是否全选事件
+    choose();
+
 });
 
+//删除购物车商品
 function delCart($obj,$gid,$bunch){
     console.log($obj);
     console.log($gid);
@@ -296,20 +309,78 @@ function delCart($obj,$gid,$bunch){
         }
     });
 
+    //ajax请求删除该session商品
     $.ajax({
         type: 'post',
         url: '../shopCart/handle',
         data: {gid:$gid,bunch:$bunch},
         success:function(data){
             console.log(data);
-            if(data == 1){
-                alert('删除无规格购物车产品成功');
+            if(data >= 1){
                 $($obj).parent().parent().parent().parent().remove();
-            }else if(data == 2){
-                alert('删除有规格购物车产品成功');
-                $($obj).parent().parent().parent().parent().remove();
+
+                //修改购物车总计价格
+                var total = ''*1;
+
+                // 获取所有商品的价格跟数量,并相加总价
+                for(var i=0;i<$('.statistics').length;i++){
+                    var num = $($('.statistics')[i]).prev().children('.Numbers').children('.number_text').val();
+                    var price = $($('.statistics')[i]).prev().prev().html();
+                    $($('.statistics')[i]).html(num*price);
+
+
+                    total += num*price*1;
+                }
+
+                //前台显示所有商品总计
+                $('.Total_price').html(total);
             }
         }
+    });
+
+}
+
+function choose(){
+    //各个选项绑定
+    $(document).on('change','.choose .checkbox',function(){
+        var total = ''*1;
+        for(var i=0;i<$('.choose .checkbox').length;i++){
+            //循环各个选项的对象
+            var gObj = $($('.choose .checkbox')[i]);
+            if( $($('.choose .checkbox')[i]).is(':checked') ){
+                var gTotal =  gObj.parent().nextAll('.statistics').html();
+                total += gTotal*1;
+            }else{
+                // alert(2);
+            }
+        }
+        //修改购物车总计价格
+        $('.Total_price').html(total);
+    });
+
+
+    $(document).on('change','.table .allcheck',function(){
+        //全选中或不选
+        if( $(this).is(':checked') ){
+            alert(1);
+            $('.choose .checkbox').prop('checked',true);
+        }else{
+            alert(2);
+            $('.choose .checkbox').prop('checked',false);
+        }
+
+        var total = ''*1;
+        for(var i=0;i<$('.choose .checkbox').length;i++){
+            //循环各个选项的对象，并相加选中商品总计
+            var gObj = $($('.choose .checkbox')[i]);
+            if( $($('.choose .checkbox')[i]).is(':checked') ){
+                var gTotal =  gObj.parent().nextAll('.statistics').html();
+                total += gTotal*1;
+            }
+        }
+        //修改购物车总计价格
+        $('.Total_price').html(total);
+
     });
 
 }
