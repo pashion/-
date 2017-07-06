@@ -47,7 +47,7 @@ class GoodsSpecController extends Controller
     }
 
     /**
-     * 添加  ajax穿过个
+     * 添加规格名
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

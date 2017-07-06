@@ -22,14 +22,10 @@
         MUST_INPUT_TMP['goodKind']  = 0;        //如果为1,说明选择了商品种类
         MUST_INPUT_TMP['pic']       = 0;        //图片标记
         MUST_INPUT_TMP['depict']    = 0;        //描述标记价格标记
-
         PAR_SEL_TMP_ARR['goodPar']   = 0;        //如果为1,说明添加的商品选项,需要校验是否确定了选项
         PAR_SEL_TMP_ARR['affSel']    = 0;        //如果为1,说明确定了选项
-
         PRICE_SEL_TMP['addPrice']  = 0;        //如果为1,说明确定了添加了选项价格
         PRICE_SEL_TMP['affPrice']  = 0;        //如果为1,说明确定确认了价格
-
-
 
         select();//加载 下拉框 事件
         fileChang();//加载 选择框改变 事件
@@ -37,13 +33,11 @@
         loadParAff();   //加载属性确认按钮
         loadConmitBtn();//加载提交按钮
 
-
         loadPriceBlurEven()//商品 名验证
         loadGoodNameBlurEven()////价格验证
         loadStockAllBlurEven()//库存验证
         loadDisStyleAllBlurEven()//类别验证
         loadDesrTextarea()//描述框验证
-
 
     });
 
@@ -58,7 +52,6 @@
             for ( a in MUST_INPUT_TMP) {
                 MUST_INPUT_TMP[a]? 1 : errorMig (a) ;
             }
-
 
             //判断是否添加了选项
             if (PAR_SEL_TMP_ARR['goodPar'])  {
@@ -80,24 +73,18 @@
                 }
 
             });
-
-
+            //触发表单提交方法
             $('#formCon').submit();
         });
     }
-
-
 
 
     //错误处理
     function errorMig (id)
     {
         $('#'+id).attr('class', 'bg-danger');
-
         throw SyntaxError();
     }
-
-
 
     //加载--商品名称框改变事件, 校验
     function loadGoodNameBlurEven ()
@@ -190,17 +177,20 @@
     function fileChang ()
     {
         $('.fileUp').on('change', function () {
-
             var fileObj = $(this);
             var formData = new FormData();
 
             //准备上传数据,使用HTNL5新对象formData,保存数据
             formData.append("image", $(this)[0].files[0]); //获取图片数据
-            formData.append("name", 'image' );
-            formData.append('_token', $('#token').val());
 
+            console.log(formData);
+
+            // formData.append("name", 'image' );
+            formData.append('_token', $('#token').val());
             //准备回调方法,这里写你获取到上传结果,0 为失败,获取到 文件名 为成功
             function gg (picName) {
+                picName = picName['name'];
+
                 if(picName  == '' ){
                     fileObj.prev().html('<center style="color:red">上传失败</center>');
                     return falses;
@@ -209,13 +199,14 @@
                 //拼接字符串
                 var str  = '<td>' +
                     '<div sytle="margin:10px;">' +
-                    '<img width="130" height="130" class="img-thumbnail" src="file/reducepic?name=tempPicDir/'+picName+'">' +
+
+                    '<img width="130" height="130" class="img-thumbnail" src="../tempPicDir/'+picName+'">' +
+
                     '</div>' +
                     '<center  style="color:green">上传成功</center>' +
                     '<center picName="'+picName+'" class="del'+MUST_INPUT_TMP['pic']+'" ><label>删除</label></center>' +
                     '<input type="hidden" name="pic[]" value="'+picName+'">'+
                     '</td>';
-
                 fileObj.parent().parent().before(str);//显示图片
                 //添加次数
                 var num = (parseInt($('#addLog').attr('num')) + 1);
@@ -227,10 +218,8 @@
 
                 priDleBtnEven()//加载删除事件
             }
-
             //执行已经包装好的ajaxFile方法
             ajaxFile('file/upload', formData, gg);
-
         });
 
     }
@@ -242,7 +231,8 @@
 
         $(name).on('click', function () {
             var delObj = $(this);
-            var picName = $(this).attr('picName');
+            var picName = $(this).attr('picName')
+
             $.get('file/upload?name=' + picName,  function (delData) {
                 if (delData) {
                     delObj.next().html('删除成功');

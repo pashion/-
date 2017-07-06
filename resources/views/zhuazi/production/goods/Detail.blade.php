@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2 id="goodsID" data="{{$goodsData['id']}} ">商品ID: {{$goodsData['id']}} </h2>
+                    <h2 id="goodsID" data="{{$goodsData['id']}}">商品ID: {{$goodsData['id']}} </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <button id='infoEditBtn' type="button" class="btn btn-success ">修改</button>
                         <button id="infoEditBtnAff" type="button" class="btn btn-warning ">确定</button>
@@ -233,35 +233,13 @@
                                                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
 
-                                                    <table id="">
-                                                        @if($headKey != null)
-                                                            @foreach($headKey as $k => $v)
-                                                                <tr class="oriParSelTr" dataId="{{$k}}" name="{{$v}}">
-                                                                    <td style="font-size:15px;">{{$v}}</td>
-                                                                    <td>
-                                                                        <div style="margin:10px">
-                                                                        @foreach($selData as  $vv)
-                                                                            @if($vv->headName == $v)
-                                                                                <div class="pull-left btn btn-default "><a data="{{$v}}" class="pull-left selOriContent">{{$vv->name}}<a></div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="selConTd">
+                                                    {{--商品选项表JS遍历--}}
+                                                    <div id="selTable"></div>
 
-                                                                    </td>
-                                                                </tr>
-
-                                                            @endforeach
-                                                        @else
-                                                            <h3>无</h3>
-                                                        @endif
-                                                    </table>
+                                                    {{--商品选项控制面板--}}
+                                                    <div id="goodsSelConMaxBox"></div>
 
 
-                                                    <div id="goodsSelConMaxBox">
-
-                                                    </div>
 
 
 

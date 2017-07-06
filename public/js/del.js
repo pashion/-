@@ -194,5 +194,122 @@ $(document).on('click','.filter_link a',function(){
 })
 
 
+//减少商品数量
+function decrease($obj,$gid,$bunch){
+    console.log($gid);
+    var originNum = $obj.next().val();
+    var newNum = originNum - 1;
+
+    var price = $obj.parent().parent().prev().html();
+
+    var total = $('.Total_price').html();
+    $('.Total_price').html(total*1 - price*1);
+
+    if(newNum <= 0){
+        delCart($obj,$gid,$bunch);
+        return '删除成功'
+    }
+
+    $obj.next().val(newNum);
 
 
+
+
+    $obj.parent().parent().next('.statistics').html(newNum*price);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'post',
+        url: '../shopCart/operation',
+        data: {gid:$gid,bunch:$bunch,newNum:newNum},
+        success:function(data){
+            console.log(data);
+        }
+    });
+
+
+}
+
+//增加商品数量
+function increase($obj,$gid,$bunch){
+    var originNum = $obj.prev().val();
+    var newNum = originNum*1 + 1;
+    $obj.prev().val(newNum);
+
+    var price = $obj.parent().parent().prev().html();
+
+    var total = $('.Total_price').html();
+    $('.Total_price').html(price*1+total*1);
+
+    $obj.parent().parent().next('.statistics').html(newNum*price);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'post',
+        url: '../shopCart/operation',
+        data: {gid:$gid,bunch:$bunch,newNum:newNum},
+        success:function(data){
+            // console.log(data);
+        }
+    });
+
+
+
+
+}
+
+//前台显示单个商品总计
+$(function(){
+
+    var total = ''*1;
+
+    for(var i=0;i<$('.statistics').length;i++){
+        var num = $($('.statistics')[i]).prev().children('.Numbers').children('.number_text').val();
+        var price = $($('.statistics')[i]).prev().prev().html();
+        $($('.statistics')[i]).html(num*price);
+        total += num*price*1;
+    }
+
+    //前台显示所有商品总计
+    $('.Total_price').html(total);
+
+});
+
+function delCart($obj,$gid,$bunch){
+    console.log($obj);
+    console.log($gid);
+    console.log($bunch);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'post',
+        url: '../shopCart/handle',
+        data: {gid:$gid,bunch:$bunch},
+        success:function(data){
+            console.log(data);
+            if(data == 1){
+                alert('删除无规格购物车产品成功');
+                $($obj).parent().parent().parent().parent().remove();
+            }else if(data == 2){
+                alert('删除有规格购物车产品成功');
+                $($obj).parent().parent().parent().parent().remove();
+            }
+        }
+    });
+
+}

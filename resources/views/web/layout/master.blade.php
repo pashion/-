@@ -20,9 +20,16 @@
 <link href="{{url('web/build')}}/css/style.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/z_css.css" type="text/css" rel="stylesheet" />
 <link href="{{url('web/build')}}/css/good_list.css" type="text/css" rel="stylesheet" />
+
+  {{--head头位置--}}
+  @yield('head')
+
 <title>@yield('title')</title>
+
+
 </head>
 
+{{--主题内容位置--}}
 	@yield('content')
 
 
@@ -34,3 +41,7 @@
 </div>
 </body>
 </html>
+
+
+@yield('footJs')
+

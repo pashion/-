@@ -48,7 +48,6 @@ class GoogsController extends Controller
      */
     public function create()
     {
-
         $tType = SecondType::whereRaw("tid = ? and name = ?", ['0', '种类'])->select('id')->get();//获取种类数据
         $id = $tType[0]['id'];
         $tType=  SecondType::whereRaw('tid = ? ', [$id])->get();
@@ -67,7 +66,6 @@ class GoogsController extends Controller
      */
     public function store(Requests\GoodsPostRquest  $request)
     {
-
         //写入goods,商品信息表
         $goodsData = [] ;
         $goodsData['goods'] = $_POST['goodName'];      //商品名
@@ -85,9 +83,7 @@ class GoogsController extends Controller
            Storage::disk('local')->move('tempPicDir/'.$v, 'goodsPic/'.$v);
        }
 
-
         $info =  Goods::create($goodsData);
-
         //准备商品id
         $goodId =  $info['id'];
 
@@ -102,7 +98,6 @@ class GoogsController extends Controller
                 }
             }
         }
-
 
 
         //写入SpecPrice表,商品选项价格
@@ -142,6 +137,8 @@ class GoogsController extends Controller
                 $selPriceData['gid']        =   $goodId;//商品id
 
                 SpecPrice::create($selPriceData);
+
+
             }
         }
 
@@ -165,7 +162,7 @@ class GoogsController extends Controller
 
         GoodsDetail::create($GoodsDetailData);
 
-        return 1;
+        return redirect('goods/create');
     }
 
 
@@ -235,8 +232,6 @@ class GoogsController extends Controller
             ->where('gid', '=', $id)
             ->get();
 
-
-        dd($selData);
         return $selData;
     }
 

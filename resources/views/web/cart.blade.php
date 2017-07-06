@@ -15,69 +15,64 @@
  <div class="cart_style Shopping_list">
   <table class="table">
     <thead>
-     <tr class="label_name"><th width="70"><label><input name=""  class="checkbox" type="checkbox" value="" />全选</label></th><th width="430">商品</th><th width="100">单价（元）</th><th width="120">数量</th><th width="100">小计（元）</th><th width="80">操作</th></tr>
+     <tr class="label_name"><th width="70"><label><input name=""  class="checkbox" type="checkbox" value="" checked="" />全选</label></th><th width="430">商品</th><th width="100">单价（元）</th><th width="120">数量</th><th width="100">小计（元）</th><th width="80">操作</th></tr>
     </thead>
      </table>
+
+    @foreach($data as $k=>$v)
+      <table class="cart_pic table_list">
+        <tr>
+          <td width="70" valign="top"><input name="" class="checkbox" type="checkbox" value="" checked="" /></td>
+          <td width="430" valign="top">
+          <p class="img"><img src="images/img_30.jpg" width="80px" height="80px" /></p>
+          <p class="name"><a href="#">{{$v['goods']}}</a></p>
+          <p class="classification">规格分类：
+            @if(isset($v['str_bunch']))
+              {{$v['str_bunch']}}
+            @else
+              无
+            @endif
+          </p>
+          </td>
+          <td width="100" valign="top" class="cart_price">{{$v['price']}}</td>
+          <td width="120" valign="top">
+            <div class="Numbers">
+              @if(isset($v['num_bunch']))
+                <a onclick="decrease($(this),'{{$v['gid']}}','{{$v['num_bunch']}}')" href="javascript:void(0)" class="jian">-</a>
+              @else
+                <a onclick="decrease($(this),'{{$v['gid']}}','')" href="javascript:void(0)" class="jian">-</a>
+              @endif
+
+              <input type="text" readonly name="qty_item_1" value="{{$v['num']}}" id="qty_item_1" class="number_text">
+              @if(isset($v['num_bunch']))
+                <a onclick="increase($(this),'{{$v['gid']}}','{{$v['num_bunch']}}')" href="javascript:void(0)" class="jia">+</a>
+              @else
+                <a onclick="increase($(this),'{{$v['gid']}}','')" href="javascript:void(0)" class="jia">+</a>
+              @endif
+           </div>
+         </td>
+         <td width="100" valign="top" class="statistics">￥{{$v['price']}}{{$v['num']}}</td>
+          @if(isset($v['num_bunch']))
+            <td width="80" valign="top" class="operating" bunch="{{$v['num_bunch']}}">
+            <a href="javascript:void(0)" onclick="delCart(this,'{{$v['gid']}}','{{$v['num_bunch']}}')" >
+            删除</a>
+            </td>
+          @else
+            <td width="80" valign="top" class="operating"><a href="javascript:void(0)" onclick="delCart(this,'{{$v['gid']}}','')">删除</a>
+            </td>
+          @endif
+       </tr>
+    @endforeach 
+
+
+
     <table class="cart_pic table_list">
-     <tr>
-      <td width="70" valign="top"><input name=""  class="checkbox" type="checkbox" value="" /></td>
-      <td width="430" valign="top">
-      <p class="img"><img src="images/img_30.jpg" width="80px" height="80px" /></p>
-      <p class="name"><a href="#">作木坊 实木床1.8米1.5米高箱中式家具婚床储物双人胡桃木A303 标准框架床(不含</a></p>
-      <p class="classification">颜色分类：大号蓝色 </p>
-      </td>
-      <td width="100" valign="top" class="cart_price">￥2343.00</td>
-      <td width="120" valign="top">
-      <div class="Numbers">
-		  <a onclick="setAmount.jian('#qty_item_1')" href="javascript:void(0)" class="jian">-</a>
-          <input type="text" name="qty_item_1" value="1" id="qty_item_1" onkeyup="setAmount.modify('#qty_item_1')" class="number_text">
-		  <a onclick="setAmount.jia('#qty_item_1')" href="javascript:void(0)" class="jia">+</a>
-		 </div>
-      </td>
-      <td width="100" valign="top" class="statistics">￥2345.0</td>
-      <td width="80" valign="top" class="operating"><a href="#">编辑</a><a href="#">删除</a></td>
-     </tr>
+     
   </table>
-   <table class="cart_pic table_list">
-     <tr>
-      <td width="70" valign="top"><input name=""  class="checkbox" type="checkbox" value="" /></td>
-      <td width="430" valign="top">
-      <p class="img"><img src="images/img_30.jpg" width="80px" height="80px" /></p>
-      <p class="name"><a href="#">作木坊 实木床1.8米1.5米高箱中式家具婚床储物双人胡桃木A303 标准框架床(不含</a></p>
-      <p class="classification">颜色分类：大号蓝色 </p>
-      </td>
-      <td width="100" valign="top" class="cart_price">￥2343.00</td>
-      <td width="120" valign="top">
-      <div class="Numbers">
-		  <a onclick="setAmount.jian('#qty_item_1')" href="javascript:void(0)" class="jian">-</a>
-          <input type="text" name="qty_item_1" value="1" id="qty_item_1" onkeyup="setAmount.modify('#qty_item_1')" class="number_text">
-		  <a onclick="setAmount.jia('#qty_item_1')" href="javascript:void(0)" class="jia">+</a>
-		 </div>
-      </td>
-      <td width="100" valign="top" class="statistics">￥2345.0</td>
-      <td width="80" valign="top" class="operating"><a href="#">编辑</a><a href="#">删除</a></td>
-     </tr>
-  </table>
-   <table class="cart_pic table_list">
-     <tr>
-      <td width="70" valign="top"><input name=""  class="checkbox" type="checkbox" value="" /></td>
-      <td width="430" valign="top">
-      <p class="img"><img src="images/img_30.jpg" width="80px" height="80px" /></p>
-      <p class="name"><a href="#">作木坊 实木床1.8米1.5米高箱中式家具婚床储物双人胡桃木A303 标准框架床(不含</a></p>
-      <p class="classification">颜色分类：大号蓝色 </p>
-      </td>
-      <td width="100" valign="top" class="cart_price">￥2343.00</td>
-      <td width="120" valign="top">
-      <div class="Numbers">
-		  <a onclick="setAmount.jian('#qty_item_1')" href="javascript:void(0)" class="jian">-</a>
-          <input type="text" name="qty_item_1" value="1" id="qty_item_1" onkeyup="setAmount.modify('#qty_item_1')" class="number_text">
-		  <a onclick="setAmount.jia('#qty_item_1')" href="javascript:void(0)" class="jia">+</a>
-		 </div>
-      </td>
-      <td width="100" valign="top" class="statistics">￥2345.0</td>
-      <td width="80" valign="top" class="operating"><a href="#">编辑</a><a href="#">删除</a></td>
-     </tr>
-  </table>
+
+
+
+
   <div class="Settlement clearfix">
    <div class="select-all clearfix">
   <div class="cart-checkbox"><input type="checkbox" id="CheckedAll" name="toggle-checkboxes" class="jdcheckbox" clstag="clickcart">全选</div>
@@ -87,7 +82,7 @@
      <div class="Quantity l_f marginright">已选择<em>3</em>件商品</div>
      <div class="l_f">总价：<em class="Total_price">￥12334.00</em></div>
     </div>
-    <a href="javascipt:ovid()" onclick="Submitbilling()" class="Submit_billing">去结算</a>
+    <a href="" class="Submit_billing">去结算</a>
   </div>
  </div>
  <!--猜你喜欢-->
@@ -127,11 +122,5 @@
 </div>
 @endsection
 <script>
-  $(".add_cart_btn ").hover(function(){
-			$(this).addClass("hover");
-		},function(){
-			$(this).removeClass("hover");  
 
-		}
-	); 
 </script>
