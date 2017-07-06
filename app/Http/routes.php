@@ -89,7 +89,7 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
     Route::resource('designAdmin', 'DesignsAdminController');
     //列表页商品小修改
     Route::post('summaryGoodsEdit', 'GoodInfoController@summaryGoodsEdit');
-
+    Route::get('getAreaData', 'GoodsTypeController@getAreaData');
 
 
 	//=============================================================================志远

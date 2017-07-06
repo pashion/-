@@ -6,6 +6,8 @@
 
     var NUM = 0; //计数器.用于创建不同样的删除选项按钮名
 
+    var SEVE_STYLE_DATA = [] //保存接收过来的style数据
+
     $(function () {
 
         loadInfoEditBtn();//加载总体修改按钮点击事件
@@ -33,7 +35,17 @@
     });
 
 
+    //加载商品详情修改按钮
+    function loadGoodsDetailBtn ()
+    {
+        $('#goodsDetailBtn').on('click', function () {
 
+
+        });
+    }
+
+
+// =======================================================================================================================修改商品选项
     //获取商品选项信息,并添加到指定位置
     function getGoodSelInfo ()
     {
@@ -73,8 +85,6 @@
     {
         $('#affParEditBtn').on('click', function () {
 
-
-
             //判断组内是否为空
             if (SAVE_SEL_ADD_CON.length == 0 & SAVE_SEL_DEL_CON.length == 0 ) {
                 throw SyntaxError();
@@ -90,11 +100,6 @@
                 SAVE_SEL_ADD_CON[i] =  delTouArrRepat(SAVE_SEL_DEL_CON[i], SAVE_SEL_ADD_CON[i]);
                 SAVE_SEL_DEL_CON[i] =  delTouArrRepat(aa, SAVE_SEL_DEL_CON[i]);
             }
-
-
-
-            console.log(SAVE_SEL_ADD_CON);
-            console.log(SAVE_SEL_DEL_CON);
 
             //准备数据
             var postData = {
@@ -168,7 +173,7 @@
 
 
 
-    //=========================================================================================================================选项控制器
+//=======================================================================================================================选项控制器
 
     //创建控制盒子
     function createConBox ()
@@ -177,7 +182,7 @@
         var str = ' <button id="editGoodsSel" type="button" class="btn btn-default btn-sm ">修改商品选项</button>' +
             '<div id="parSelConBox">' +
                 '<div id="parSelToolBtnBox">' +
-                '<select name="" id="selList"></select>' +
+                '<select style="width: 100px; height: 30px;"  name="" id="selList"></select>' +
                 ' <button id="parAddBtn" id="addGoodsPar" type="button" class="btn btn-default btn-sm ">添加属性</button>' +
                 ' <button id="parEditConcelBtn" type="button" class="btn btn-default btn-sm ">取消</button>' +
                 '<span id="parSelConMig"></span>' +
@@ -340,11 +345,7 @@
         });
     }
 
-    //确定数据按钮
-    function loadParEditAffBtn ()
-    {
 
-    }
 
     //添加选项按钮
     function loadSelAddBtn (name)
@@ -427,7 +428,7 @@
 
 
 
-    //================================================================================图片处理=================================================
+//======================================================================================================================图片处理
     //加载图片添加按钮
     function loadAddEditGoodPic()
     {
@@ -548,29 +549,107 @@
     {
         //风格
         $('.styleEditBtn').on('click', function () {
-            styleAndAreaEdit($(this), 26);
+            styleAndAreaEdit($(this));
         });
 
         //区域
         $('.areaEditBtn').on('click', function () {
-            styleAndAreaEdit($(this), 27);
+
+            var areaEditBtnObj = $(this);
+            showLinetBtn(areaEditBtnObj);
+
+            $.get('getAreaData', function (data) {
+
+
+                //拼接
+                var str = '';
+                for (a in data) {
+
+                    str += '<input type="radio" checked name="area" data-name="'+data[a]['name']+'" value="'+data[a]['id']+'">'+data[a]['name'] ;
+                }
+
+                //写入
+               $('#goodsAreaText').html(str);
+
+
+            }, 'json')
         });
     }
 
     //风格和区域修改事件方法
-    function styleAndAreaEdit (obj, tid)
+    function styleAndAreaEdit (obj)
     {
         showLinetBtn(obj);
-        $.get('goodsgetstyle?tid=' + tid, function (data) {
-            var str = '';
-            for (a in data) {
-                str += '<input type="radio" ' +
-                    'styleName="'+data[a]['name']+'" name="style" value="'+data[a]['id']+'">'+data[a]['name']+'&nbsp;&nbsp;' ;
-            }
-            var showTextObj = obj.parent().prev().children().first();
-            showTextObj.html(str);
-        }, 'json');
 
+            $.get('goodsgetstyle', function (data) {
+
+                SEVE_STYLE_DATA = data;
+
+                var str = '<select id="styleSelBox" class=".styleSelBox"><option>请选择</option>';
+                for (a in SEVE_STYLE_DATA) {
+                    str += '<option data-dis="'+a+'" value="'+SEVE_STYLE_DATA[a]['id']+'">'+SEVE_STYLE_DATA[a]['name']+'</option>';
+                }
+                str += '</select>';
+                var showTextObj = obj.parent().prev().children().first();
+                showTextObj.html(str);
+
+
+                loadStyleSelBoxEven();//加载父类风格下拉框
+                loadStyleSaveBtn(); //加载风格保存按钮事件
+
+            }, 'json');
+
+    }
+
+
+    //加载风格下拉框事件
+    function loadStyleSelBoxEven ()
+    {
+        $('#styleSelBox').on('change', function () {
+
+            $(this).nextAll().remove();//清除
+            var val  =  $(this).find('option:selected').attr('data-dis');//取值
+            //判断
+            if (SEVE_STYLE_DATA[val]['childrenType']  <= 0 ) {
+                return false;
+            }
+            //拼接
+            var str =  '<select id="childrenSel">';
+            for (a in SEVE_STYLE_DATA[val]['childrenType'] ) {
+                console.log(a);
+                str += '<option value="'+SEVE_STYLE_DATA[val]['childrenType'][a]['id']+'">'+SEVE_STYLE_DATA[val]['childrenType'][a]['name']+'</option>';
+            }
+            str += '</select>';
+
+            //写入
+            $(this).after(str);
+
+
+        });
+    }
+
+
+    //加载风格保存按钮事件
+    function loadStyleSaveBtn ()
+    {
+        //风格
+        $('.sytleBtnSave').on('click', function ()
+        {
+
+           var parentVal =  $('#styleSelBox').find('option:selected').val();
+           var childrenVal =  $('#childrenSel').find('option:selected').val();
+
+           var parentName =  $('#styleSelBox').find('option:selected').text();
+           var childrenName =  $('#childrenSel').find('option:selected').text();
+
+           if (childrenVal == undefined) {
+               childrenVal = parentVal;
+               childrenName  = parentName;
+           }
+
+           saveBtn($(this), childrenVal, '', '', 'style', childrenName)//发送数据
+            $(this).unbind("click");
+        })
     }
 
 
@@ -613,24 +692,16 @@
             saveBtn( $(this), val, regExp, reText, 'desr');
         });
 
-        //风格
-        $('.sytleBtnSave').on('click', function ()
-        {
-            var showText =  $(this).parent().parent().prev().children().first();
-            var selBtn = showText.children('input:radio:checked');
-            var val  = selBtn.val();
-            var name = selBtn.attr('styleName');
-            saveBtn($(this), val, '', '', 'style', name)//发送数据
-        })
+
 
         //区域
         $('.areaBtnSave').on('click', function ()
         {
-            var showText =  $(this).parent().parent().prev().children().first();
-            var selBtn = showText.children('input:radio:checked');
-            var val  = selBtn.val();
-            var name = selBtn.attr('styleName');
-            saveBtn($(this), val, '', '', 'style', name)//发送数据
+            var val = $('input:radio:checked').val();
+            var name= $('input:radio:checked').attr('data-name');
+
+            $('#goodsAreaText').html(name)
+            saveBtn($(this), val, '', '', 'area', name)//发送数据
         })
 
         //状态

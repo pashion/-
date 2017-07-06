@@ -117,6 +117,8 @@ class GoodInfoController extends Controller
         return  $info ;
     }
 
+    f
+
 
 
 }

@@ -84,19 +84,19 @@
 
                   <td class=" ">
                     @if($v['state'] == 0)
-                      <button type="button" class="btn btn-success">在售</button>
+                      <button type="button" class="btn btn-success btn-xs">在售</button>
                     @elseif($v['state'] == 1)
-                      <button type="button" class="btn btn-danger">下架</button>
+                      <button type="button" class="btn btn-danger btn-xs">下架</button>
                     @elseif($v['state'] == 2)
-                      <button type="button" class="btn btn-default">失效</button>
+                      <button type="button" class="btn btn-default btn-xs">失效</button>
                     @elseif($v['state'] == 3)
-                      <button type="button" class="btn btn-warning">缺货</button>
+                      <button type="button" class="btn btn-warning btn-xs">缺货</button>
                     @endif
                   </td>
                   <td>
-                    <a href="#" class="btn btn-primary btn-xs goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
-                    <a href="#" class="btn btn-info btn-xs goodEdit" data-id="{{$v['id']}}"><i class="fa fa-pencil"></i> 编辑 </a>
-                    <a href="#" data-id="{{$v['id']}}" class="btn btn-danger btn-xs goodsDel"><i class="fa fa-trash-o "></i> 删除 </a>
+                    <a style="float: left;" href="#" class="btn btn-primary btn-sm goodsSingle" goodId="{{$v['id']}}"><i class="fa fa-folder "></i>  进入</a>
+                    <a style="float: left;" href="#" class="btn btn-info btn-sm goodEdit" data-id="{{$v['id']}}"><i class="fa fa-pencil"></i> 编辑 </a>
+                    <a style="float: left;" href="#" data-id="{{$v['id']}}" class="btn btn-danger btn-sm goodsDel"><i class="fa fa-trash-o "></i> 删除 </a>
                   </td>
                 </tr>
 
@@ -111,5 +111,7 @@
 @section('footJS')
 
               <script src="{{url('zhuazi')}}/js/GoodsList.js"></script>
+
+
 @endsection
 

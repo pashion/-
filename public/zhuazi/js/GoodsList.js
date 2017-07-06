@@ -54,8 +54,11 @@
     {
         $('.goodEdit').on('click', function () {
 
-            var id  = $(this).attr('data-id');
             $('.goodEdit').css('display', 'none'); //隐形按钮
+            $('.goodsDel').css('display', 'none');  //隐形按钮
+
+            var id  = $(this).attr('data-id');
+
             var str = '<button id="saveBtn" data-id="'+id+'" type="button" class="btn btn-default">保存</button>';//显示按钮
             $(this).after(str);//添加按钮
             var  trObj  =  $(this).parent().parent();//获取父类对象
@@ -134,7 +137,9 @@
                     $('.goodEdit').css('desiplay', 'bo');
 
                     //显示原按钮组
-                    $('.goodEdit').css('display', 'block'); //隐形按钮
+                    $('.goodEdit').css('display', 'block');
+                    $('.goodsDel').css('display', 'block');
+
 
                     //数据转换
                     var  trObj  =  saveBtnObj.parent().parent();//获取父类对象
@@ -153,6 +158,8 @@
                     var val =  trObj.children().eq(6).html(str);
 
 
+
+                    //删除保存按钮
                     saveBtnObj.remove();
                 }
             })
