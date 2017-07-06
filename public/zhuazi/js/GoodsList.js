@@ -6,6 +6,9 @@
         buttonLoad();//加载进入按钮事件
         loadGoodsDelEven();//加载删除按钮事件
         loadGoodEditEven();//加载编辑按钮
+        loadSearchGoods();//加载搜索框事件
+        loadSearchText();//加载搜索文本样式
+        loadSearchBtn();//加载搜索按钮事件
     });
 
 
@@ -168,6 +171,98 @@
     }
 
 
+    function  loadSearchBtn ()
+    {
+        $('#searchBtn').on('click', function () {
+
+           var val = $('#searchGoods').val();
+           searchGoodsBasicDetail(val);
+
+        });
+
+    }
+
+    //加载搜索框事件
+    function loadSearchGoods ()
+    {
+        $('#searchGoods').on('input propertychange',  function () {
+
+           var val =  $(this).val();
+           //检验判断
+           if (val == '') {
+               $('#searchTextBox').html('');
+               return false;
+           }
+           //发送请求
+            $.get('getAreaData?text=' + val , function (data) {
+                var str = '';
+                for (a in data) {
+                    str += '<label class="searchText">'+data[a]['goods']+'</label><br>'
+                }
+                $('#searchTextBox').html(str);
+                loadSearchText();
+            })
+
+        });
+    }
+
+
+    //文本框样式
+    function loadSearchText ()
+    {
+        console.log(1);
+        $('.searchText').hover(function () {
+            $(this).css('background', 'rgb(240,240,240)');
+        }, function () {
+            $(this).css('background', 'white');
+        })
+
+        $('.searchText').on('click', function () {
+            var goodsName = $(this).html();
+           $('#searchGoods').val(goodsName);
+            searchGoodsBasicDetail(goodsName);
+        });
+    }
+
+    //搜索商品具体
+    function searchGoodsBasicDetail (val)
+    {
+        $.get('getAreaGoods?text=' + val, function (data) {
+
+            $('#searchTextBox').html('');
+            $('#goodsListTable').html('');//清空
+            //拼接并写入
+            for (a in data) {
+                var  picArr =  data[a]['pic'].split(',');
+                var str = '<tr class="even pointer"> ' +
+                    '<td class="a-center "> ' +
+                    '<input type="checkbox" class="flat" name="table_records"> ' +
+                    '</td> ' +
+                    '<td class=" ">'+data[a]['id']+'</td> ' +
+                '<td class=" ">'+data[a]['goods']+'</td> ' +
+                '<td class=" "> ' +
+                '<img width="50"  height="50" src="goodsPic/'+picArr[0]+'" alt=""> ' +
+                '</td> ' +
+                '<td class=" ">'+data[a]['price']+'</td> ' +
+                '<td class=" ">'+data[a]['desr']+'</td>' +
+                '<td class=" ">' +
+                '<button type="button" class="btn btn-success btn-xs">'+data[a]['state']+'</button> ' +
+                '</td> ' +
+                '<td> ' +
+                '<a style="float: left;" href="#" class="btn btn-primary btn-sm goodsSingle" goodId="'+data[a]['id']+'"><i class="fa fa-folder "></i>  进入</a> ' +
+                '<a style="float: left;" href="#" class="btn btn-info btn-sm goodEdit" data-id="'+data[a]['id']+'"><i class="fa fa-pencil"></i> 编辑 </a> ' +
+                '<a style="float: left;" href="#" data-id="'+data[a]['id']+'" class="btn btn-danger btn-sm goodsDel"><i class="fa fa-trash-o "></i> 删除 </a> ' +
+                '</td> ' +
+                '</tr>';
+                $('#goodsListTable').append(str);
+            }
+
+            buttonLoad();//加载进入按钮事件
+            loadGoodsDelEven();//加载删除按钮事件
+            loadGoodEditEven();//加载编辑按钮
+        });
+
+    }
 
 
 

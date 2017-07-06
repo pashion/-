@@ -1,5 +1,8 @@
 @extends('zhuazi.layout.master')
 
+@section('head')
+  <link rel="stylesheet" href="{{url('zhuazi')}}/css/goodsList.css">
+  @endsection
 
 @section('content')
 
@@ -26,11 +29,14 @@
             <h2>商品管理-列表<small>goods list</small></h2>
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="输入商品名字">
+                <input id="searchGoods" type="text" class="form-control" placeholder="输入商品名字">
                 <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">搜索!</button>
+                      <button id="searchBtn" class="btn btn-default" type="button">搜索!</button>
               </span>
               </div>
+              <data id="searchTextBox">
+
+              </data>
             </div>
 
 
@@ -63,7 +69,7 @@
                 </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="goodsListTable">
 
                 <span id="conMig"></span>
                 @foreach($data as $v)

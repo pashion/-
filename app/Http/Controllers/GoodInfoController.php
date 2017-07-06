@@ -117,7 +117,17 @@ class GoodInfoController extends Controller
         return  $info ;
     }
 
-    f
+    //搜索商品名
+    function getAreaData ()
+    {
+        return Goods::select('goods')->where('goods', 'like', '%'.$_GET['text'].'%')->get();
+    }
+
+    //搜索商品具体
+    function getAreaDataConcrete ()
+    {
+        return Goods::where('goods', 'like', '%'.$_GET['text'].'%')->get();
+    }
 
 
 

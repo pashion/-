@@ -89,7 +89,10 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
     Route::resource('designAdmin', 'DesignsAdminController');
     //列表页商品小修改
     Route::post('summaryGoodsEdit', 'GoodInfoController@summaryGoodsEdit');
-    Route::get('getAreaData', 'GoodsTypeController@getAreaData');
+    //商品动态搜索
+    Route::get('getAreaData', 'GoodInfoController@getAreaData');
+    //商品搜索
+    Route::get('getAreaGoods', 'GoodInfoController@getAreaDataConcrete');
 
 
 	//=============================================================================志远
