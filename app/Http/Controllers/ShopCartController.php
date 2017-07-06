@@ -12,6 +12,7 @@ use DB;
 
 class ShopCartController extends Controller
 {
+    //加入购物车方法
     public function postIndex(Request $request){
 
     	//获取商品页的数据,商品id,数量,有无规格,规格值
@@ -35,7 +36,8 @@ class ShopCartController extends Controller
 				$newNum = $originNum + $num;
 				$request->session()->put('list.'.$gid.'.num',$newNum);
 				$request->session()->save();
-				echo '没有规格的产品购物车存在';
+				// echo '没有规格的产品购物车存在';
+                return back()->withInput()->with('news','购物车存在，数量加一');
 			}else{
 				//保存该商品到购物车
 				$data['goods'] = $goods;
@@ -46,7 +48,7 @@ class ShopCartController extends Controller
 	    		$request->session()->put('list.'.$gid , $data);
 				// session(['list.'.$gid => $data]);
 				$request->session()->save();
-				echo '没有产品规格购物车不存在';
+				return back()->withInput()->with('news','添加购物车成功');
 			}
 			echo '_没有规格的产品';
     	}elseif($isSel == ''){
@@ -56,7 +58,7 @@ class ShopCartController extends Controller
 
     		//当num_bunch等于1则该产品有规格参数但用户未选择
     		if($num_bunch == 1  or $num_bunch == ''){
-    			echo "未输入规格";
+    			return back()->withInput()->with('news','请先选择规格,谢谢');
     		}else{
     			//判断购物车有无该商品的数据
     			if( $request->session()->has('list.'.$gid.'|'.$num_bunch) ){
@@ -64,7 +66,7 @@ class ShopCartController extends Controller
 					$newNum = $originNum + $num;
 					$request->session()->put('list.'.$gid.'|'.$num_bunch.'.num',$newNum);
 					$request->session()->save();
-					echo '有规格产品购物车存在';   				
+					return back()->withInput()->with('news','购物车存在该商品，数量加一');			
     			}else{
     				//购物车没有该产品时
     				//查询对应规格的价格跟规格名
@@ -88,7 +90,7 @@ class ShopCartController extends Controller
 		    		//有规格存购物车的形式多了个规格数 
 		    		$request->session()->put('list.'.$gid.'|'.$num_bunch, $data);
 		    		$request->session()->save();
-		    		echo '有产品规格购物车不存在';
+		    		return back()->withInput()->with('news','添加购物车成功');
     			}
     		}
     	}
@@ -99,7 +101,7 @@ class ShopCartController extends Controller
     	if($data){
 	    	return view('web.cart',compact('data'));
     	}else{
-	    	return '购物车为空';
+	    	return view('web.nullcart');
     	}
     }
 
@@ -133,6 +135,10 @@ class ShopCartController extends Controller
     		$request->session()->save();
     		return '2';
     	}
+    }
+
+    public function postChoose(Request $request){
+        dd( $request->all() );
     }
 
 }

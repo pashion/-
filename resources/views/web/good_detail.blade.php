@@ -109,7 +109,12 @@
 
                         <span class="mui-amount-unit">件</span>
                         </span>
-                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">库存{{$goodData[0]->stockall}}件</em>
+                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">
+                            
+                            
+
+        
+                            库存{{$goodData[0]->stockall}}件</em>
                             <div></div>
                             <span id="J_StockTips"></span>
                         </dd>
@@ -120,7 +125,17 @@
                         </div>
                         <div class="tb-btn-basket tb-btn-sku ">
                             <a href="javascript:void(0)" rel="nofollow" id="addShop" role="button"><i class="icon_shop"></i>加入购物车</a></div>
-                    </div>
+                        </div>
+
+                        @if (session('news'))
+                        <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span>
+                            {{ session('news') }}
+                        </div>
+                        @endif
+
+                        
 
                     <dl class="clearfix">
                         <dt class="infoParText ">承诺</dt>

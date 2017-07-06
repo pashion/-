@@ -16,8 +16,6 @@ Route::controller('/home','HomeLoginController');
 
 
 
-
-
 //前台商品显示,包括商品详情,商品列表,商品选项价格查询
 Route::resource('goodsShow', 'GoodsShowController');
 //返回商品选
@@ -85,7 +83,6 @@ Route::resource('scene', 'DesignController');
 
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
-
 
 //后台路由群，由中间件控制用户访问是否登录，没有登录跳转到登录页面
 // Route::group(['middleware'=>'adminLogin'], function () {
