@@ -610,48 +610,18 @@ $(document).ready(function(){
 		        </div>
 		      <div class="main_box_rightlist">
 		      		
-		      			
-			        	<div class="z_mainbox2">
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=63&quot;);" class="z_mainbox2pic">
-			                	<img src="{{url('web')}}/colour/149742259317816.png">
-			                </a>
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=63&quot;);" class="z_mainbox2title">美式田园风就是这么色！2017的草木绿你get到了吗？</a>
-			                <span class="z_mainbox2text">
-								 
-					                	
-					                
-					                
-							</span>
-			            </div>
-		      		
-		      			
-			        	<div class="z_mainbox2">
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=62&quot;);" class="z_mainbox2pic">
-			                	<img src="{{url('web')}}/colour/149742093771975.png">
-			                </a>
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=62&quot;);" class="z_mainbox2title">连爱马仕、Gucci 、KENZO这些大牌都在用，你家也可以有！</a>
-			                <span class="z_mainbox2text">
-								 
-					                	
-					                
-					                
-							</span>
-			            </div>
-		      		
-		      			
-			        	<div class="z_mainbox2">
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=61&quot;);" class="z_mainbox2pic">
-			                	<img src="{{url('web')}}/colour/149741336262779.png">
-			                </a>
-			                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=61&quot;);" class="z_mainbox2title">讲真，“寓”见艺术，才是你的“独立王国”</a>
-			                <span class="z_mainbox2text">
-								 
-					                
-					                	今天的你，快乐吗？或甚爱觉不累的00后洒脱的90后。闷骚的80后，激情的70后...
-					                
-							</span>
-			            </div>
-		      		
+
+		      			@foreach($newList as $k=>$v)
+			      			<div class="z_mainbox2">
+				                <a href="{{url('colourTide')}}/detail?colourId={{$v->id}}" class="z_mainbox2pic">
+			                	<img src="/{{$v->coverpath}}/{{$v->cover}}">
+				                </a>
+				                <a href="javascript:" onclick="window.open(basePath+&quot;colourTide/colourTideDetail?colourId=63&quot;);" class="z_mainbox2title">{{$v->title}}</a>
+				                <span class="z_mainbox2text">
+				                {{$v->description}}
+								</span>
+				            </div>
+		      			@endforeach
 		      </div>
 		   </div>
 		<div class="clear"></div>
