@@ -27,6 +27,13 @@ class HomeLoginController extends Controller
    //执行登录验证操作
     public function postDologin(Request $request)
     {
+
+      $email = DB::table('users_register')->where( 'email','=',$request->input('email') )->get();
+
+      if ( $email[0]->status == 0 ) {
+         echo "<script> alert('请先去邮箱进行激活');history.go(-1);window.location.reload();</script>";
+      }
+
       //验证验证码
       if ( $request->input('code') != session('code') ) {
          echo "<script> alert('验证码错误');history.go(-1);window.location.reload();</script>";
@@ -105,7 +112,7 @@ class HomeLoginController extends Controller
            if ( $id = DB::table('users_register')->insertGetID($users) ) 
            {
            		$this->getSendMail($users['email'], $id, $users['token']);
-           		echo "<script> alert('已发送邮件，请到您的邮箱进行激活验证');window.location.href='http://qwer.com/home/index';</script>";
+           		return redirect('home/login')->with('success','注册成功，请到邮箱进行激活');
            }else{
            	 	echo "<script> alert('注册失败');history.go(-1);window.location.reload();</script>";
            }
@@ -132,9 +139,7 @@ class HomeLoginController extends Controller
     		$s['status'] = 1;
 
     		if ( DB::table('users_register')->where('id', '=', $request->input('id'))->update($s) ) {
-    			
-           	 	echo "<script> alert('激活成功');window.location.href='http://localhost/ww/shop-laravel/public/home/login';</script>";
-
+    			return redirect('home/login')->with('success','激活成功');
     		}
     	}
     }
@@ -198,7 +203,8 @@ class HomeLoginController extends Controller
 
           $this->pullMail( $user[0]->email, $user[0]->id, $user[0]->token );
 
-          echo "<script> alert('发送邮件成功，请到邮箱进行密码找回');window.location.href='http://qwer.com/';</script>";
+          return redirect('/')->with('success','发送邮件成功，请到邮箱进行密码找回');
+          
 
       }else{
 
@@ -226,7 +232,7 @@ class HomeLoginController extends Controller
       if ( $user->token == $request->input('token') ) {
         return view( 'web.mail.resetpassword',compact('user'));
       }else{
-          echo "<script> alert('密码找回失败，请重新发送');window.location.href='http://qwer.com/email';</script>";
+          return redirect('home/email')->with('error','密码找回失败，请重新发送');
       }
     }
 
@@ -244,7 +250,7 @@ class HomeLoginController extends Controller
           ]);
         $pass['password'] = $request->input('password');
         if ( DB::table('users_register')->where('id', '=', $request->input('id'))->update($pass) ) {
-          echo "<script> alert('密码找回成功，请登录');window.location.href='http://qwer.com/home/login';</script>";
+          return redirect('home/login')->with('success','密码找回成功，请重新登录');
         }else{
               echo "<script> alert('密码重置失败，请重新填写');history.go(-1);window.location.reload();</script>";
         }

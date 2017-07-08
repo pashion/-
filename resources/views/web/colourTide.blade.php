@@ -130,7 +130,7 @@
          <a href="http://www.yjysj.com.cn/colourTide/colourTideList" class=" menu_cur">找找感觉</a>
        </div>
        <div class="Search_style l_f">
-        <form id="searchForm" onsubmit="return false;">
+        <form id="searchForm" action="{{url('colourTide')}}" method="get">
         	 <select name="type" size="1" style="padding:0; float:left;">
 		      <option value="0" selected="selected">设计精粹</option>
 		      <option value="1">场景方案</option>
@@ -138,10 +138,10 @@
 		      <option value="3">奇货可享</option>
 		      <option value="4">色彩潮流</option>
 		      <option value="5">美居秀秀</option>
-		      <option value="6">有请专家</option>
+		      <option value="6">找找感觉</option>
 		    </select>
-	        <input name="name" type="text" class="add_Search">
-	        <input name="" type="button" onclick="frmSearchSubmit(this);" value="" class="submit_Search">
+	        <input name="search" type="text" class="add_Search" value="{{$search or ''}}">
+	        <input name="" type="submit" class="submit_Search" value="so">
         </form>
        </div>
        <div class="Cart_user r_f">
@@ -305,44 +305,16 @@
 							@endforeach
 			
 		
-	    <div class="clear"></div>
+	    <div class="clear">
+	      {{ $Article->links() }}
+	    </div>
 	    
 	    <div class="pic_page_style clearfix" style="display: none;">
 	      <ul class="page_example pagination">
-	      		
-	      		
-	      		
-	      		
-		       
 	      </ul>
       </div>
-      <div style="padding:0 10px;"><div id="kkpager"><div><span class="pageBtnWrap"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="curr">1</span><span class="disabled">下一页</span><span class="disabled">尾页</span></span><span class="infoTextAndGoPageBtnWrap"><span class="totalText">当前第<span class="currPageNum">1</span>页<span class="totalInfoSplitStr">/</span>共<span class="totalPageNum">1</span>页</span><span class="goPageBox">&nbsp;转到<span id="kkpager_gopage_wrap"><input type="button" id="kkpager_btn_go" onclick="kkpager.gopage()" value="确定"><input type="text" id="kkpager_btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="return kkpager.keypress_gopage(event);" onblur="kkpager.blur_gopage()" value="1"></span>页</span></span></div><div style="clear:both;"></div></div></div>
-  <script type="text/javascript">
-	//生成分页控件  
-	kkpager.generPageHtml({
-	    pno : '1',
-	    mode : 'click', //设置为click模式
-	    //总页码  
-	    total : '1',  
-	    //总数据条数  
-	    totalRecords : '7',
-	    //点击页码、页码输入框跳转、以及首页、下一页等按钮都会调用click
-	    //适用于不刷新页面，比如ajax
-	    click : function(n){
-	        //这里可以做自已的处理
-	        //...
-	        //处理完后可以手动条用selectPage进行页码选中切换
-	        
-	        goPage(n);
-	        return false;
-	    },
-	    //getHref是在click模式下链接算法，一般不需要配置，默认代码如下
-	    getHref : function(n){
-	        return '#';
-	    }
-	
-	});
-  </script>
+      <div style="padding:0 10px;">
+  	  </div>
 	</div>
 	
 	<div class="clear"></div>

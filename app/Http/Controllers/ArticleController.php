@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use Image;
 
+use App\Article;
+
 use DB;
 
 class ArticleController extends Controller
@@ -44,8 +46,9 @@ class ArticleController extends Controller
         $data['date'] = $list['date'];
         $data['author'] = $list['author'];
         $data['coverpath'] = $list['coverpath'];
-        $bool = DB::table('Article')->insert($data);
-        if($bool > 0){
+        $bool = Article::create($data);
+        // $bool = DB::table('Article')->insert($data);
+        if($bool){
             return redirect('Article')->withInput()->with('news','添加成功！');
         }else{
             return redirect('Article')->withInput()->with('news','添加失败,请尝试重新添加！');

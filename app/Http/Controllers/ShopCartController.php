@@ -96,12 +96,16 @@ class ShopCartController extends Controller
     	}
     }
 
+    //获取缓存传输到购物车视图遍历商品
     public function getCart(Request $request){
+        //获取缓存
     	$data = $request->session()->get('list');
+        //获取热门商品
+        $HOT = DB::select('select pic,goods,price,id from goods order by price desc limit 4');
     	if($data){
-	    	return view('web.cart',compact('data'));
+	    	return view('web.cart',compact('data','HOT'));
     	}else{
-	    	return view('web.nullcart');
+	    	return view('web.nullcart',compact('HOT'));
     	}
     }
 
