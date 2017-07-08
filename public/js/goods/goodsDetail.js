@@ -25,10 +25,18 @@
     {
         var goodId = $('#goodsId').val();
         $.get('../getgoodSel?gid=' + goodId, function (data) {
+<<<<<<< HEAD
             
             if (data.length <= 0 ) {
                 $('#isSel').val('A');
             }
+=======
+
+            if (data.length <= 0 ) {
+                $('#isSel').val('A');
+            }
+
+>>>>>>> 564e189c276956c930bdf0b4558adbcd54fe9396
             //抽取属性名,ID
             var head = [];
             for (a in data) {
@@ -38,14 +46,23 @@
             var str = '' ;
             var sebBtnName = [];
             for (a in head) {
+<<<<<<< HEAD
                 str += '<dl class="tb-prop clearfix"><dt class="label_name">'+head[a]+'</dt> <dd class="content"> <ul>';
+=======
+
+                str += '<dl class="tb-prop clearfix"><dt class="label_name">'+head[a]+'</dt> <dd class="content"> <ul>';
+               
+>>>>>>> 564e189c276956c930bdf0b4558adbcd54fe9396
                 for (i in data) {
                     if (data[i]['headId'] == a ) {
-                        var name = 'selBtn' + data[i]['id'];
-                        sebBtnName[data[i]['id']] = name;
-                        str += '<li id="'+name+'" pid="'+a+'" sid="'+data[i]['id']+'"><a role="button" tabindex="0" ><span>'+data[i]['name']+'</span></a></li>';
+
+                        var name = 'selBtn' + data[i]['id'];//拼接新名
+                        sebBtnName[data[i]['id']] = name;//保存每个选项的ID名
+
+                        str += '<li id="'+name+'" pid="'+a+'" class="'+head[a]+'" sid="'+data[i]['id']+'"><a><label>'+data[i]['name']+'</label></a></li>';
                     }
                 }
+
                 str += '</ul> </dd></dl>';
                 SAVE_SEL_ARR[a] = 0;
             }
@@ -71,8 +88,17 @@
     function loadSelBtnEven (name)
     {
         $('#' + name).on('click', function () {
+<<<<<<< HEAD
             console.log(SEL_PRICE_ARR);
             console.log(SAVE_SEL_ARR);
+=======
+
+            //样式控制
+            var headName = $(this).attr('class');
+            console.log(headName);
+            $('.' + headName).css('background', '');
+            $(this).css('background', 'red');
+>>>>>>> 564e189c276956c930bdf0b4558adbcd54fe9396
 
             //获取属性ID
             var pid = $(this).attr('pid');
@@ -176,6 +202,15 @@
     function loadAddShopBtnEven ()
     {
         $('#addShop').on('click', function () {
+<<<<<<< HEAD
             $('#from').attr('action', '../shopCart').submit();
         })
     }
+=======
+
+            $('#from').attr('action', '../shopCart').submit();
+
+        })
+    }
+
+>>>>>>> 564e189c276956c930bdf0b4558adbcd54fe9396

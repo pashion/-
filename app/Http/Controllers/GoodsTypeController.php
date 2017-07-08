@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Type;
-
 use App\SecondType;
 
 
@@ -32,9 +30,19 @@ class GoodsTypeController extends Controller
     //返回所有的风格选项
     public function getGoodsStyle ()
     {
-        $tid = $_GET['tid'];
-        $styleData = SecondType::where('tid', $tid)->get();
-        return $styleData;
+
+        $styleId = SecondType::whereRaw('name = ? ', ['风格'])->get();
+
+        $data = SecondType::where('tid', '=', $styleId[0]->id)->get();
+
+        $styleArr = [];
+        foreach ($data as $k => $v) {
+            $styleArr[$k]['id'] = $v->id;
+            $styleArr[$k]['name'] = $v->name;
+            $styleArr[$k]['childrenType'] = $v->childrenType;
+        }
+
+        return $styleArr;
     }
 
     //返回指定类名
@@ -43,5 +51,13 @@ class GoodsTypeController extends Controller
         $tid = $_GET['tid'];
         $styleData = SecondType::where('tid', $tid)->get();
         return $styleData;
+    }
+
+    public function getAreaData ()
+    {
+        $areaData =  SecondType::where('name', '=', '区域')->get();
+
+        return $areaData[0]->childrenType;
+
     }
 }

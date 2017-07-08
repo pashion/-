@@ -48,14 +48,23 @@ class GoogsController extends Controller
      */
     public function create()
     {
-        $tType = SecondType::whereRaw("tid = ? and name = ?", ['0', '种类'])->select('id')->get();//获取种类数据
-        $id = $tType[0]['id'];
-        $tType=  SecondType::whereRaw('tid = ? ', [$id])->get();
+        //获取种类数据
+        $kindData = SecondType::where('name', '=', '种类')->get();//获取种类数据SecondType
+        $kindData =  $kindData[0]->childrenType;
 
-        $type = SecondType::whereRaw('tid = ? and name != ?', ['0', '种类'])->get();  //查询父类
-        $typeTou = SecondType::whereRaw('tid != ? ', [$id])->get();//查询子分类
+        //区域数据
+        $areaData =  SecondType::where('name', '=', '区域')->get();
+        $areaData =  $areaData[0]->childrenType;
 
-        return view('zhuazi.production.goods.CreateGoods', compact('tType','typeTou', 'type'));
+        //风格数据
+        $styleId =  SecondType::select('id')->where('name', '=', '风格')->get();
+        $styleData=  SecondType::where('tid', '=', $styleId[0]->id)->get();
+
+
+
+
+//        return view('zhuazi.production.goods.CreateGoods', compact('tType','typeTou', 'type'));
+        return view('zhuazi.production.goods.CreateGoods', compact('kindData','areaData', 'styleData'));
     }
 
     /**
@@ -66,13 +75,20 @@ class GoogsController extends Controller
      */
     public function store(Requests\GoodsPostRquest  $request)
     {
+
+        //检验是否有子类风格选项
+        if (empty($_POST['styleChildren'])) {
+            $_POST['styleChildren'] = $_POST['styleParent'] ;
+        }
+
+
         //写入goods,商品信息表
         $goodsData = [] ;
         $goodsData['goods'] = $_POST['goodName'];      //商品名
         $goodsData['price'] = $_POST['price'];         //价格
         $goodsData['stockall'] = $_POST['stockAll'];   //总库存
-        $goodsData['style'] = $_POST['风格'];          //风格
-        $goodsData['area'] = $_POST['区域'];           //区域
+        $goodsData['style'] = $_POST['styleChildren'];     //风格
+        $goodsData['area'] = $_POST['area'];           //区域
         $goodsData['kind'] = $_POST['kind'];           //种类
         $goodsData['pic'] = implode($_POST['pic'], ',');  //图片
         $goodsData['desr'] = $_POST['desr'];        //描述
@@ -264,14 +280,27 @@ class GoogsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * 删除单个商品
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $id = $_POST['id'];
+        $picStr = Goods::select('pic')->find($id);
+        $picArr = explode(',', $picStr['pic']);
+
+        Goods::destroy(['gid', $id]);       //删除商品
+        Option::destroy(['gid', $id]);      //删除属性
+        SpecPrice::destroy(['gid', $id]);   //删除商品属性价格
+        Spec::destroy(['gid', $id]);        //删除商品规格
+        GoodsDetail::destroy(['gid', $id]); //删除商品详情
+
+        //删除图片
+        foreach ( $picArr as $v) {
+            Storage::disk('local')->delete('goodsPic/'.$v);
+        }
+        return 1;
     }
 
 

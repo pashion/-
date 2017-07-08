@@ -17,9 +17,9 @@
         MUST_INPUT_TMP['goodName']  = 0;        //如果为1,说明价格通过了验证
         MUST_INPUT_TMP['price']     = 0;        //如果为1,说明价格通过了验证
         MUST_INPUT_TMP['stockAll']  = 0;        //如果为1,说明选择库存通过了验证
-        MUST_INPUT_TMP['风格']      = 0;        //如果为1,说明选择了风格
-        MUST_INPUT_TMP['区域']      = 0;        //如果为1,说明选择了区域
-        MUST_INPUT_TMP['goodKind']  = 0;        //如果为1,说明选择了商品种类
+        MUST_INPUT_TMP['style']      = 0;        //如果为1,说明选择了风格
+        MUST_INPUT_TMP['area']      = 0;        //如果为1,说明选了区域
+        MUST_INPUT_TMP['goodKind']  = 0;        //如果为1,说明选择了商品种类说明选择了区域
         MUST_INPUT_TMP['pic']       = 0;        //图片标记
         MUST_INPUT_TMP['depict']    = 0;        //描述标记价格标记
         PAR_SEL_TMP_ARR['goodPar']   = 0;        //如果为1,说明添加的商品选项,需要校验是否确定了选项
@@ -33,14 +33,28 @@
         loadParAff();   //加载属性确认按钮
         loadConmitBtn();//加载提交按钮
 
-        loadPriceBlurEven()//商品 名验证
-        loadGoodNameBlurEven()////价格验证
-        loadStockAllBlurEven()//库存验证
-        loadDisStyleAllBlurEven()//类别验证
-        loadDesrTextarea()//描述框验证
+        loadPriceBlurEven();//商品 名验证
+        loadGoodNameBlurEven();//价格验证
+        loadStockAllBlurEven();//库存验证
+        loadDisStyleAllBlurEven();//类别验证
+        loadDesrTextarea();//描述框验证
+
+
+        loadStyleSelPar();//加载风格下拉框
+        loadAreaSelEven();//区域单选框选中事件
 
     });
 
+
+    //区域单选框选中事件
+    function  loadAreaSelEven ()
+    {
+        $('.disArea').on('click', function () {
+
+            MUST_INPUT_TMP['area'] = 1;
+            $('#areaTr').attr('class', 'bg-success');
+        });
+    }
 
 
     //提交按钮事件
@@ -182,11 +196,8 @@
 
             //准备上传数据,使用HTNL5新对象formData,保存数据
             formData.append("image", $(this)[0].files[0]); //获取图片数据
-
-            console.log(formData);
-
-            // formData.append("name", 'image' );
             formData.append('_token', $('#token').val());
+
             //准备回调方法,这里写你获取到上传结果,0 为失败,获取到 文件名 为成功
             function gg (picName) {
                 picName = picName['name'];
@@ -282,9 +293,48 @@
 
 
 
-//==========================================属性添加=========================================
 
-    //====================================================================================================================下拉框事件
+
+//====================================================================================================================下拉框事件
+
+
+    //风格下拉框
+    function loadStyleSelPar ()
+    {
+        $('#styleSelPar').on('change', function () {
+
+            MUST_INPUT_TMP['style'] = 0;
+
+            var val  = $(this).find('option:selected').val();
+            var styleSelParObj = $(this);
+            styleSelParObj.nextAll().remove();    //清除
+            //发送请求
+            $.get('../goodsType?id=' + val, function (data) {
+
+                MUST_INPUT_TMP['style'] = 1;
+
+                //检验
+                if (data <= 0 ) {
+                    return false;
+                }
+                //拼接
+                var str = '<select style="float:left; width:100px;height:35px;"  name="styleChildren">';
+                for (a in data) {
+                    str +='<option value="'+data[a]['id']+'">'+data[a]['name']+'</option>';
+                }
+                str +='</select>';
+
+                //写入
+                styleSelParObj.after(str);
+                $('#goodsStyle').attr('class', 'bg-success');
+
+            }, 'json');
+
+        });
+    }
+
+
+    //种类下拉框
     function select ()
     {
         $('.sele').on('change', function () {
@@ -295,7 +345,7 @@
             //查询数据库
             $.get('../goodsType?id=' + num, function (data) {
 
-
+                //拼接
                 var selStr = '<td><select style="width:100px;" class="select2_group form-control parHead">' +
                     '<option>请选择</option>';
                 for(var a = 0  ; a < data.length ; a++){

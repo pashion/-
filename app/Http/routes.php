@@ -46,6 +46,8 @@ Route::group(['middleware'=>'homeLogin'],function () {
 });
 
 
+//搜索引擎
+Route::get('getXunSeach', 'GoodInfoController@getXunSeach');
 
 //商品详情评论模块
 Route::get('good/detail',function()
@@ -93,8 +95,6 @@ Route::resource('scene', 'DesignController');
 
 	//权限管理
 	Route::controller('/admin/admins','AdminsPermissionController');
-	
-
 
 
 	Route::resource('goods', 'GoogsController');
@@ -158,19 +158,16 @@ Route::resource('scene', 'DesignController');
 	//商品图片缩略图获取路由
 	Route::get('goods/file/reducepic', 'GoodsFileController@reduce');
 
-        //返回设计方案
-// Route::resource('design', 'DesignController');
-
+	//返回设计方案
+// Route::resource('design', 'DesignController')
     //后台方案模块路由
     Route::resource('designAdmin', 'DesignsAdminController');
-
-
-
-
-
-
-
-
+    //列表页商品小修改
+    Route::post('summaryGoodsEdit', 'GoodInfoController@summaryGoodsEdit');
+    //商品动态搜索
+    Route::get('getAreaData', 'GoodInfoController@getAreaData');
+    //商品搜索
+    Route::get('getAreaGoods', 'GoodInfoController@getAreaDataConcrete');
 
 
 	//志远

@@ -66,6 +66,7 @@ function fileChang ()
         }
         //执行已经包装好的ajaxFile方法
         ajaxFile('../goods/file/upload', formData, gg);
+
     });
 
 }

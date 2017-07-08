@@ -36,7 +36,7 @@
 
 <div class="footer clearfix" style="margin-top:0; background:#f5f5f5; border-top:1px solid #e6e6e6;">
 <div class="footer_spacing clearfix">
-  <div style="text-align:center">copyright&copy;广东一家一世界网络科技有限公司 版权所有 粤ICP备16043372号-1</div> 
+  <div style="text-align:center">copyright&copy;广东一家一世界网络科技有限公司 版权所有 粤ICP备16043372号-1</div>
   </div>
 </div>
 </div>

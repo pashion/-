@@ -1,0 +1,16 @@
+
+
+#searchTextBox {
+    background:white ;
+    width: 400px;
+    position: absolute;
+    left:15px;
+    top:35px;
+    z-index:99;
+    padding-left: 10px;
+
+}
+.searchText {
+    width: 400px;
+    font-size: 18px;
+}

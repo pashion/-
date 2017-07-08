@@ -72,9 +72,10 @@
               <div class="menu_section">
                 <h3>只能添加店铺</h3>
                 <ul class="nav side-menu">
-                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a>
+                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a></li>
                   <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
-                  <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制</a>
+                  <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制</a></li>
+                  <li><a href="{{url('designAdmin')}}"><i class="fa fa-edit"></i>设计方案管理</a></li>
 
                   <li><a><i class="fa fa-user"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -312,13 +313,11 @@
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
-<<<<<<< HEAD
-    <script src="/js/del.js"></script>
-=======
+
+    
     <script src="{{url('zhuazi')}}/vendors/freship/order_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/detail_del.js"></script>
-    <script src="/test2/shop-laravel/public/js/del.js"></script>
->>>>>>> bcad1417562ab335a5e0a725c95a2a2e629009e6
+    <!-- <script src="/test2/shop-laravel/public/js/del.js"></script> -->
       </div>
     </div>
 	

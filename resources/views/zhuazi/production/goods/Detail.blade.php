@@ -47,7 +47,7 @@
                                     @if($picData != null || $picData != '')
                                         @foreach($picData as $v)
                                             <div class="onPicBox">
-                                                <div  class="picDelBox"><label class="delPicBtn" picName="{{$v}}" >删除</lable></div>
+                                                <div  class="picDelBox"><lable class="delPicBtn" picName="{{$v}}" >删除</lable></div>
                                                 <div  class="picDiv">
                                                     <img src="goodsPic/{{$v}}" alt="..." class="img-thumbnail">
                                                 </div>
@@ -293,7 +293,6 @@
                                         </div>
 
 
-
                                 </div>
 
                             </div>
@@ -305,9 +304,11 @@
                 </div>
                 <br>
                 {{--详情--}}
-                <div class="alert alert-success">
-                    <h2>商品详情</h2>
+                <div style="height:60px;" class="alert alert-success">
+                    <h2 style="float:left;">商品详情</h2>
+                    <div style="float:right;"><button id="goodsDetailBtn" type="button" class="btn btn-default btn-sm">修改</button></div>
                 </div>
+
                 <div style="width:500px;">{!!  $detail[0]['content'] !!}</div>
 
             </div>
@@ -319,5 +320,6 @@
 </div>
 
 
-
+{{--问题:多次加载js文件会不会造成影响,这个是一个 引入页面,应该把JS放在上一层,商品列表中减少加载--}}
 <script src="{{url('zhuazi')}}/js/GoodsDetail.js"></script>
+

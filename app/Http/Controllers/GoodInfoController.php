@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use Illuminate\Support\Facades\DB;
 use App\Option;
 
@@ -16,8 +14,27 @@ use App\IndexMode;
 use App\Designs;
 use App\SecondType;
 
+
+use hightman\xunsearch\lib;
+
 class GoodInfoController extends Controller
 {
+
+
+    //搜索引擎
+    function getXunSeach ()
+    {
+        $xs = new \XS("shop2");
+       
+        $searchObj = $xs->search;
+        $indeObj =  $xs->index;
+
+        $res =  $searchObj->search('我');
+        dump($indeObj);
+        dump($res);
+    }
+
+
 
     /*
      * 获取首页信息
@@ -59,7 +76,6 @@ class GoodInfoController extends Controller
      * */
     function getGoodSel ()
     {
-    
         $selData = DB::table('option')
             ->join('head', 'option.hid', '=', 'head.id')
             ->select('option.*', 'head.name as headName', 'head.id as headId')
@@ -73,7 +89,6 @@ class GoodInfoController extends Controller
     * */
     function getGoodSelPrice ()
     {
-    
         if (empty($_GET['gid'])) {
             return  '缺乏商品id';
         }
@@ -117,6 +132,29 @@ class GoodInfoController extends Controller
 
         return $data ;
     }
+
+    //缺乏数据校验
+    function  summaryGoodsEdit ()
+    {
+        unset($_POST['_token']);
+        $info =  Goods::where('id', '=', $_POST['id'])->update($_POST);
+        return  $info ;
+    }
+
+    //搜索商品名
+    function getAreaData ()
+    {
+        return Goods::select('goods')->where('goods', 'like', '%'.$_GET['text'].'%')->get();
+    }
+
+    //搜索商品具体
+    function getAreaDataConcrete ()
+    {
+        return Goods::where('goods', 'like', '%'.$_GET['text'].'%')->get();
+    }
+
+
+
 
 
 

@@ -77,28 +77,40 @@
                                     <td>必须,你必须输入有关该商品的所有库存,最多输入999999</td>
                                 </tr>
 
-                                @foreach($type as $typeV)
-                                <tr id="{{$typeV['name']}}">
-                                    <td>{{$typeV['name']}}</td>
+                                <tr id="areaTr">
+                                    <td >区域</td>
 
-                                    <td data="{{$typeV['name']}}" colspan="2">
+                                    <td colspan="2">
 
-                                    @foreach($typeTou as $touV)
-                                        @if($typeV['id'] == $touV['tid'] )
-                                            <label name='{{$typeV['name']}}' class="disStyle">
-                                                <div class="iradio_flat-green" style="position: relative;">
-                                                    <input type="radio" class="flat " name="{{$typeV['name']}}" value="{{$touV['id']}}"  style="position: absolute; opacity: 0;">
-                                                    <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
-                                                    </ins></div>   {{$touV['name']}} &nbsp &nbsp
-                                            </label>
-                                        @endif
-                                    @endforeach
+                                        @foreach($areaData as $v)
+                                                <label name='{{$v['name']}}' class="disArea">
+                                                    <div class="iradio_flat-green" style="position: relative;">
+                                                        <input type="radio" class="flat" name="area" value="{{$v['id']}}"  style="position: absolute; opacity: 0;">
+                                                        <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
+                                                        </ins></div>   {{$v['name']}} &nbsp &nbsp
+                                                </label>
+                                        @endforeach
 
                                         <span>你必须选择指定标签,来定位你的商品</span>
                                     </td>
                                     <td></td>
                                 </tr>
-                                @endforeach
+                                <tr id="goodsStyle">
+                                    <td>风格</td>
+                                    <td colspan="2">
+
+                                            <select id="styleSelPar" name="styleParent" tableName="type" style="float:left; width:100px;" class="select2_group form-control">
+                                                <option value="">请选择</option>
+
+                                                @foreach($styleData as $v)
+                                                    <option value="{{$v["id"]}}">{{$v['name']}}</option>
+                                                @endforeach
+
+                                            </select>
+
+                                    </td>
+                                </tr>
+
                                 <tr id="goodKind">
                                     <td><h2>商品种类</h2></td>
                                     <td>
@@ -107,9 +119,11 @@
                                                 <td>
                                                     <select tableName="type" style="width:100px;" class="select2_group form-control sele">
                                                         <option value="">请选择</option>
-                                                        @foreach($tType as $tTypeV)
-                                                            <option value="{{$tTypeV["id"]}}">{{$tTypeV['name']}}</option>
+
+                                                        @foreach($kindData as $v)
+                                                            <option value="{{$v["id"]}}">{{$v['name']}}</option>
                                                         @endforeach
+
                                                     </select>
                                                 </td>
                                             </tr>
