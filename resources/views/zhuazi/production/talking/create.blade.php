@@ -26,9 +26,9 @@
             <!-- start form for validation -->
             <form id="demo-form" data-parsley-validate action="{{url('talking')}}" method="post">
                 {{csrf_field()}}
-                <input type="hidden" class="flat" name="goods_id"  value="" />
-                <input type="hidden" class="flat" name="order_id"  value="" />
-                <input type="hidden" class="flat" name="user_id"  value="" />
+                <input type="hidden" class="flat" name="goods_id" />
+                <input type="hidden" class="flat" name="order_id" />
+                <input type="hidden" class="flat" name="user_id" />
                 <label for="urlname">评论状态 * :</label>
                 <p>
                     实名评论:

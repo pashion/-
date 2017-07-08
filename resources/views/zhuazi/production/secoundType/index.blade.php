@@ -28,8 +28,6 @@
                     <a  class="btn btn-danger" href="javascript:void(0)" onclick="del( '{{$v->id}}',this,'SecoundType/' )">D</a>
                     @include('zhuazi.production.secoundType.add')
                     @include('zhuazi.production.secoundType.modal')
-                    {{--<a href="{{url('/SecoundType/increase')}}?id={{$v->id}}&name={{$v->name}}&path={{$v->path}}">添加子分类</a>--}}
-                    {{--<a href="{{url('/SecoundType')}}/{{$v->id}}/edit">编辑</a>--}}
                 </td>
             </tr>
         @endforeach

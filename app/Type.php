@@ -10,3 +10,6 @@ class Type extends Model
     protected $fillable = ['name'];
     protected $table = 'type';
 }
+
+
+

@@ -103,87 +103,44 @@ $('.pagination').css({
  <div class="page_Style">
  
   <!--条件筛选-->
-  <div class="filter_style clearfix">
+  <div class="filter_style clearf]kix">
    <ul>
-    <li><label class="filter_name">风格分类</label>
-    <div class="filter_link"><a href="#" class="Select">中式</a><a href="#">美式</a><a href="#">欧式</a><a href="#">现代简约</a></div></li>
-    <li><label class="filter_name">区域分类</label>
-    <div class="filter_link"><a href="#" >主卧</a><a href="#">客厅</a><a href="#">厨房</a><a href="#">卫生间</a>
-    <a href="#">阳台</a><a href="#">次卧</a><a href="#">衣帽间</a><a href="#">书房</a><a href="#">卫生间</a></div>   
-     </li>
-        <li><label class="filter_name">种类分类</label>
+    <!-- 测试 -->
+    @foreach($data as $k=>$v)
+      <li>
+        <label class="filter_name">{{$v['name']}}</label>
         <div class="filter_link">
-        <div class="level_one grade"><a href="#" class="Select">床</a><a href="#">桌椅</a><a href="#">衣柜</a><a href="#">灯具</a></div>
-        <div class="level_two grade">
-         <a href="#" class="Select">美式</a><a href="#">欧式</a><a href="#">中式</a><a href="#">日式</a>
+          @foreach($v['child'] as $k1=>$v1)
+              <!-- 如果判断id相等则下层添加内容 -->
+              <a href="javascript:void(0)" level="2" myself="{{$v1['id']}}" tid="{{$v1['tid']}}" sid="{{$v1['id']}}">{{$v1['name']}}</a>
+          @endforeach
+            <div class="next" name='next'>
+            </div>
         </div>
-        </div></li>
+      </li>
+    @endforeach
    </ul>
   </div>
   <!--产品列表-->
-   <div class="prodcuts_list clearfix">
-     <ul class="prodcuts_style clearfix">
-       <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-1.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>  
+   <div class="prodcuts_list clearfix" >
+     <ul class="prodcuts_style clearfix" id="prodList">
+        <!-- 分类首页遍历测试 -->
+        @foreach($goods as $v)
         <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-2.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>
-        <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-3.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>
-        <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-4.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li> 
-         <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-5.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>  
-        <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-6.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>
-        <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-7.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>
-        <li class="product">
-       <div class="pic_img textalign"><a href="#"><img src="images/product/p-4.jpg" /></a>
-        <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
-       </div>
-       <p class="pic_nme"><a href="#">A家家具 床 实木床 1.5米1.8米双人床简约软包皮床卧室家具 床 框架床</a></p>
-       <p class="pic_price">￥2310.00</p>
-       </li>  
+          <div class="pic_img textalign">
+            <a href="{{url('/goodsShow')}}/{{$v->id}}"><img src=""></a>
+            <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
+          </div>
+          <p class="pic_nme"><a href="#">{{$v->goods}}</a></p>
+       <p class="pic_price">￥{{$v->price}}</p>
+        </li>
+        @endforeach  
      </ul>
+
      <div class="pic_page_style clearfix">
-      <ul class="page_example pagination">
-       <li><li class="first disabled" data-page="1"><a href="javascript:void(0);"> 〈 上一页 </a></li></li>
-       <li class="page active" data-page="1"><a href="javascript:void(0);">1</a></li>
+      <ul class="page_example pagination" id="pagination">
+       <!-- <li><li class="first disabled" data-page="1"><a href="javascript:void(0);"> 〈 上一页 </a></li></li> -->
+       <!-- <li class="page active" data-page="1"><a href="javascript:void(0);">1</a></li>
        <li class="page" data-page="2"><a href="javascript:void(0);">2</a></li>
        <li class="page" data-page="3"><a href="javascript:void(0);">3</a></li>
        <li class="page" data-page="4"><a href="javascript:void(0);">4</a></li>
@@ -193,8 +150,9 @@ $('.pagination').css({
        <li class="page" data-page="8"><a href="javascript:void(0);">8</a></li>
        <li class="page" data-page="9"><a href="javascript:void(0);">9</a></li>
        <li class="page" data-page="10"><a href="javascript:void(0);">10</a></li>
-       <li class="page" data-page=""><a href="javascript:void(0);">...</a></li>
-       <li class="last" data-page="35"><a href="javascript:void(0);">下一页 〉</a></li>
+       <li class="page" data-page=""><a href="javascript:void(0);">...</a></li> -->
+       {!! $goods->links() !!}
+       <!-- <li class="last" data-page="35"><a href="javascript:void(0);">下一页 〉</a></li> -->
       </ul>
       </div>
    </div>

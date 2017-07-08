@@ -25,6 +25,7 @@ class DesignController extends Controller
         $areaData = SecondType::select('id','name')->where('tid', $areaID[0]['id'])->get();//查询同类方法
         $styleData = SecondType::select('id','name')->where('tid', $areaID[1]['id'])->get();//查询同类方法
 
+        //判断分支
         $str = '';
         $val = [];
         if (!empty($_GET['areaId'])) {
@@ -37,23 +38,51 @@ class DesignController extends Controller
         }
         $str = rtrim($str, ' and');
 
+        //判断执行
         if (!empty($_GET['styleId']) || !empty($_GET['styleId']) ) {
             $dData = Designs::whereRaw($str, $val)->paginate(8);
             return view('web.scene', compact('dData', 'areaData','styleData'));
         }
 
+        //普通执行
         $dData = Designs::paginate(8);
         return view('web.scene', compact('dData', 'areaData','styleData'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * 返回显示精粹页面
+     *问题:多次查询数据库
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+
+//        //查询数据
+//        $data = Designs::select(DB::raw('group_concat(id,"|",pic) as idBunch'))
+//            ->whereRaw('dstyle = ? or dstyle = ? or dstyle = ? or dstyle = ? ', [1, 2, 3, 9])
+//            ->limit(4)
+//            ->groupBy('dstyle')
+//            ->get();
+//
+//        //整理数据
+//        $reData = [];
+//        foreach ($data as $k => $v) {
+//            $idAndPicArr  = explode(',',$v['idBunch']);
+//            foreach ($idAndPicArr as $vv) {
+//                $arr  = explode('|', $vv);
+//                $reData[$k][] = $arr;
+//            }
+//        }
+        //查询数据
+        $data[] = Designs::whereRaw('dstyle = ? ', [1])->limit(4)->get();
+        $data[] = Designs::whereRaw('dstyle = ? ', [2])->limit(4)->get();
+        $data[] = Designs::whereRaw('dstyle = ? ', [3])->limit(4)->get();
+        $data[] = Designs::whereRaw('dstyle = ? ', [9])->limit(4)->get();
+
+        $styleArr  =  ['中式', '欧式','美式', '现代'];
+
+
+        return view('web.design_pithy', compact('data', 'styleArr'));
     }
 
     /**
@@ -68,7 +97,7 @@ class DesignController extends Controller
     }
 
     /**
-     *返回单个方案信息
+     *返回单个场景设计方案信息
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -82,7 +111,6 @@ class DesignController extends Controller
             ->where('designs.id', '=', $id)
             ->get();
 
-
         //查询同风格方案
         $styleId =  $caseData[0]->dstyle;
         $caseDataStyle =  Designs::select('id','pic')->where('dstyle', $styleId)->limit(7)->orderBy('id', 'desc')->get();
@@ -90,17 +118,8 @@ class DesignController extends Controller
         //查询设计详细图片
         $picArr = DesignPic::select('picname')->where('did', $id)->get();
 
-        //查询评论
-        $Comment =  DB::table('design_comment')
-            ->leftJoin('comment_reply', 'comment_reply.cid', '=','design_comment.id')
-            ->select('design_comment.*','comment_reply.uname', 'comment_reply.content', 'comment_reply.id as rid')
-            ->where('design_comment.did', $id)
-            ->get();
-
-        dd($Comment);
-
-        return view('web.Case_details', compact('caseData', 'picArr', 'Comment', 'caseDataStyle'));
-
+        //返回
+        return view('web.Case_details', compact('caseData', 'picArr', 'caseDataStyle'));
     }
 
     /**

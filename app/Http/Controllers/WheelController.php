@@ -5,15 +5,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Storage;
 use Image;
+use App\Wheel;
 use DB;
 
 class WheelController extends Controller
 {
     //轮播图首页展示
-    public function index()
+    public function index(Request $request)
     {
-        $Wheel = DB::select('select * from Wheel');
-        return view('/zhuazi.production.Wheel.index',compact('Wheel'));
+        $search = $request->input('search');
+ 
+        $Wheel = Wheel::where('picname','like','%'.$search.'%')->paginate(1);
+        return view('/zhuazi.production.Wheel.index',compact('Wheel','search'));  
+        
     }
 
     //插入轮播图
@@ -42,11 +46,12 @@ class WheelController extends Controller
                 //生成年月日时分秒用作图片名
                 $newFileName = 'Wheel_'.date('Y-m-d-H-i-s').'.'.$ext;
                 //存入数据库的路径
-                $path = '/public/uploads/Wheel/'.date('Y-m-d');
+                $path = 'uploads/Wheel/'.date('Y-m-d');
                 //把新传入的图片写入文件夹
-                $request->file('picurl')->move('../'.$path,$newFileName);
+                $request->file('picurl')->move($path,$newFileName);
                 //插入数据库信息,描述、排序、路径
-                DB::table('Wheel')->insert(['picname'=>$picname ,'sort'=>$sort,'picurl'=>$newFileName,'path'=>$path]);
+                // DB::table('Wheel')->insert(['picname'=>$picname ,'sort'=>$sort,'picurl'=>$newFileName,'path'=>$path]);
+                $num = Wheel::create(['picname'=>$picname ,'sort'=>$sort,'picurl'=>$newFileName,'path'=>$path]);
                 //跳转到轮播图首页
                 return redirect('Wheel');
             }else{
@@ -94,13 +99,13 @@ class WheelController extends Controller
             $path = $list->path;
             $picurl = $list->picurl;
             //删除该图片
-            $num = unlink('..'.$path.'/'.$picurl);
+            $num = unlink($path.'/'.$picurl);
             //生成年月日时分秒用作图片名
             $newFileName = 'Wheel_'.date('Y-m-d-H-i-s').'.'.$ext;
             //存入数据库的路径
-            $path = '/public/uploads/Wheel/'.date('Y-m-d');
+            $path = 'uploads/Wheel/'.date('Y-m-d');
             //把新传入的图片写入文件夹
-            $request->file('picurl')->move('../'.$path,$newFileName);
+            $request->file('picurl')->move($path,$newFileName);
             //更新数据库信息,描述、排序、路径
             $bool = DB::table('Wheel')
                 ->where('id', $id)
@@ -120,7 +125,7 @@ class WheelController extends Controller
         $path = $list->path;
         $url = $list->picurl;
         //删除原图
-        $bool = unlink('..'.$path.'/'.$url);
+        $bool = @unlink($path.'/'.$url);
         //删除数据库
         $bool = DB::table('Wheel')->where('id', '=', $id)->delete();
         //返回>1则删除成功

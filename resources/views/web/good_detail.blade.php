@@ -5,9 +5,9 @@
 
     @section('head')
         <link rel="stylesheet" href="{{url('web ')}}/css/goodsGetail.css">
-        @endsection
-@section('content')
+    @endsection
 
+@section('content')
     <script type="text/javascript">
         $(document).ready(function(){
             $(".q_code ").hover(function(){
@@ -45,70 +45,20 @@
 
     </script>
     <body>
-    <div class="header">
-        <div class="header_top">
-            <div class="top_info clearfix">
-                <div class="logo_style l_f"><a href="#"><img src="images/logo.jpg" /></a></div>
-                <div class="Search_style l_f">
-                    <form>
-                        <div class="select">
-                            <select name="" size="1">
-                                <option value="1">设计精髓</option>
-                                <option value="2">设计店家</option>
-                            </select>
-                        </div>
-                        <input name="" type="text"  class="add_Search"/>
-                        <input name="" type="submit"  value="" class="submit_Search"/>
-                    </form>
-                </div>
-                <div class="Cart_user r_f">
-                    <div class="Cart_Quantity "><span class="number">0</span></div>
-                    <div class="header_operating l_f">
-                        <span class="header_touxiang"><img src="images/touxiang_03.png" /></span>
-                        <a href="#">登录</a><a href="@">注册</a>
-                    </div>
-                </div>
-            </div>
-            <div class="header_menu">
-                <!--菜单导航栏-->
-                <ul class="menu" id="nav">
-                    <li class="nLi"><a href="#">网站首页</a></li>
-                    <li class="nLi"><a href="#">设计精粹</a></li>
-                    <li class="nLi Down"><a href="#">场景方案</a><em class="icon_jiantou"></em>
-                        <ul class="sub">
-                            <li><a href="#">新闻首页</a></li>
-                            <li><a href="#">新闻人物</a></li>
-                            <li><a href="#">新闻电视</a></li>
-                            <li><a href="#">新闻图片</a></li>
-                            <li><a href="#">新闻视频</a></li>
-                            <li><a href="# ">新闻专题</a></li>
-                        </ul>
-                    </li>
-                    <li class="nLi Down"><a href="#">单品大库</a><em class="icon_jiantou"></em></li>
-                    <li class="nLi Down"><a href="#">奇货可享</a><em class="icon_jiantou"></em></li>
-                    <li class="nLi Down"><a href="#">找找感觉</a><em class="icon_jiantou"></em></li>
-                </ul>
-                <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
-                <div class="q_code">
-                    <a href="" class="q_code_applnk" rel="nofollow"></a>
-                    <div class="q_code_layer" style="display: none;">
-                        <a href="" class="qcode_lnk" rel="nofollow">
-                            <span class="qcode_title">只分享装修干货</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {{--导入导航条--}}
+    @include('web.layout.nav')
 
     <input type="hidden" id="styleID" value="{{$goodData[0]->style}}">
     <input type="hidden" id="areaID" value="{{$goodData[0]->area}}">
     <!--产品详细介绍-->
-    <form action="order" method="post" id="from">
+    <form action="{{url('order/add')}}" method="post" id="from">
 
+        <input id="isSel" type="hidden" name="isSel" value="">
         <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="num_bunch" value="">
+        <input type="hidden" name="user_id" value="{{session('user')['0']->id}}">
 
 
     
@@ -122,8 +72,9 @@
                             <div class="tb-booth tb-pic tb-s310"> <a ><img id="origin" src="{{url('goodsPic')}}/{{$picArr[0]}}"  alt="展品细节展示放大镜特效" rel="{{url('goodsPic')}}/{{$picArr[0]}}" class="jqzoom" /></a> </div>
                             <ul style="float:left;"class="tb-thumb " id="thumblist">
 
+                                {{--遍历猜你喜欢--}}
                                 @foreach($picArr as $v)
-                                    <li style="margin:4px;" class= tb-selected">
+                                    <li style="margin:4px;" class= "tb-selected">
                                         <div  class="tb-pic tb-s40"><a ><img width="80px" height="80px" src="{{url('goodsPic')}}/{{$v}}" mid="{{url('goodsPic')}}/{{$v}}" big="{{url('goodsPic')}}/{{$v}}"></a></div>
                                     </li>
                                 @endforeach
@@ -135,20 +86,13 @@
                 <!--购买信息-->
                 <div class="pic_Purchase_operation">
                     <div class="pic_title_name"><h2>{{$goodData[0]->goods}}</h2><h5>{{$goodData[0]->desr}}</h5></div>
-                    <!--   <div class="pic_price clearfix">
-                       <p class="clearfix" style="padding:5px 10px; color:#333">团购规则：满500元团购商品，最低2件起购</p>
-                       <p class="clearfix"> <label class="label_name">原价</label><span class="content Original_price"><em>￥</em>99.00</span></p>
-                       <p class="clearfix Tuangou"><label class="label_name">团购价</label><span class="price content"><em>￥</em>59.00</span></p>
-                       </div>-->
+
                     <dl class="pic_price putong clearfix"><dt class='parText'>价格</dt><dd class="price content"><em style="margin-top:16px;" class="pull-left">￥</em><div style="margin-top:6px;" id="price" class=".priceaa">{{$goodData[0]->price}}</div></dd></dl>
-                    <!-- 合作商家  <dl class="Cooperation clearfix">合作商家：简约装饰旗舰店</dl>-->
+
                     <dl class="Deadline clearfix"><dt class="infoParText">供货期</dt><dd class="Description content">下单后{{$goodData[0]->supply_date}}天内发货</dd></dl>
 
                     {{--js遍历选项内容--}}
-                    <div style="width:500px;" id="goodParSelBox">
-
-
-                    </div>
+                    <div style="width:500px;" id="goodParSelBox"></div>
 
 
                     <dl class="tb-amount tm-clear">
@@ -165,7 +109,12 @@
 
                         <span class="mui-amount-unit">件</span>
                         </span>
-                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">库存{{$goodData[0]->stockall}}件</em>
+                            <em id="J_EmStock" class="tb-hidden" style="display: inline;">
+                            
+                            
+
+        
+                            库存{{$goodData[0]->stockall}}件</em>
                             <div></div>
                             <span id="J_StockTips"></span>
                         </dd>
@@ -175,8 +124,18 @@
                             <a id="J_LinkBuy" clss="" rel="nofollow" data-addfastbuy="true"  title="点击此按钮，到下一步确认购买信息。" role="button" data-spm-anchor-id="">立即购买</a>
                         </div>
                         <div class="tb-btn-basket tb-btn-sku ">
-                            <a href="#" rel="nofollow" id="J_LinkBasket" role="button"><i class="icon_shop"></i>加入购物车</a></div>
-                    </div>
+                            <a href="javascript:void(0)" rel="nofollow" id="addShop" role="button"><i class="icon_shop"></i>加入购物车</a></div>
+                        </div>
+
+                        @if (session('news'))
+                        <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span>
+                            {{ session('news') }}
+                        </div>
+                        @endif
+
+                        
 
                     <dl class="clearfix">
                         <dt class="infoParText ">承诺</dt>
@@ -251,48 +210,31 @@
 
 
                             <ul class="comment_style">
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
+                                <?php 
+
+                                $userContent = DB::table('criticism')
+                                  ->leftJoin('users_register', 'users_register.id', '=', 'criticism.user_id')
+                                  ->leftJoin('goods', 'goods.id', '=', 'criticism.goods_id')
+                                  ->get();
+                                  foreach ($userContent as $key => $value) {
+                                    echo "<li class='comment_list clearfix'>";
+                                    echo "
+                                    <div class='comment_Avatar'> 
+                                    <div class='user_Avatar'><div class='Avatar_bg'></div>
+                                    <img src='{images/touxiang.jpg}' width='60' height='60'></div>
+                                    <h3>$value->username</h3>
+                                    </div>";
+                                    echo "
+                                    <div class='comment_info'>
+                                    <p class='comments'>$value->comment_info</p>
+                                    <p class='Basic_Information'>
+                                    <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：$value->goods</span>
+                                    </p>
                                     </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
-                                    </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
-                                    </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
+                                    ";
+                                    echo "<div class='comment_time'>$value->created_at</div>";
+                                  }
+                                 ?>
                             </ul>
                         </div>
                     </div>
@@ -321,3 +263,4 @@
             jQuery(".slideTxtBox").slide({trigger:"click"});
         </script>
 
+@endsection

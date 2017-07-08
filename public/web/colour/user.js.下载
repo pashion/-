@@ -1,0 +1,59 @@
+/**
+ * 用户相关
+ */
+//添加或删除收藏
+function caseCollection(id,type){
+	var resu="";
+	$.ajax({
+		url:"user/collect",
+		data:{
+			id:id,type:type
+		},
+		type:"POST",
+		dataType:"json",async:false,
+		success:function(result){
+			resu=result;
+		}
+	});
+	return resu;
+}
+//添加点赞
+function caseThumbup(id,type){
+	var resu="";
+	$.ajax({
+		url:"user/thumbUp",
+		data:{
+			id:id,type:type
+		},
+		type:"POST",
+		dataType:"json",async:false,
+		success:function(result){
+			resu=result;
+		}
+	});
+	return resu;
+}
+//添加访问记录
+function accessAdd(id,type){
+	var data={
+	};
+	if(typeof id=="object"){
+		data=id;
+		$.extend(data,{
+			type:type
+		});
+	}else{
+		data={
+			id:id,type:type
+		};
+	}
+	$.ajax({
+		url:"user/accessAdd",
+		data:data,
+		type:"POST",
+		dataType:"json",async:true,
+		success:function(result){
+			resu=result;
+		}
+	});
+}

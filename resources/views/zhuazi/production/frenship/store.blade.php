@@ -1,5 +1,5 @@
 @extends('zhuazi.layout.master');
-@section('title' ,'链接添加')
+@section('title' ,'链接的储存')
 @section('content')
     <?php
         if ($data> 0){

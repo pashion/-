@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Order;
+
+use App\OrderDetail;
+
+use DB;
 class OrderController extends Controller
 {
     /**
@@ -13,9 +18,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $orderData=order::where('id','like','%'.$request->input('keywords').'%')->paginate(3);
+        return view('zhuazi/production/order/index',['orderData'=>$orderData,'request'=>$request->all()]);
     }
 
     /**
@@ -81,6 +87,22 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        // $deData = DB::delete('delete from order where id = ?',[$id]);
+        $deData = DB::delete('delete from `order` where id = ?',[$id]);
+        if($deData==1){
+
+           $data=[
+               'statu'=>0,
+               'msg'=>'删除成功'
+           ];
+        }else{
+            $data=[
+                'statu'=>1,
+                'msg'=>'删除失败'
+            ];
+        }
+        return $data;
     }
+   
 }

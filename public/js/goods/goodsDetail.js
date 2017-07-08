@@ -16,6 +16,7 @@
 
         loadGoodCoordin()//加载配套商品
         loadGoodSYouLick()//加载你细化的商品
+        loadAddShopBtnEven();//加载添加购物车按钮
     })
 
 
@@ -24,7 +25,10 @@
     {
         var goodId = $('#goodsId').val();
         $.get('../getgoodSel?gid=' + goodId, function (data) {
-
+            
+            if (data.length <= 0 ) {
+                $('#isSel').val('A');
+            }
             //抽取属性名,ID
             var head = [];
             for (a in data) {
@@ -34,7 +38,7 @@
             var str = '' ;
             var sebBtnName = [];
             for (a in head) {
-                str += '<dl class="tb-prop clearfix"><dt class="label_name">'+data[a]['headName']+'</dt> <dd class="content"> <ul>';
+                str += '<dl class="tb-prop clearfix"><dt class="label_name">'+head[a]+'</dt> <dd class="content"> <ul>';
                 for (i in data) {
                     if (data[i]['headId'] == a ) {
                         var name = 'selBtn' + data[i]['id'];
@@ -45,6 +49,7 @@
                 str += '</ul> </dd></dl>';
                 SAVE_SEL_ARR[a] = 0;
             }
+
             //写入标签
             $('#goodParSelBox').html(str);
             //设置事件
@@ -67,6 +72,8 @@
     {
         $('#' + name).on('click', function () {
             console.log(SEL_PRICE_ARR);
+            console.log(SAVE_SEL_ARR);
+
             //获取属性ID
             var pid = $(this).attr('pid');
             SAVE_SEL_ARR[pid] = $(this).attr('sid');
@@ -80,17 +87,19 @@
             var  str = sel.replace(re, '');
             var goodId = $('#goodsId').val();
 
+
             //循环查找
             for ( a in SEL_PRICE_ARR) {
                 var text = SEL_PRICE_ARR[a]['num_bunch'];
-                if ( text == str) {
+                console.log(str);
+                console.log(text);
 
+                if ( text == str) {
+                    console.log(123);
                     var price = SEL_PRICE_ARR[a]['price'];//价格数组中获取 价格
                     $('#price').html(price);//写入价格显示
                     $('input[name=num_bunch]').val(text);//写入 input标签
-
-                    $('.stock').html('库存' + SEL_PRICE_ARR[a]['store'] + '件');
-
+                    $('.stock').html('库存' + SEL_PRICE_ARR[a]['store'] + '件');//显示相应库存
                     throw SynError();
                 }
             }
@@ -161,4 +170,12 @@
             $('#youlick').html(str);
         },'json');
 
+    }
+
+    //加载添加购物车按钮事件
+    function loadAddShopBtnEven ()
+    {
+        $('#addShop').on('click', function () {
+            $('#from').attr('action', '../shopCart').submit();
+        })
     }

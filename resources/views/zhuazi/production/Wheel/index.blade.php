@@ -1,6 +1,12 @@
 @extends('zhuazi.layout.master')
 
 @section('content')
+    <form action="{{url('Wheel')}}" method="get">
+        搜索：
+        <input type="text" name="search" value='{{$search}}'>
+        <input type="submit" value="搜索">
+        <br><br>
+    </form>
     <table class="table table-condensed">
         <tr>
             <th class="active">id</th>
@@ -13,17 +19,16 @@
             <tr>
                 <td>{{$v->id}}</td>
                 <td>{{$v->picname}}</td>
-                <td><img src="..{{$v->path}}/{{$v->picurl}}" alt="" width="300px" height="100px"></td>
+                <td><img src="{{$v->path}}/{{$v->picurl}}" alt="" width="300px" height="100px"></td>
                 <td><input type="text" value="{{$v->sort}}" onchange=" update( '{{$v->id}}' ,this ) "></td>
                 <td>
                     <a href="javascript:void(0)" onclick="del( '{{$v->id}}',this,'Wheel/' )">删除</a>
                     <a href="Wheel/{{$v->id}}/edit">编辑</a>
                 </td>
             </tr>
-
         @endforeach
     </table>
-
+        {{ $Wheel->appends(['search'=>$search])->links() }}
     <script>
         //文本框修改排序触发事件
             function update($id,$obj){

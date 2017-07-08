@@ -1,5 +1,5 @@
 @extends('zhuazi.layout.master');
-@section('title' ,'友情链接首页')
+@section('title' ,'友情链接的首页')
 @section('content')
     <div>
         <form class="form-inline" action="frenship" method="get">

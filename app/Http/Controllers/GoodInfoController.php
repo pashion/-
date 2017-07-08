@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use App\Option;
 
+use App\Wheel;
 use App\Goods;
 use App\SpecPrice;
 use App\IndexMode;
@@ -34,14 +35,20 @@ class GoodInfoController extends Controller
         //查询数据
         $goodsData = Goods::whereRaw($str, $gid)->get();
         //切割获取图片名
+        
         $goodsPic = [];
         foreach ($goodsData as $v) {
             $arr =  explode(',', $v['pic']);
             $goodsPic[] = $arr[0];
         }
 
+
+        //获取轮播图数据
+        $Wheel = DB::table('Wheel')->orderBy('sort','asc')->get();
+
         //返回()
-        return view('web.index', compact('modeData', 'goodsData','goodsPic'));
+        
+        return view('web.index', compact('modeData', 'goodsData','goodsPic','Wheel'));
     }
 
 
@@ -52,7 +59,7 @@ class GoodInfoController extends Controller
      * */
     function getGoodSel ()
     {
-        dd();
+    
         $selData = DB::table('option')
             ->join('head', 'option.hid', '=', 'head.id')
             ->select('option.*', 'head.name as headName', 'head.id as headId')
@@ -66,7 +73,7 @@ class GoodInfoController extends Controller
     * */
     function getGoodSelPrice ()
     {
-        dd();
+    
         if (empty($_GET['gid'])) {
             return  '缺乏商品id';
         }
@@ -74,7 +81,6 @@ class GoodInfoController extends Controller
         $selPrice  = SpecPrice::whereRaw('gid = ?', [$gid])->get();
         return $selPrice;
     }
-
 
     /*
      * 返回套系参考配套商品

@@ -61,6 +61,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
+            'read_write_timeout' => -1,
         ],
 
     ],
