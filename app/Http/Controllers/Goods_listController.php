@@ -25,12 +25,21 @@ class Goods_listController extends Controller
         //数组形式获取分类所有数据
         $menu = SecondType::all()->toArray();
         $data = self::menu($menu,0);
+        //给递归遍历的数据做排序,规则为越小越靠前
+        foreach($data as $k => $v){
+            if($v['child']){
+                //提取数组中的某个字段组成一个数组array_column
+                $arr = array_column($v['child'],'sort');
+                //第二个数组将对应第一个数组的输出顺序来输出内容,并且可修改第一个数组的升序降序输出
+                array_multisort($arr,SORT_ASC,$v['child']);
+                //重新赋值有排序的分类数据给前台输出
+                $data[$k] = $v;
+            }
+        }
         //数组形式获取商品数据
         //分页测试
         $goods = DB::table('goods')->paginate(3);
-        // dd($goods);
         // $goods =  Goods::all()->toArray();
-        // dd($data);
         return view('web.good_list',compact('data','goods','king')); 
     }
 
@@ -53,6 +62,18 @@ class Goods_listController extends Controller
         }
         return $arr;
     }
+
+
+    public function getCeshi(){
+        $menu = SecondType::all()->toArray();
+        $data = self::menu($menu,0);
+        
+        dump($data);
+
+    }
+
+
+
 
     // 分类ajax触发函数
     public function postTreble(Request $request){

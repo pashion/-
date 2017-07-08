@@ -55,8 +55,6 @@ Route::group(['middleware'=>'homeLogin'],function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
-	Route::controller('/admin/roles','RolesController');	
-	Route::controller('/admin/permissions','PermissionsController');
 	Route::controller('/admin/users','UsersController');
 
 
@@ -136,7 +134,13 @@ Route::group(['middleware'=>'homeLogin'],function () {
 
 	//购物车路由
 	Route::controller('shopCart','ShopCartController');
+
+
+	//文章前台遍历
+	Route::controller('colourTide','ColourTideController');
 	//end志远
+
+
 
 
 

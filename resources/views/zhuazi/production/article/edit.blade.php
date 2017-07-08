@@ -25,7 +25,7 @@
             <input type="hidden" name="coverpath" id="coverpath">
             <input type="hidden" name="date" value="{{date('Y:m:d H:d:m')}}">
             <div id="show" style="width:300px;height:160px;border:1px solid black; padding:3px;">
-                <img src="../../..{{$data->coverpath}}/t_{{$data->cover}}" alt="">
+                <img src="/{{$data->coverpath}}/t_{{$data->cover}}" alt="">
             </div>
         </div>
         <br><br>
@@ -36,9 +36,9 @@
             <script type="text/javascript">
                 var ue = UE.getEditor('container');
             </script>
-            <input type="text" name="oldcover" value="{{$data->coverpath}}/{{$data->cover}}">
-            <input type="text" name="t_oldcover" value="{{$data->coverpath}}/t_{{$data->cover}}">
-            <input type="text" name="oldimg" value="{{$data->content}}">
+            <input type="hidden" name="oldcover" value="{{$data->coverpath}}/{{$data->cover}}">
+            <input type="hidden" name="t_oldcover" value="{{$data->coverpath}}/t_{{$data->cover}}">
+            <input type="hidden" name="oldimg" value="{{$data->content}}">
         <input type="submit" class="btn btn-default" value="Submit">
     </form>
 

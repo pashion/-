@@ -318,7 +318,7 @@
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
-    <script src="/test2/shop-laravel/public/js/del.js"></script>
+    <script src="/js/del.js"></script>
       </div>
     </div>
 	

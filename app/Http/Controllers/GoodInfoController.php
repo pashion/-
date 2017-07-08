@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use App\Option;
 
+use App\Wheel;
 use App\Goods;
 use App\SpecPrice;
 use App\IndexMode;
@@ -40,8 +41,12 @@ class GoodInfoController extends Controller
             $goodsPic[] = $arr[0];
         }
 
+
+        //获取轮播图数据
+        $Wheel = DB::table('Wheel')->orderBy('sort','asc')->get();
+
         //返回()
-        return view('web.index', compact('modeData', 'goodsData','goodsPic'));
+        return view('web.index', compact('modeData', 'goodsData','goodsPic','Wheel'));
     }
 
 

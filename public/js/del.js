@@ -46,13 +46,14 @@ function cover_upload($url){
 
     $.ajax({
         type: 'POST',
-        url: $url + 'public/Article/ajax' ,
+        url: $url + 'Article/ajax' ,
         data: formData,
         async: false,
         cache: false,
         contentType: false,
         processData: false,
         success: function (data) {
+            alert('封面添加成功');
             // console.log(data);
             var Nul = $.trim(data);
             var mydate = new Date();
@@ -62,11 +63,14 @@ function cover_upload($url){
                 month = '0' + month;
             }
             var day = mydate.getDate(); //获取当前日(1-31)
+            if(day < 10){
+                day = '0' + day;
+            }
             var date = year + '-' + month + '-' +day;//拼接日期
             $('#cover').val(data);
-            $('#coverpath').val('/public/uploads/cover/'+date);
+            $('#coverpath').val('uploads/cover/'+date);
             $('#show>img').remove();
-            $('#show').append(" <img src='" + $url + "public/uploads/cover/" + date + '/t_'+Nul+"'>");
+            $('#show').append(" <img src='" + $url + "uploads/cover/" + date + '/t_'+Nul+"'>");
         },
     });
 }

@@ -1,11 +1,11 @@
 {{--修改的引入弹窗--}}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$v->id}}" style="height:30px;width:30px;">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalEdit{{$v->id}}" style="height:30px;width:30px;">
     E
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal{{$v->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModalEdit{{$v->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="{{url('SecoundType/')}}/{{$v->id}} " method="post">

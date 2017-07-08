@@ -1,0 +1,34 @@
+/**
+ * 产品相关
+ */
+
+//添加产品到购物车
+ function addProdCart(prodId,prodCount){
+	var resu="";
+		$.ajax({
+			url:"cart/prodAddCart",
+			data:{
+				prodId:prodId,productcount:prodCount
+			},
+			type:"POST",
+			dataType:"json",async:false,
+			success:function(result){
+				resu=result;
+			}
+		});
+	return resu;
+ }
+ //获取购物车数量
+ function setBoxCartCount(){
+		$.ajax({
+			url:"cart/info",
+			data:{
+			},
+			type:"POST",
+			dataType:"json",async:true,
+			success:function(result){
+				$(".cCartCount_bg").show();
+				$(".cCartCount").text(result.cartCount);
+			}
+		});
+ }

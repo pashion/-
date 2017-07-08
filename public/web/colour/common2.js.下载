@@ -1,0 +1,636 @@
+/**
+ * 公有实现
+ */
+//only ie
+var _alert=window.alert;
+$.ajaxSetup({ cache: false }); 
+function getBasePath(){
+    var curWwwPath = window.document.location.href;
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    var localhostPath = curWwwPath.substring(0, pos);
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    projectName="";
+    var basePath=localhostPath+projectName;
+    return basePath;
+};
+String.prototype.startsWith=function(str){var reg=new RegExp("^"+str);return reg.test(this);}//测试ok，直接使用str.endWith("abc")方式调用即可
+String.prototype.endsWith=function(str){var reg=new RegExp(str+"$");return reg.test(this);}
+String.prototype.trim=function(){return jQuery.trim(this);}
+String.prototype.gblen = function() {  
+	  var len = 0;  
+	  for (var i=0; i<this.length; i++) {  
+	    if (this.charCodeAt(i)>127 || this.charCodeAt(i)==94) {  
+	       len += 2;  
+	     } else {  
+	       len ++;  
+	     }  
+	   }  
+	  return len;  
+	}
+$.extend(String.prototype,{
+	exs:function(){
+		function rsStr(str){
+			return str.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+		}
+		return rsStr(this);
+	},format : function(args) {//@see http://www.cnblogs.com/loogn/archive/2011/06/20/2085165.html
+	    var result = this;
+	    if (arguments.length > 0) {    
+	        if (arguments.length == 1 && typeof (args) == "object") {
+	            for (var key in args) {
+	                if(args[key]!=undefined){
+	                    var reg = new RegExp("({" + key + "})", "g");
+	                    result = result.replace(reg, args[key]);
+	                }
+	            }
+	        }
+	        else {
+	            for (var i = 0; i < arguments.length; i++) {
+	                if (arguments[i] != undefined) {
+	                    //var reg = new RegExp("({[" + i + "]})", "g");//这个在索引大于9时会有问题，谢谢何以笙箫的指出
+	                	var reg= new RegExp("({)" + i + "(})", "g");
+	                    result = result.replace(reg, arguments[i]);
+	                }
+	            }
+	        }
+	    }
+	    return result;
+	}
+});
+/*
+ *　方法:Array.remove(dx)
+ *　功能:删除数组元素.
+ *　参数:dx删除元素的下标.
+ *　返回:在原数组上修改数组
+*/
+//经常用的是通过遍历,重构数组.
+Array.prototype.remove=function(dx)
+{
+if(isNaN(dx)||dx>this.length){return false;}
+for(var i=0,n=0;i<this.length;i++)
+{
+if(this[i]!=this[dx])
+{
+this[n++]=this[i]
+}
+}
+this.length-=1
+}
+$.extend({
+	postWithForm:function(url,data,bSafe,bNewWindow){
+		if(!bSafe)bSafe=false;
+		//if(!!url&&typeof url == "string"&&url.length>0)
+		{
+			var action=(typeof basePath=="string"&&!url.startsWith("http")?basePath+"":"")+url;
+			var $form=$("<form method=\"post\" style=\"display:none;\" action=\""+action+"\" "+(bNewWindow?"target=\"_blank\"":"")+"></form>");
+			$.each(data,function(k,v){
+				var v=new String(v);
+				$form.append("<textarea name=\""+(new String(k))+"\">"+(bSafe?encodeURIComponent(v):v)+"</textarea>");
+			});
+			$("body").append($form);
+			$form.submit();
+			//$form.remove();
+		}
+	},addFieldForm:function($form,obj){
+		for(var key in obj){
+			var name=key,valu=obj[key];
+			$form.append("<input type='hidden' name='"+name+"' value='"+valu+"'/>");
+		}
+		return $form;
+	},pushLSA:function(key,_val){
+		var val=localStorage[key];
+		if(!val){
+			val=new Array();
+			val.push(_val);
+		}else{
+			val=val.split(",");
+			var b=false;
+			$.each(val,function(){
+				if(this.toString()==_val){
+					 b=true;
+					 return false;
+				}
+			});
+			if(!b){
+				val.push(_val);
+			}
+		}
+		localStorage[key]=val;
+	},getLSA:function(key){
+		var val=localStorage[key];
+		if(!val){
+			return null;
+		}else return val.split(",");
+	}
+});
+(function($,global){
+	var _basePath=getBasePath();
+	$.extend({
+		postWithTsa:function(url,data,bSafe,bNewWindow){
+			if(!bSafe)bSafe=false;
+			//_alert(url+"\n"+toStr(data));
+			var action=(typeof basePath=="string"&&!url.startsWith("http")?basePath+"":"")+url;
+			var _data={};
+			$.each(data,function(k,v){
+				var v=new String(v);
+				v=bSafe?encodeURIComponent(v):v;
+				_data[new String(k)]=encodeURIComponent(v);
+			});
+			var _dataStr=JSON.stringify({
+				url:action,data:_data
+			});
+			var _url=_basePath+"/tsaPage?params="+encodeURIComponent(encodeURIComponent(_dataStr));
+			if(bNewWindow){
+				window.open(_url);
+			}else{
+				location.href=_url;
+			}
+		},
+	});
+	$.extend(Array.prototype,{
+		contains:function(obj,bEqual) {
+			  var arr=this;
+			  var index = arr.length;
+			  while (index--) {
+				if(bEqual){
+					    if (arr[index] == obj) {
+						      return true;
+						    }
+				}else{
+					   if (arr[index] === obj) {
+						      return true;
+						    }
+				}
+			  }
+			  return false;
+			}
+	});
+	$.extend(Number.prototype,{
+		toFixed : function( d )  //@see http://www.cnblogs.com/gushen/archive/2012/11/20/2778324.html
+		{  
+			               var s=this+""; 
+			               if(!d)d=0; 
+			               if(s.indexOf(".")==-1)s+="."; 
+			               s+=new Array(d+1).join("0"); 
+			               if(new RegExp("^(-|\\+)?(\\d+(\\.\\d{0,"+(d+1)+"})?)\\d*$").test(s)){
+			                   var s="0"+RegExp.$2,pm=RegExp.$1,a=RegExp.$3.length,b=true;
+			                   if(a==d+2){
+			                       a=s.match(/\d/g); 
+			                       if(parseInt(a[a.length-1])>4){
+			                           for(var i=a.length-2;i>=0;i--){
+			                               a[i]=parseInt(a[i])+1;
+			                               if(a[i]==10){
+			                                   a[i]=0;
+			                                   b=i!=1;
+			                               }else break;
+			                           }
+			                       }
+			                       s=a.join("").replace(new RegExp("(\\d+)(\\d{"+d+"})\\d$"),"$1.$2");
+			
+			                   }if(b)s=s.substr(1); 
+			                   return (pm+s).replace(/\.$/,"");
+			               }return this+"";
+			},  
+	});
+})($,this);
+$.fn.extend({
+	serializeObject:function(){
+		 var p={};
+ 		 $.each(this.serializeArray(),function(){
+ 			 p[this.name]=this.value;
+ 		 });
+ 		 return p;
+	}
+});
+function isVal(obj){
+	if(typeof(obj)!='undefined' && obj!=null &&  obj!=''){
+		return true;
+	}else{
+		return false;
+	}
+}
+function wrapString(){
+	return "\""+arguments[0]+"\"";
+}
+
+/**
+ * 将数值四舍五入(保留2位小数)后格式化成金额形式
+ *
+ * @param num 数值(Number或者String)
+ * @return 金额格式的字符串,如'1,234,567.45'
+ * @type String
+ */
+function formatCurrency(num) {
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+    num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
+    cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+    num = num.substring(0,num.length-(4*i+3))+','+
+    num.substring(num.length-(4*i+3));
+    return (((sign)?'':'-') + num + '.' + cents);
+}
+Array.prototype.indexOf = function(el){
+	 for (var i=0,n=this.length; i<n; i++){
+	  if (this[i] === el){
+	   return i;
+	  }
+	 }
+	 return -1;
+	}
+    $.getUrlParam = function (name,src) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = (function(){
+        	if(src)return src;
+        	else return window.location.search;
+        })().substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+$.extend({
+	  exchange: function(a,b){//jQuery 交换两个元素位置
+        var n = a.next(), p = b.prev();
+        b.insertBefore(n);
+        a.insertAfter(p);
+    },getJson:function(url,data){
+    	var resu=null;
+    	var param=$.ajax({
+    		type:"post",url:url,dataType:"json",async:false,data:data,success:function(){
+    			resu=arguments[0];
+    		},error:function(){
+    			resu=null;
+    		}
+    	});
+    	return resu;
+    }
+});
+$.extend(window,{//等待状态
+	prgBegin:function(){
+		return layer.load();
+	},
+	prgEnd:function(){
+		return layer.closeAll("loading");
+	}
+});
+(function(root) {
+    function Stack() {
+        this.dataStore = [];
+        //数组的元素个数
+        this.top = 0;
+    }
+
+    Stack.prototype = {
+        pop: function() {
+            //出栈时，主要使用前减运算，返回栈顶元素，元素个数减一
+            return this.dataStore[--this.top];
+        },
+        push: function(elem) {
+            //入栈时，使用后加运算符，先在栈顶添加元素，元素个数加一
+            this.dataStore[this.top++] = elem;
+        },
+        peek: function() {
+        	if(typeof arguments[0]=="number"){
+        		return this.dataStore[this.top - 1 - parseInt(arguments[0])];
+        	}
+            return this.dataStore[this.top - 1];
+        },
+        clear: function() {
+            //当清空栈时，访问栈顶的结果为undefined
+            this.top = 0;
+        },
+        length: function() {
+            return this.top;
+        }
+    }
+
+    root.Stack = Stack;
+
+})(window);
+0|function(global){
+		/*
+		  模拟 C#中的StringBuilder,提升JS中字符串拼接的效率及性能。
+		  Author : Jeremy 
+		  Date   : 2010-10-25
+		*/
+
+		//对象定义（构造函数)
+		//参数：所有参数须为字符串形式.
+		//当参数长度为1时，参数值将是字符串之间连接的分隔符
+		//当参数长度大于1时，最后一位将是字符串之间的分隔符,其余的参数将是字符串值
+		//当不指定参数时，分隔符默认为空白
+		//也可以不指定分隔符，而在ToString中显式指定分隔符
+		//如：var str = new StringBuilder(',')； 则在ToString时，将使用,号作为分隔符连接字符串
+		// var str = new StringBuilder('a','b','c',','); 则在ToString时，将输出 'a,b,c'
+		function StringBuilder()
+		{
+		    this._buffers = [];
+		    this._length=0;
+		    this._splitChar = arguments.length>0 ? arguments[arguments.length-1] : '';
+
+		    if(arguments.length>0)
+		    {
+		        for(var i=0,iLen=arguments.length-1;i<iLen;i++)
+		        {
+		            this.Append(arguments[i]);
+		        }
+		    }
+		}
+		global.StringBuilder=StringBuilder;
+		//向对象中添加字符串
+		//参数：一个字符串值
+		StringBuilder.prototype.Append=function(str)
+		{        
+		    this._length += str.length;
+		    this._buffers[this._buffers.length] = str;
+		}
+		StringBuilder.prototype.Add = StringBuilder.prototype.append;
+
+		//向对象附加格式化的字符串
+		//参数：参数一是预格式化的字符串，如：'{0} {1} {2}'
+		//格式参数可以是数组，或对应长度的arguments,
+		//参见示例
+		StringBuilder.prototype.AppendFormat=function()
+		{
+		     if(arguments.length>1)
+		     {
+		        var TString=arguments[0];
+		        if(arguments[1] instanceof Array)
+		        {
+		            for(var i=0,iLen=arguments[1].length;i<iLen;i++)
+		            {
+		                var jIndex=i;
+		                var re=eval("/\\{"+jIndex+"\\}/g;");
+		                TString= TString.replace(re,arguments[1][i]);
+		            }
+		        }
+		        else
+		        {
+		            for(var i=1,iLen=arguments.length;i<iLen;i++)
+		            {
+		                var jIndex=i-1;
+		                var re=eval("/\\{"+jIndex+"\\}/g;");
+		                TString= TString.replace(re,arguments[i]); 
+		            }
+		        }
+		        this.Append(TString);
+		     }
+		     else if(arguments.length==1)
+		     {
+		        this.Append(arguments[0]);
+		     }
+		}
+
+		//字符串长度（相当于ToString()后输出的字符串长度
+		StringBuilder.prototype.Length=function()
+		{    
+		    if(this._splitChar.length>0 && (!this.IsEmpty())) 
+		    {
+		        return  this._length + ( this._splitChar.length * ( this._buffers.length-1 ) ) ;
+		    }
+		    else
+		    {
+		        return this._length;
+		    }
+		}
+		//字符串是否为空
+		StringBuilder.prototype.IsEmpty=function()
+		{    
+		    return this._buffers.length <= 0;
+		}
+		//清空
+		StringBuilder.prototype.Clear = function()
+		{
+		    this._buffers = [];
+		    this._length=0;
+		}
+		//输出
+		//参数：可以指定一个字符串（或单个字符），作为字符串拼接的分隔符
+		StringBuilder.prototype.ToString = function()
+		{
+		    if(arguments.length==1)
+		    {
+		        return this._buffers.join(arguments[1]);
+		    }
+		    else
+		    {
+		        return this._buffers.join(this._splitChar);
+		    }
+		}
+
+		//示例：
+		/*
+		var sb = new StringBuilder('&&'); //指定&&为分隔符
+		alert(sb.Length());
+		sb.Append('hEllo');
+		sb.Append('wORLD');
+		alert(sb.ToString()); //将输出 hEllo&&wORLD
+		sb.Clear();   
+		sb.AppendFormat("Hello! {0} {1} {2}",['a','b','c']);
+		sb.AppendFormat("Today is {0}",['周一']);
+		alert(sb.ToString());  //将输出 Hello! a b c&&Today is 周一
+		sb.Clear();
+		sb.AppendFormat("Hello! {0} {1} {2}",'a','b','c');
+		sb.Append('World');
+		alert(sb.ToString('__')); //将输出 Hello! a b c__World
+		*/
+}(this);
+0|function(global){
+	  var _change = {
+	           ary0:["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"],
+	           ary1:["", "十", "百", "千"],
+	           ary2:["", "万", "亿", "兆"],
+	           init:function (name) {
+	               this.name = name;
+	           },
+	           strrev:function () {
+	               var ary = []
+	               for (var i = this.name.length; i >= 0; i--) {
+	                   ary.push(this.name[i])
+	               }
+	               return ary.join("");
+	           }, //倒转字符串。
+	           pri_ary:function () {
+	               var $this = this
+	               var ary = this.strrev();
+	               var zero = ""
+	               var newary = ""
+	               var i4 = -1
+	               for (var i = 0; i < ary.length; i++) {
+	                   if (i % 4 == 0) { //首先判断万级单位，每隔四个字符就让万级单位数组索引号递增
+	                       i4++;
+	                       newary = this.ary2[i4] + newary; //将万级单位存入该字符的读法中去，它肯定是放在当前字符读法的末尾，所以首先将它叠加入$r中，
+	                       zero = ""; //在万级单位位置的“0”肯定是不用的读的，所以设置零的读法为空
+	 
+	                   }
+	                   //关于0的处理与判断。
+	                   if (ary[i] == '0') { //如果读出的字符是“0”，执行如下判断这个“0”是否读作“零”
+	                       switch (i % 4) {
+	                           case 0:
+	                               break;
+	                           //如果位置索引能被4整除，表示它所处位置是万级单位位置，这个位置的0的读法在前面就已经设置好了，所以这里直接跳过
+	                           case 1:
+	                           case 2:
+	                           case 3:
+	                               if (ary[i - 1] != '0') {
+	                                   zero = "零"
+	                               }
+	                               ; //如果不被4整除，那么都执行这段判断代码：如果它的下一位数字（针对当前字符串来说是上一个字符，因为之前执行了反转）也是0，那么跳过，否则读作“零”
+	                               break;
+	 
+	                       }
+	 
+	                       newary = zero + newary;
+	                       zero = '';
+	                   }
+	                   else { //如果不是“0”
+	                       newary = this.ary0[parseInt(ary[i])] + this.ary1[i % 4] + newary; //就将该当字符转换成数值型,并作为数组ary0的索引号,以得到与之对应的中文读法，其后再跟上它的的一级单位（空、十、百还是千）最后再加上前面已存入的读法内容。
+	                   }
+	 
+	               }
+	               if (newary.indexOf("零") == 0) {
+	                   newary = newary.substr(1)
+	               }//处理前面的0
+	               return newary;
+	           }
+	       }
+	 
+	       //创建class类
+	       function change() {
+	           this.init.apply(this, arguments);
+	       }
+	       change.prototype = _change
+	       global.change=change;
+}(this);
+function toStr(o){
+	return JSON.stringify(o, null,4);
+}
+function getObjectURL(file) {
+    var url = null ; 
+    if (window.createObjectURL!=undefined) { // basic
+        url = window.createObjectURL(file) ;
+    } else if (window.URL!=undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL!=undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+}
+
+var validatePhonenumber=function(phonenumber){
+	var telReg = !!phonenumber.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$/);
+	//如果手机号码不能通过验证
+	if(telReg == false){
+			return false;
+	}
+	return true;
+};
+var validatePassword=function(password){
+	var passwordReg=!!password.match(/^([a-zA-Z0-9]|[\x21-\x7e]){6,16}$/);
+	if(passwordReg==false){
+		return false;
+	}
+	return true;
+};
+function testPassword(password){
+	if((password=$.trim(password)).length<6||password.length>16){
+		return "密码长度应为6-16位!";
+	}	
+	if(!validatePassword(password)){
+		return "密码格式错误!";
+	}
+}
+//阻止事件传递
+function stopEvent(e){
+	if ( e && e.preventDefault ) 
+		   e.preventDefault(); 
+		    else 
+		   window.event.returnValue = false; 
+	 if (window.event) {
+		  e.cancelBubble=true;// ie下阻止冒泡
+		 } else {
+		  //e.preventDefault();
+		  e.stopPropagation();// 其它浏览器下阻止冒泡
+		 }
+}
+//input文件值
+function getPath(img){ 
+    if(img){ 
+        //ie 
+        if (window.navigator.userAgent.indexOf("MSIE")>=1){ 
+         
+      img.select();
+            // IE下取得图片的本地路径 
+            return document.selection.createRange().text; 
+        } 
+        //firefox 
+        else if(window.navigator.userAgent.indexOf("Firefox")>=1){ 
+            if(img.files){ 
+                //Firefox下取得的是图片的数据,火狐7.0不支持getAsDataURL
+                //return obj.files.item(0).getAsDataURL(); 
+                //alert(window.URL.createObjectURL(img.files[0]).fileSize); //无效
+                return window.URL.createObjectURL(img.files[0]);
+            } 
+            return img.value; 
+        } 
+        return img.value; 
+    } 
+}
+/**
+ * 匹配Luhn算法：可用于检测银行卡卡号
+ * @param cardNo
+ * @return
+ */
+function matchLuhn(cardNo) {
+	  cardNo=cardNo+"";
+    var cardNoArr = [];
+    for (var i=0; i<cardNo.length; i++) {
+        cardNoArr[i] = parseInt(""+(cardNo.charAt(i)));
+    }
+    for(var i=cardNoArr.length-2;i>=0;i-=2) {
+        cardNoArr[i] <<= 1;
+        cardNoArr[i] = parseInt(cardNoArr[i]/10 + cardNoArr[i]%10);
+    }
+    var sum = 0;
+    for(var i=0;i<cardNoArr.length;i++) {
+        sum += cardNoArr[i];
+    }
+    return sum % 10 == 0;
+}
+function getFileName(o){
+    var pos=o.lastIndexOf("\\");
+    return o.substring(pos+1);  
+}
+function getImgNaturalDimensions(img, callback) {
+    var nWidth, nHeight
+    if (img.naturalWidth) { // 现代浏览器
+        nWidth = img.naturalWidth
+        nHeight = img.naturalHeight
+        callback(nWidth,nHeight);
+    } else { // IE6/7/8
+        var image = new Image()
+        image.src = img.src
+        image.onload = function() {
+            callback(image.width, image.height)
+        }
+    }
+}
