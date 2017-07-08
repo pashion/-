@@ -14,8 +14,8 @@ class CreatePermissionsTable extends Migration
     {
          Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');//这个是权限相关菜单名
-            $table->string('p_name');//权限名，拼接起来存储
+            $table->string('p_name');//这个是权限相关菜单名
+            $table->string('show_name');//权限名，拼接起来存储
         });
     }
 
