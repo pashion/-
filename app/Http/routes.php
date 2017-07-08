@@ -55,7 +55,8 @@ Route::get('good/detail',function()
 //商品详情评论模块
 Route::post('order/add', 'createOrderController@index');
 Route::post('order/work', 'workOrderController@index');
-
+//订单处理
+Route::post('order/joy', 'JoyOrderController@index');
 
 //前台商品显示,包括商品详情,商品列表,商品选项价格查询
 Route::resource('goodsShow', 'GoodsShowController');
@@ -89,8 +90,6 @@ Route::resource('scene', 'DesignController');
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
-	Route::controller('/admin/roles','RolesController');	
-	Route::controller('/admin/permissions','PermissionsController');
 	Route::controller('/admin/users','UsersController');
 
 
@@ -108,6 +107,20 @@ Route::resource('scene', 'DesignController');
 
 	//前台订单收发货处理
 	Route::get('web/order' ,'AllOrderController@index');
+	//待发货
+	Route::get('web/willgoods' ,'WillgoodsController@index');
+	//已发货
+	Route::get('web/willgetgoods' ,'WillgetgoodsController@index');
+	//确认收货
+	Route::get('web/willgetgoods/{id}' ,'WillgetgoodsController@actiongoods');
+	//待评价
+	Route::get('web/willtalking' ,'WilltalkingController@index');
+	//评价
+	Route::get('web/willtalking/{id}' ,'WilltalkingController@actiontalking');
+	//评价
+	Route::post('web/addtalking' ,'WilltalkingController@addtalking');
+	//已完成
+	Route::get('web/susess' ,'SusessController@index');
 	//前台订单详情处理
 	Route::get('web/detail/{id}' ,'AllOrderDetailController@index');
 

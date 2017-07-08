@@ -8,8 +8,8 @@
  <div class="cont-main">
                     <div class="main-wrap mt15" style="border: 0px;">
                               <ul class="sui-nav nav-tabs" style="margin-top:0px;width: 1000px;margin-left: 30px;">
-                                  <li   style="margin-left: -5px;"><a href="{{url('web/order')}}" ><h4 style="line-height: 10px; font-weight:800;">所有订单</h4><span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                   <li class="active"><a href="{{url('web/willgoods')}}" >待发货<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
+                                  <li   style="margin-left: -5px;"><a href="{{url('web/order')}}" >所有订单<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
+                                   <li class="active"><a href="{{url('web/willgoods')}}" ><h4 style="line-height: 10px; font-weight:800;">待发货</h4><span style="margin-left: 20px;color: #ccc;">|</span></a></li>
                                    <li class="active"><a href="{{url('web/willgetgoods')}}" >已发货<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
                                     <li class="active"><a href="{{url('web/susess')}}" >已完成<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
                                     <li class="active"><a href="{{url('web/willtalking')}}" >待评价<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div style="margin-left: 30px;height: 25px;" >
-                                <form class="form-inline" action="{{url('web/order')}}" method="get">
+                                <form class="form-inline" action="{{url('web/willgoods')}}" method="get">
                                   <div class="form-group">
                                     <label for="exampleInputName2">搜索:</label>
                                     <input type="text" style="width: 200px;height: 25px;font-size: 12px;" id="exampleInputName2" placeholder="请输入商品订单号名字" name="keywords">

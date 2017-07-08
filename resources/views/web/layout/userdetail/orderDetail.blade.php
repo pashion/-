@@ -7,13 +7,7 @@
                             
  <div class="cont-main">
                     <div class="main-wrap mt15" style="border: 0px;">
-                              <ul class="sui-nav nav-tabs" style="margin-top:0px;width: 1000px;margin-left: 30px;">
-                                  <li   style="margin-left: -5px;"><a href="#profile" data-toggle="tab">所有订单<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                  <li class="active"><a href="#profile" data-toggle="tab">待付款<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                   <li class="active"><a href="#profile" data-toggle="tab">待发货<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                    <li class="active"><a href="#profile" data-toggle="tab">待发货1<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                    <li class="active"><a href="#profile" data-toggle="tab">待评价<span style="margin-left: 20px;color: #ccc;">|</span></a></li>
-                                </ul>
+                             
                             <div class="profile-info">
                                 <div class="control-group clearfix " style="width: 1020px;margin-bottom: 0px;">
                                     <div style="margin-top: -60px";>
@@ -44,14 +38,7 @@
                                     <span style="color: #858585;margin-left: 45px;">交易状态</span>
                                     <span style="color: #858585;margin-left: 45px;">交易操作</span>
                                  </div>
-                                 <div style="width: 100%;height: 0px;padding: 10px;">
-                                    <span style="line-height: 20px;">全选</span>
-                                    <input type="button" value="批量确认收货"  style="padding: 2px;border: 1px #ccc solid;background-color: #fff;color: #ccc;margin-left: 20px;"/>
-                                    <div style="float: right;margin-right: 5px;">
-                                        <input type="button"  style="display: inline-block;background-color: #fff; background-image: url({{url('web')}}/images/我的订单/组-39.png);width: 20px;height: 20px;border: 0px;background-repeat: no-repeat;" />
-                                        <input type="button" style="border:0px;display: inline-block;background-color: #fff;background-image: url({{url('web')}}/images/我的订单/组-40.png);background-repeat: no-repeat;width: 58px;height: 20px;" />
-                                    </div>
-                                 </div>
+                                 
                                 <?php
                                      $order_status=array('0'=>'待发货','1'=>'待收货','2'=>'完成','3'=>'取消');
                                     $ruturn_status=array('0'=>'不退货','1'=>'退货');
@@ -111,13 +98,6 @@
                                  </div>
                                  </div>
                                  @endforeach
-                                 <div style="width: 100%;height: 0px;padding: 10px;">
-                                    <span style="line-height: 20px;">全选</span>
-                                    <input type="button" value="批量确认收货"  style="padding: 2px;border: 1px #ccc solid;background-color: #fff;color: #ccc;margin-left: 20px;"/>
-                                        
-                                 </div>     <p style="text-align:right;margin-top: 10px;width: 100%;">
-                                    <span class="fenye"><</span><span class="fenye" style="margin-left: 10px;">1</span><span class="fenye">2</span><span class="fenye">3</span>.....<span class="fenye">></span>共1页，到<input type="text" value="1" style="width: 20px;margin-left: 10px;margin-right: 10px;" />页<button  style="background-color: #f95555;padding: 3px;border: 0px;color: #fff;margin-left: 10px;width: 50px;border-radius:4px;">确认</button>
-                                        </p>
-                                 </div>
+                                
                             </div>       
  @endsection
