@@ -132,7 +132,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{url('order')}}">查看订单</a></li>
                       <li><a href="{{url('order/create')}}">添加订单</a></li>
-                      <li><a href="{{url('order/create')}}">订单分类管理</a></li>
+                      <li><a href="{{url('detail')}}">订单详情</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -318,7 +318,13 @@
     <script src="{{url('zhuazi')}}/build/js/custom.min.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/frenship_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/Talking_del.js"></script>
+<<<<<<< HEAD
     <script src="/js/del.js"></script>
+=======
+    <script src="{{url('zhuazi')}}/vendors/freship/order_del.js"></script>
+    <script src="{{url('zhuazi')}}/vendors/freship/detail_del.js"></script>
+    <script src="/test2/shop-laravel/public/js/del.js"></script>
+>>>>>>> bcad1417562ab335a5e0a725c95a2a2e629009e6
       </div>
     </div>
 	

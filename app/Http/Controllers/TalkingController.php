@@ -40,7 +40,10 @@ class TalkingController extends Controller
     public function store(Request $request)
     {
 
+        $_POST['user_id']="1";
+        $_POST['goods_id']="1";
         $data=$_POST;
+        // dd($data);
         criticism::create($data);
         if($data>0){
             return redirect('talking')->with('success','添加成功');

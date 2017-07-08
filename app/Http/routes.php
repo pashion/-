@@ -1,7 +1,14 @@
 <?php
 
 	//前台路由
+	Route::get('/', function () {
+
+	    return view('web.index');
+	     // return view('web.layout.userdetail.orders');
+	});
+
 	Route::get('/', 'GoodInfoController@getGoodsIndex');
+
 
 
 //前台登录相关操作
@@ -40,6 +47,37 @@ Route::group(['middleware'=>'homeLogin'],function () {
 
 
 
+//商品详情评论模块
+Route::get('good/detail',function()
+	{
+		return view('web.good_detail');
+	});
+//商品详情评论模块
+Route::post('order/add', 'createOrderController@index');
+Route::post('order/work', 'workOrderController@index');
+//订单处理
+Route::post('order/joy', 'JoyOrderController@index');
+
+//前台商品显示,包括商品详情,商品列表,商品选项价格查询
+Route::resource('goodsShow', 'GoodsShowController');
+//返回商品选
+Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
+//返回单个商品的选项价格
+Route::get('getgoodSelPrice', 'GoodInfoController@getGoodSelPrice');
+//返回配套商品
+Route::get('getgoodSelCoordin', 'GoodInfoController@getGoodSelCoordin');
+//返回商品首页
+Route::get('index', 'GoodInfoController@getGoodsIndex');
+//返回首页的方案模块内容
+Route::get('getDesign', 'GoodInfoController@getDesignScheme');
+//返回单个方案内容
+Route::get('caseDetail', 'ShowDesignController@caseDetail');
+//接受方案评论内容
+Route::post('sendComment', 'ShowDesignController@saveDesignComment');
+//返回方案列表
+Route::resource('scene', 'DesignController');
+
+
 
 
 
@@ -47,15 +85,11 @@ Route::group(['middleware'=>'homeLogin'],function () {
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
-	//后台路由群，由中间件控制用户访问是否登录
-//后台路由群，由中间件控制用户访问是否登录
-    // Route::group(['middleware'=>'adminLogin'], function () {
 //后台路由群，由中间件控制用户访问是否登录，没有登录跳转到登录页面
 // Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
-	// Route::controller('/admin/users','UsersController');
 
 
 
@@ -65,12 +99,41 @@ Route::group(['middleware'=>'homeLogin'],function () {
 	Route::resource('talking','TalkingController');
 	Route::get('talking/{id}/delete','TalkingController@destroy');
 	Route::resource('order','OrderController');
+	Route::get('order/{id}/delete','OrderController@destroy');
+	Route::resource('detail','detailController');
+	Route::get('detail/{id}/delete','detailController@destroy');
+
+
+	//前台订单收发货处理
+	Route::get('web/order' ,'AllOrderController@index');
+	//待发货
+	Route::get('web/willgoods' ,'WillgoodsController@index');
+	//已发货
+	Route::get('web/willgetgoods' ,'WillgetgoodsController@index');
+	//确认收货
+	Route::get('web/willgetgoods/{id}' ,'WillgetgoodsController@actiongoods');
+	//待评价
+	Route::get('web/willtalking' ,'WilltalkingController@index');
+	//评价
+	Route::get('web/willtalking/{id}' ,'WilltalkingController@actiontalking');
+	//评价
+	Route::post('web/addtalking' ,'WilltalkingController@addtalking');
+	//已完成
+	Route::get('web/susess' ,'SusessController@index');
+	//前台订单详情处理
+	Route::get('web/detail/{id}' ,'AllOrderDetailController@index');
+
+
+	
 
 
 	//前台商品显示
 	Route::resource('goodsShow', 'GoodsShowController');
 
 	Route::get('getgoodSel', 'GoodInfoController@getGoodSel');
+
+
+
 
 	//商品资源路由
 	Route::resource('goods', 'GoogsController');

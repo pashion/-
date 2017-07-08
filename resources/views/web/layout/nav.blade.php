@@ -18,8 +18,32 @@
             <div class="Cart_user r_f">
                 <div class="Cart_Quantity "><span class="number">0</span></div>
                 <div class="header_operating l_f">
-                    <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-                    <a href="#">登录</a><a href="@">注册</a>
+                      @if ( !session('user') )
+                            <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    网站导航 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('home/index')}}">注册</a></li>
+                                    <li><a href="{{url('home/login')}}">登录</a></li>
+                                </ul>
+                            </div>
+                        @else
+                            <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
+                            欢迎您，<div class="btn-group">
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{session('user')[0]->username}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('/user/detail/order')}}">个人中心</a></li>
+                                    <li><a href="{{url('home/logout')}}">退出</a></li>
+                                </ul>
+                            </div>
+                        @endif
+
                 </div>
             </div>
         </div>

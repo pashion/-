@@ -18,8 +18,8 @@ class CreateSpecPriceTable extends Migration
             $table->integer('store');   //库存量
             $table->integer('gid');     //商品id
             $table->string('str_bunch');//属性串
-            $table->string('bunch_name');//属性串名
-            $table->double('column', 15, 8);//价格
+            $table->string('num_bunch');//属性串名
+            $table->double('price', 15, 8);//价格
             $table->timestamps();
         });
     }

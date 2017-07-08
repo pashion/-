@@ -138,7 +138,25 @@ class ShopCartController extends Controller
     }
 
     public function postChoose(Request $request){
-        dd( $request->all() );
+        // $request->session()->forget('orderlist');
+
+        // dd($_POST);
+        $cartData = $request->session()->all()['list'];
+        $choseData = $request->all()['choose'];
+        foreach ($choseData as $k => $v) {
+             foreach ($cartData as $key => $value) {
+                 if ($key==$v) {
+                    // session('orderlist')[$key] = $value[$key];
+                   $request->session()->put('orderlist.'.$key, $value);
+
+
+                 }
+
+             }
+        }
+       $data = $request->session()->all();
+       // dd($data);
+       return view('web.addorder',compact('data'));
     }
 
 }

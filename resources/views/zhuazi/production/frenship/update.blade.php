@@ -1,5 +1,5 @@
 @extends('zhuazi.layout.master');
-@section('title' ,'友情链接首页')
+@section('title' ,'修改友情链接')
 @section('content')
     <?php
         dump($upData);

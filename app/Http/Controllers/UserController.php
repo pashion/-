@@ -53,7 +53,7 @@ class UserController extends Controller
         ]);
 
            //获取用户信息数据
-           $users = $request->except('repassword','_token');
+           $users = $request->only('password','username','email','status');
 
            //密码加密 解密用Hash::check方法
            $users['password'] = Hash::make($users['password']);

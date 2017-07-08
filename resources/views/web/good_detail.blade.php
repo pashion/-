@@ -8,7 +8,6 @@
     @endsection
 
 @section('content')
-
     <script type="text/javascript">
         $(document).ready(function(){
             $(".q_code ").hover(function(){
@@ -53,12 +52,13 @@
     <input type="hidden" id="styleID" value="{{$goodData[0]->style}}">
     <input type="hidden" id="areaID" value="{{$goodData[0]->area}}">
     <!--产品详细介绍-->
-    <form action="order" method="post" id="from">
+    <form action="{{url('order/add')}}" method="post" id="from">
 
         <input id="isSel" type="hidden" name="isSel" value="">
         <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="num_bunch" value="">
+        <input type="hidden" name="user_id" value="{{session('user')['0']->id}}">
 
 
     
@@ -74,7 +74,7 @@
 
                                 {{--遍历猜你喜欢--}}
                                 @foreach($picArr as $v)
-                                    <li style="margin:4px;" class="tb-selected">
+                                    <li style="margin:4px;" class= "tb-selected">
                                         <div  class="tb-pic tb-s40"><a ><img width="80px" height="80px" src="{{url('goodsPic')}}/{{$v}}" mid="{{url('goodsPic')}}/{{$v}}" big="{{url('goodsPic')}}/{{$v}}"></a></div>
                                     </li>
                                 @endforeach
@@ -210,48 +210,31 @@
 
 
                             <ul class="comment_style">
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
+                                <?php 
+
+                                $userContent = DB::table('criticism')
+                                  ->leftJoin('users_register', 'users_register.id', '=', 'criticism.user_id')
+                                  ->leftJoin('goods', 'goods.id', '=', 'criticism.goods_id')
+                                  ->get();
+                                  foreach ($userContent as $key => $value) {
+                                    echo "<li class='comment_list clearfix'>";
+                                    echo "
+                                    <div class='comment_Avatar'> 
+                                    <div class='user_Avatar'><div class='Avatar_bg'></div>
+                                    <img src='{images/touxiang.jpg}' width='60' height='60'></div>
+                                    <h3>$value->username</h3>
+                                    </div>";
+                                    echo "
+                                    <div class='comment_info'>
+                                    <p class='comments'>$value->comment_info</p>
+                                    <p class='Basic_Information'>
+                                    <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：$value->goods</span>
+                                    </p>
                                     </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
-                                    </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
-                                <li class="comment_list clearfix">
-                                    <div class="comment_Avatar">
-                                        <div class="user_Avatar"><div class="Avatar_bg"></div>
-                                            <img src="images/touxiang.jpg" width="60" height="60"></div>
-                                        <h3>张天师</h3>
-                                    </div>
-                                    <div class="comment_info">
-                                        <p class="comments">非常不错的手机，做工质感极好，颜值爆表，而且在一众去掉logo基本分不出区别的手机中绝对鹤立鸡群。另外个人觉得后背的moto蝙蝠标识有些不容易看到，如果弄成类似macbook那样发光logo的话，个人愿意多出一千大洋～系统方面确实更加偏向原生android,在易用性方面跟国内一众rom有差距，不过至少对我是绝对够用了。相机启动拍照保存都很快。电池不出众不过快冲非常好用。</p>
-                                        <p class="Basic_Information">
-                                            <span>件数：2件</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>商品名称：摩托罗拉 Moto Z(XT1650-05) 模块化手机 流金黑 移动联通电信4G手机 双卡双待</span>
-                                        </p>
-                                    </div>
-                                    <div class="comment_time">2016-10-24</div>
-                                </li>
+                                    ";
+                                    echo "<div class='comment_time'>$value->created_at</div>";
+                                  }
+                                 ?>
                             </ul>
                         </div>
                     </div>
