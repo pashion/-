@@ -7,6 +7,7 @@ use Hash;
 use Validator;
 use App\Http\Requests;
 use DB;
+use App\Admin;
 
 class UserController extends Controller
 {
@@ -14,6 +15,7 @@ class UserController extends Controller
     //加载用户模块的列表页面
     public function getIndex()
     {
+        Admin::findRole('users@show');
         $users = DB::table('users_register')->paginate(3);
         // dd($users);
         return view('zhuazi/users/index', ['users' => $users]);
@@ -22,8 +24,9 @@ class UserController extends Controller
     //加载用户的添加页面
     public function getAdd()
     {
-
-        return view('zhuazi/users/add');
+          Admin::findRole('users@add');
+          return view('zhuazi/users/add');
+       
     }
 
     //执行添加
@@ -83,6 +86,7 @@ class UserController extends Controller
     //删除用户
     public function getDelete($id)
     {
+        Admin::findRole('users@delete');
 
         $res = DB::table('users_register')->where('id', '=', $id)->delete();
         if ( $res ) {
@@ -96,6 +100,7 @@ class UserController extends Controller
     //修改用户信息
     public function getEdit($id)
     {
+        Admin::findRole('users@update');
 
         $data = DB::table('users_register')->where('id', '=', $id)->first();
         // dd($data);

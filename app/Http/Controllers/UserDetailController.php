@@ -9,6 +9,7 @@ use DB;
 use Hash;
 use Validator;
 use Config;
+use Redis;
 
 class UserDetailController extends Controller
 {
@@ -16,7 +17,7 @@ class UserDetailController extends Controller
    //加载个人中心
    public function getOrder()
    {
-   		return view('web.myorders');
+   		return view('web.selfconmit');
    }
 
    //加载top顶部栏
@@ -44,7 +45,7 @@ class UserDetailController extends Controller
    {
       //查询用户地址表
       $users = DB::table('users_address')->where('user_id','=',session('user')[0]->id)->get();
-   	return view('web/layout/userdetail/address',compact("users"));
+   	return view('web/layout/userdetail/addressg',compact("users"));
    }
 
    //数据库查询省份信息
@@ -58,7 +59,6 @@ class UserDetailController extends Controller
    //保存地址信息
    public function postAddaddress(Request $req)
    {
-
          $address['user_id'] = $req->input('user_id');
          $address['phone'] = $req->input('phone');
          $address['get_name'] = $req->input('get_name');
@@ -79,7 +79,7 @@ class UserDetailController extends Controller
    //加载修改密码页
    public function getChangepass()
    {
-   	return view('web.layout.userdetail.changepass');
+   	return view('web.layout.userdetail.changepassg');
    }
 
    //修改密码
@@ -102,6 +102,7 @@ class UserDetailController extends Controller
    		if ( DB::table('users_register')->where('id', '=', $req->input('id'))->update($pass) ) {
 
    			$req->session()->forget('user');
+            $rep->session()->save();
    			echo "<script> alert('密码修改成功，请重新登录');top.location.href='http://qq.com/home/login';</script>";
 
    		}
@@ -120,7 +121,7 @@ class UserDetailController extends Controller
    //加载个人资料页面
    public function getData()
    {
-   	return view('web.layout.userdetail.userdata');
+   	return view('web.layout.userdetail.userdatag');
    }
 
    //AJAX加载个人资料数据
@@ -234,12 +235,11 @@ class UserDetailController extends Controller
 
 
 
-
-
-
    public function getAbord()
    {
-      return view('web.layout.userdetail.abord');
+      // return view('web.layout.userdetail.abord');
+      Redis::set('key','val');
+      dd(Redis::get('key'));
    }
 
 

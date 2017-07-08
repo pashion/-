@@ -255,6 +255,7 @@ class HomeLoginController extends Controller
     public function getLogout(Request $request)
     {
         $request->session()->forget('user');
+        $request->session()->save();
         return redirect('/home/login');
     }
 }

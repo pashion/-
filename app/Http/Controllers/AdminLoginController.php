@@ -24,12 +24,12 @@ class AdminLoginController extends Controller
         $name = $request->input('admin_name');
         $pass = $request->input('password');
         //获取登录数据信息
-        $users = DB::select('select * from users where name = ?', array($name));
+        $users = DB::select('select * from admins where name = ?', array($name));
         if ($users != null) {
 
-            if ( $users['0']->name == $name && Hash::check($pass,$users['0']->password) ) {
+            if ( $users['0']->name == $name &&  $users['0']->password == $pass ) {
 
-                $request->session()->put(['admin_name'=>$name]);
+                $request->session()->put(['admins'=>$users]);
                 // dd(session('admin_name'));
                 return view('zhuazi/users/add');
 
@@ -50,7 +50,8 @@ class AdminLoginController extends Controller
     public function getLogout (Request $request)
     {
         //删除session
-        $request->session()->forget('admin_name');
+        $request->session()->forget('admins');
+        $request->session()->save();
         return redirect('/admins');
 
     }

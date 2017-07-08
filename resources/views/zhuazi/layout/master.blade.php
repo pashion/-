@@ -54,8 +54,8 @@
                 <img src="{{url('zhuazi')}}/images/img.jpg" alt="{{url('zhuazi')}}." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>{{session('admin_name')}}</span>
-                <h2><二级></二级>管理</h2>
+                <span>{{session('admins')[0]->name}}</span>
+                <h2>{{session('admins')[0]->role_name}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -71,7 +71,7 @@
                   <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
                   <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制</a>
 
-                  <li><a><i class="fa fa-user"></i> 用户管理 </span></a>
+                  <li><a><i class="fa fa-user"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('admin/user/index')}}">会员列表</a></li>
                       <li><a href="{{url('admin/user/add')}}">会员添加</a></li>
@@ -96,14 +96,13 @@
                   </li>
 
 
-                  <li><a><i class="fa fa-group"></i>管理员权限管理 </span></a>
+                  <li><a><i class="fa fa-group"></i>权限管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{url('admin/roles/index')}}">所有角色</a></li>
-                      <li><a href="{{url('admin/roles/add')}}">新建角色</a></li>
-                      <li><a href="{{url('admin/roles/create')}}">新建权限</a></li>
-                      <li><a href="{{url('admin/users/index')}}">所有管理员</a></li>
-                      </ul> 
+                          <li><a href="{{url('admin/admins/showadmins')}}">管理员管理</a></li>
+                          <li><a href="{{url('admin/admins/showrole')}}">管理员群组</a></li>
+                    </ul>
                   </li>
+
                   <li><a><i class="fa fa-edit"></i>友情链接管理<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('frenship')}}">查看友情链接</a></li>
@@ -160,7 +159,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{url('zhuazi')}}/images/img.jpg" alt=""> {{session('admin_name')}}
+                    <img src="{{url('zhuazi')}}/images/img.jpg" alt=""> {{session('admins')[0]->name}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -238,7 +237,6 @@
         </div>
    
         <div class="right_col" role="main">
-              
 
               @if (session('success'))
                <div class="alert alert-success" role="alert">
@@ -260,10 +258,6 @@
 
 
         </div>
-
-
-
-
 
 
     

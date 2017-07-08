@@ -22,6 +22,7 @@ Route::group(['middleware'=>'homeLogin'],function () {
 
 
 
+
 	//后台登录页面和操作路由
 	Route::controller('/admins', 'AdminLoginController');
 
@@ -29,10 +30,13 @@ Route::group(['middleware'=>'homeLogin'],function () {
 // Route::group(['middleware'=>'adminLogin'], function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
+
+	//权限管理
+	Route::controller('/admin/admins','AdminsPermissionController');
 	//权限管理路由	
-	Route::controller('/admin/roles','RolesController');	
-	Route::controller('/admin/permissions','PermissionsController');
-	Route::controller('/admin/users','UsersController');
+	// Route::controller('/admin/roles','RolesController');	
+	// Route::controller('/admin/permissions','PermissionsController');
+	// Route::controller('/admin/users','UsersController');
 
 
 

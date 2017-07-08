@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ( $request->session()->has('admin_name') ) {
+        if ( $request->session()->has('admins') ) {
             return $next($request);
         }else{
             //跳转到登录界面
