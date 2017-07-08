@@ -55,7 +55,7 @@ Route::group(['middleware'=>'homeLogin'],function () {
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
-	Route::controller('/admin/users','UsersController');
+	// Route::controller('/admin/users','UsersController');
 
 
 

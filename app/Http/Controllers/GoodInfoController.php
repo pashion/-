@@ -35,6 +35,7 @@ class GoodInfoController extends Controller
         //查询数据
         $goodsData = Goods::whereRaw($str, $gid)->get();
         //切割获取图片名
+        
         $goodsPic = [];
         foreach ($goodsData as $v) {
             $arr =  explode(',', $v['pic']);
@@ -46,6 +47,7 @@ class GoodInfoController extends Controller
         $Wheel = DB::table('Wheel')->orderBy('sort','asc')->get();
 
         //返回()
+        
         return view('web.index', compact('modeData', 'goodsData','goodsPic','Wheel'));
     }
 
