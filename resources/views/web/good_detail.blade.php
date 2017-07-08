@@ -64,7 +64,11 @@
         <input id="goodsId" type="hidden" name="gid" value="{{$goodData[0]->id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="num_bunch" value="">
-        <input type="hidden" name="user_id" value="{{session('user')['0']->id}}">
+        @if(isset(session('user')['0']->id))
+            <input type="hidden" name="user_id" value="{{session('user')['0']->id}}">
+        @else
+            
+        @endif
 
 
     
@@ -144,8 +148,6 @@
                         </div>
                         @endif
 
-                            <a href="javascript://" id="addShop" rel="nofollow" id="J_LinkBasket" role="button">加入购物车</a></div>
-                    </div>
 
                     <dl class="clearfix">
                         <dt class="infoParText ">承诺</dt>

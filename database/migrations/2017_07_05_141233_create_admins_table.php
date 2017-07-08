@@ -19,6 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('name');
             $table->string('password');
             $table->integer('phone');
+            $table->date('addtime');
         });
     }
 
