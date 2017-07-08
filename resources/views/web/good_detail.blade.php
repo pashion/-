@@ -1,10 +1,12 @@
 @extends('web.layout.master')
 
+
+
 @section('title','产品详细')
 
 
     @section('head')
-        <link rel="stylesheet" href="{{url('web ')}}/css/goodsGetail.css">
+        <link rel="stylesheet" href="{{url('web')}}/css/goodsDetail.css">
         @endsection
     @section('content')
 
@@ -97,8 +99,9 @@
                     <div style="width:500px;" id="goodParSelBox"></div>
 
 
+                    <div >
                     <dl class="tb-amount tm-clear">
-                        <dt class="infoParText">数量</dt>
+                        <dt class="infoParText" id="numConStyle" >数量</dt>
                         <dd id="J_Amount content" ><span class="tb-amount-widget mui-amount-wrap ">
                        <input id="inputNum" type="text" name="num" class="tb-text mui-amount-input" value="1" maxlength="8" title="请输入购买量">
 
@@ -116,12 +119,14 @@
                             <span id="J_StockTips"></span>
                         </dd>
                     </dl>
+                    </div>
+
                     <div class="purchasing_btn clearfix">
                         <div class="tb-btn-buy tb-btn-sku">
                             <a id="J_LinkBuy" clss="" rel="nofollow" data-addfastbuy="true"  title="点击此按钮，到下一步确认购买信息。" role="button" data-spm-anchor-id="">立即购买</a>
                         </div>
                         <div class="tb-btn-basket tb-btn-sku ">
-                            <a href="javascript://" id="addShop" rel="nofollow" id="J_LinkBasket" role="button"><i class="icon_shop"></i>加入购物车</a></div>
+                            <a href="javascript://" id="addShop" rel="nofollow" id="J_LinkBasket" role="button">加入购物车</a></div>
                     </div>
 
                     <dl class="clearfix">

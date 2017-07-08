@@ -39,14 +39,19 @@
             var str = '' ;
             var sebBtnName = [];
             for (a in head) {
+
                 str += '<dl class="tb-prop clearfix"><dt class="label_name">'+head[a]+'</dt> <dd class="content"> <ul>';
+               
                 for (i in data) {
                     if (data[i]['headId'] == a ) {
-                        var name = 'selBtn' + data[i]['id'];
-                        sebBtnName[data[i]['id']] = name;
-                        str += '<li id="'+name+'" pid="'+a+'" sid="'+data[i]['id']+'"><a role="button" tabindex="0" ><span>'+data[i]['name']+'</span></a></li>';
+
+                        var name = 'selBtn' + data[i]['id'];//拼接新名
+                        sebBtnName[data[i]['id']] = name;//保存每个选项的ID名
+
+                        str += '<li id="'+name+'" pid="'+a+'" class="'+head[a]+'" sid="'+data[i]['id']+'"><a><label>'+data[i]['name']+'</label></a></li>';
                     }
                 }
+
                 str += '</ul> </dd></dl>';
                 SAVE_SEL_ARR[a] = 0;
             }
@@ -72,8 +77,12 @@
     function loadSelBtnEven (name)
     {
         $('#' + name).on('click', function () {
-            console.log(SEL_PRICE_ARR);
-            console.log(SAVE_SEL_ARR);
+
+            //样式控制
+            var headName = $(this).attr('class');
+            console.log(headName);
+            $('.' + headName).css('background', '');
+            $(this).css('background', 'red');
 
             //获取属性ID
             var pid = $(this).attr('pid');

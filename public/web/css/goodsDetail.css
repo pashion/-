@@ -26,3 +26,14 @@
     margin-right:10px;
     margin-left:10px;
 }
+
+.selMinBox {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: red;
+}
+
+#numConStyle {
+    margin-right: 40px
+}

@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "patinthehat/entrust": "1.7.2",
         "intervention/image": "^2.3",
-        "gregwar/captcha": "1.*"
+        "gregwar/captcha": "1.*",
+        "hightman/xunsearch": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -33,6 +33,8 @@ Route::get('getComment', 'DesignCommentController@getDesignComment');
 //保存方案评论回复sendRealyContent
 Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 
+//搜索引擎
+Route::get('getXunSeach', 'GoodInfoController@getXunSeach');
 
 
 
@@ -49,8 +51,6 @@ Route::post('sendRealyContent', 'DesignCommentController@saveDesignRealy');
 	//后台用户管理
 	Route::controller('/admin/user','UserController');
 	//权限管理路由	
-	Route::controller('/admin/roles','RolesController');	
-	Route::controller('/admin/permissions','PermissionsController');
 	Route::controller('/admin/users','UsersController');
 
 

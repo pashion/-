@@ -3,20 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use Illuminate\Support\Facades\DB;
 use App\Option;
-
 use App\Goods;
 use App\SpecPrice;
 use App\IndexMode;
 use App\Designs;
 use App\SecondType;
 
+
+use hightman\xunsearch\lib;
+
 class GoodInfoController extends Controller
 {
+
+
+    //搜索引擎
+    function getXunSeach ()
+    {
+        $xs = new \XS("shop2");
+       
+        $searchObj = $xs->search;
+        $indeObj =  $xs->index;
+
+        $res =  $searchObj->search('我');
+        dump($indeObj);
+        dump($res);
+    }
+
+
+
+
+
 
     /*
      * 获取首页信息
@@ -128,6 +147,9 @@ class GoodInfoController extends Controller
     {
         return Goods::where('goods', 'like', '%'.$_GET['text'].'%')->get();
     }
+
+
+
 
 
 
