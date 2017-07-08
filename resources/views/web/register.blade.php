@@ -53,7 +53,7 @@
                                         <img src="{{url('home/captcha')}}/1" onclick="this.src=this.src+'?a=1'">
                                     </div> </li>
                                 <li class="login_checkbox"><label><input name="check" type="checkbox"  class="checkbox" />我已阅读并同意<a href="#">《用户服务协议》</a></label></li>
-                                <li class="login_btn"><input  type="submit" class="submitbtn" value="登录" /></li>
+                                <li class="login_btn"><input  type="submit" class="submitbtn" value="注册" /></li>
                             </ul>
                         </form>
                     </div>

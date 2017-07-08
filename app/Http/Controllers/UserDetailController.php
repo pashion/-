@@ -237,9 +237,8 @@ class UserDetailController extends Controller
 
    public function getAbord()
    {
-      // return view('web.layout.userdetail.abord');
-      Redis::set('key','val');
-      dd(Redis::get('key'));
+      return view('web.layout.userdetail.abord');
+     
    }
 
 
