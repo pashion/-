@@ -148,8 +148,6 @@
                         </div>
                         @endif
 
-                            <a href="javascript://" id="addShop" rel="nofollow" id="J_LinkBasket" role="button">加入购物车</a></div>
-                    </div>
 
                     <dl class="clearfix">
                         <dt class="infoParText ">承诺</dt>

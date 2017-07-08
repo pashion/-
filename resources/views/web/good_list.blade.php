@@ -139,20 +139,9 @@ $('.pagination').css({
 
      <div class="pic_page_style clearfix">
       <ul class="page_example pagination" id="pagination">
-       <!-- <li><li class="first disabled" data-page="1"><a href="javascript:void(0);"> 〈 上一页 </a></li></li> -->
-       <!-- <li class="page active" data-page="1"><a href="javascript:void(0);">1</a></li>
-       <li class="page" data-page="2"><a href="javascript:void(0);">2</a></li>
-       <li class="page" data-page="3"><a href="javascript:void(0);">3</a></li>
-       <li class="page" data-page="4"><a href="javascript:void(0);">4</a></li>
-       <li class="page" data-page="5"><a href="javascript:void(0);">5</a></li>
-       <li class="page" data-page="6"><a href="javascript:void(0);">6</a></li>     
-       <li class="page" data-page="7"><a href="javascript:void(0);">7</a></li>
-       <li class="page" data-page="8"><a href="javascript:void(0);">8</a></li>
-       <li class="page" data-page="9"><a href="javascript:void(0);">9</a></li>
-       <li class="page" data-page="10"><a href="javascript:void(0);">10</a></li>
-       <li class="page" data-page=""><a href="javascript:void(0);">...</a></li> -->
+       
        {!! $goods->links() !!}
-       <!-- <li class="last" data-page="35"><a href="javascript:void(0);">下一页 〉</a></li> -->
+       
       </ul>
       </div>
    </div>
