@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Criticism;
+use App\Admin;
 use DB;
 
 class TalkingController extends Controller
@@ -17,6 +18,8 @@ class TalkingController extends Controller
      */
     public function index(Request $request)
     {
+        Admin::findRole('talk@show');
+
         $talkData=criticism::where('comment_type','like','%'.$request->input('keywords').'%')->paginate(5);
         return view('zhuazi/production/talking/index',['talkData'=>$talkData,'request'=>$request->all()]);
     }
@@ -28,6 +31,8 @@ class TalkingController extends Controller
      */
     public function create()
     {
+        Admin::findRole('talk@add');
+
         return view('zhuazi/production/talking/create');
     }
 
@@ -39,6 +44,7 @@ class TalkingController extends Controller
      */
     public function store(Request $request)
     {
+
 
         $_POST['user_id']="1";
         $_POST['goods_id']="1";
@@ -71,6 +77,8 @@ class TalkingController extends Controller
      */
     public function edit($id)
     {
+        Admin::findRole('talk@update');
+
         $data=DB::select('select * from criticism where id = ?', [$id]);
         return view('zhuazi/production/talking/edit')->with('data',$data[0]);
     }
@@ -101,6 +109,8 @@ class TalkingController extends Controller
      */
     public function destroy($id)
     {
+        Admin::findRole('talk@delete');
+
        $deData = DB::delete('delete from criticism where id = ?',[$id]);
         if($deData==1){
 

@@ -234,11 +234,35 @@ class UserDetailController extends Controller
    }  
 
 
-
+   //加载我的收藏页面
    public function getStore()
    {
       return view('web.layout.userdetail.store');
      
+   }
+
+   //加载我的评价页面
+   public function getMytalk()
+   {
+      return view('web.layout.userdetail.mytalk');
+   }
+
+   //加载我的优惠券页面
+   public function getMysail()
+   {
+      return view('web.layout.userdetail.mysail');
+   }
+
+   //加载我的足迹页面
+   public function getMyfoot()
+   {
+      return view('web.layout.userdetail.myfoot');
+   }
+
+   //加载售后服务
+   public function getAbord()
+   {
+      return view('web.layout.userdetail.abord');
    }
 
 

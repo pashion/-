@@ -72,10 +72,14 @@
               <div class="menu_section">
                 <h3>只能添加店铺</h3>
                 <ul class="nav side-menu">
-                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理</a></li>
-                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理  </span></a></li>
-                  <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制</a></li>
-                  <li><a href="{{url('designAdmin')}}"><i class="fa fa-edit"></i>设计方案管理</a></li>
+
+                 <li><a href="{{url('goods')}}"><i class="fa fa-edit"></i>商品管理<span class="fa fa-chevron-down"></span></a></li>
+
+                  <li><a href="{{url('goodsSpec')}}"><i class="fa fa-desktop"></i> 商品规格属性管理 <span class="fa fa-chevron-down"></span></a></li>
+
+                  <li><a href="{{url('indexModeCon')}}"><i class="fa fa-edit"></i>首页模板控制<span class="fa fa-chevron-down"></span></a></li>
+
+                  <li><a href="{{url('designAdmin')}}"><i class="fa fa-edit"></i>设计方案管理<span class="fa fa-chevron-down"></span></a></li>
 
                   <li><a><i class="fa fa-user"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -85,7 +89,7 @@
                   </li>
 
 
-                  <li><a><i class="fa fa-desktop"></i> 类别管理 </span></a>
+                  <li><a><i class="fa fa-desktop"></i> 类别管理<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('SecoundType')}}">查看类别</a></li>
                       <li><a href="{{url('SecoundType/create')}}">添加类别</a></li>
@@ -93,7 +97,7 @@
                     </ul>
                   </li>
 
-                   <li><a><i class="fa fa-table"></i> 轮播图管理 </a>
+                   <li><a><i class="fa fa-table"></i> 轮播图管理 <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                           <li><a href="{{url('Wheel')}}">查看轮播图</a></li>
                           <li><a href="{{url('Wheel/create')}}">插入轮播图</a></li>
@@ -101,14 +105,13 @@
                       </ul>
                   </li>
 
-
                   <li><a><i class="fa fa-group"></i>权限管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                           <li><a href="{{url('admin/admins/showadmins')}}">管理员管理</a></li>
                           <li><a href="{{url('admin/admins/showrole')}}">管理员群组</a></li>
                     </ul>
                   </li>
-
+                  
                   <li><a><i class="fa fa-edit"></i>友情链接管理<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('frenship')}}">查看友情链接</a></li>

@@ -22,17 +22,7 @@ class GoodInfoController extends Controller
 
 
     //搜索引擎
-    function getXunSeach ()
-    {
-        $xs = new \XS("shop2");
-       
-        $searchObj = $xs->search;
-        $indeObj =  $xs->index;
 
-        $res =  $searchObj->search('我');
-        dump($indeObj);
-        dump($res);
-    }
 
 
 

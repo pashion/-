@@ -25,7 +25,7 @@
     			<td align="center">
     				@if ( $role->name == "超级管理员" )
                     <a class="btn btn-danger btn-sm disabled" href="{{url('admin/admins/deleterole')}}/{{$role->id}}" role="button">删除</a>
-                    <a class="btn btn-info btn-sm disabled" href="{{url('admin/admins/updaterole')}}/{{$role->id}}" role="button">修改</a></td>
+                    <a class="btn btn-info btn-sm" href="{{url('admin/admins/updaterole')}}/{{$role->id}}" role="button">修改</a></td>
                     @else
 	                <a class="btn btn-danger btn-sm" href="{{url('admin/admins/deleterole')}}/{{$role->id}}" role="button">删除</a>
 	                <a class="btn btn-info btn-sm" href="{{url('admin/admins/updaterole')}}/{{$role->id}}" role="button">修改</a></td>
