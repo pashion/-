@@ -62,12 +62,7 @@
 	.canclebtn{ width:98px; height:36px; line-height:36px; border-radius:3px; background:#fff; border:1px solid #7ebc12; color:#7ebc12; text-align:center; display:inline-block;}
 	.divbox6{ width:100%;min-height:73px;}
 </style>
-<script type="text/javascript">
-	var basePath="http://www.yjysj.com.cn:80/";
-	var alert=function(){
-		layer.msg(arguments[0], {});
-	};
-</script>
+
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -118,16 +113,16 @@
 <div class="header" id="gotop">
      <div class="header_top">
        <div class="logo_style l_f">
-            <a href="http://www.yjysj.com.cn/"><img src="{{url('web')}}/colour/logo.png"></a>
+            <a href="{{url('/')}}"><img src="{{url('web')}}/colour/logo.png"></a>
        </div>
        <div class="header_menu">
          <!--菜单导航栏-->
          <!--<a href="" class="">网站首页</a>-->
-         <a href="http://www.yjysj.com.cn/case/listPage" class="">设计精粹</a>
-         <a href="http://www.yjysj.com.cn/scene/listPage" class="">场景方案</a>
-         <a href="http://www.yjysj.com.cn/prod/rooListPage" class="">单品大库</a>
-         <a href="http://www.yjysj.com.cn/prod/greateListPage" class="">奇货可享</a>
-         <a href="http://www.yjysj.com.cn/colourTide/colourTideList" class=" menu_cur">找找感觉</a>
+         <a href="{{url('/')}}">网站首页</a>
+         <a href="{{url('scene')}}/create">设计精粹</a>
+         <a href="{{url('scene')}}">场景方案</a>
+         <a href="{{url('goods_list')}}">单品大库</a>
+         <a href="{{url('colourTide')}}">找找感觉</a>
        </div>
        <div class="Search_style l_f">
         <form id="searchForm" action="{{url('colourTide')}}" method="get">
@@ -141,27 +136,10 @@
 		      <option value="6">找找感觉</option>
 		    </select>
 	        <input name="search" type="text" class="add_Search" value="{{$search or ''}}">
-	        <input name="" type="submit" class="submit_Search" value="so">
+	        <input name="" type="submit" class="submit_Search" value="">
         </form>
        </div>
-       <div class="Cart_user r_f">
-           <div class="Cart_Quantity" onclick="location.href=basePath+&#39;cart/listPage&#39;;" style="cursor: pointer;"><span class="number"><span style="position: relative;"><em class="cCartCount_bg" style=""><!--<img src="images/icon_dot.png"/>--></em><b class="cCartCount">0</b></span></span></div>
-           <div class="header_operating l_f">
-                <span class="header_touxiang"><img src="{{url('web')}}/colour/touxiang_03.png"></span>
-                <a href="javascript:" onclick="location.href=basePath+&#39;user/member&#39;;">
-	                
-				    	
-							   登录
-				    	
-				    	
-				    
-                </a>
-                
-			    	
-						<a href="javascript:location.href=basePath+&#39;user/regPage&#39;;">注册</a>
-			    	
-			    	
-			    
+       <div class="Cart_user r_f"> 
            </div>
        </div>
      </div>
@@ -277,7 +255,7 @@
 	<div class="item">
 		<div class="item_list">
 	    	一家一世界<em class="m_jt"><img src="{{url('web')}}/colour/m_jt.jpg"></em>
-	    	<a href="http://www.yjysj.com.cn//colourTide/colourTideList" style="color:#88c522;" class="item_list_a">找找感觉</a>
+	    	<a href="{{url('/')}}" style="color:#88c522;" class="item_list_a">找找感觉</a>
 	    </div>
 	    <div class="item_tztip">
 	    	帖子：<span class="color_green">7</span>
@@ -306,7 +284,7 @@
 			
 		
 	    <div class="clear">
-	      {{ $Article->links() }}
+	      {{ $Article->appends(['search'=>$search])->links() }}
 	    </div>
 	    
 	    <div class="pic_page_style clearfix" style="display: none;">
@@ -332,8 +310,8 @@
 <div id="bdsharebuttonbox" style="width: 100%; height: 1356px; background: rgba(0, 0, 0, 0.5); z-index: 99999; position: absolute; top: 0px; left: 0px; display: none;">
 	<div class="bdsharebuttonbox bdshare-button-style0-32" style="width: 368px; position: fixed;left:0; right:0; margin:auto; padding-top: 20px; top: 0; bottom:0; height:140px;  background-color: #e9e9ea; z-index: 999999;    border-radius: 5px;" data-bd-bind="1499419078081">
 		
-		<a href="http://www.yjysj.com.cn/#" class="bds_more" data-cmd="more" style="display: none"></a>
-		<a href="http://www.yjysj.com.cn/#" class="bds_qzone" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_qq2.png); background-repeat: no-repeat; background-size: 100%; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="qzone" title="分享到QQ空间"></a> <a href="http://www.yjysj.com.cn/#" class="bds_tsina" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_tx.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="tsina" title="分享到新浪微博"></a> <a href="http://www.yjysj.com.cn/#" class="bds_weixin" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_weixin.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="weixin" title="分享到微信"></a> <a href="http://www.yjysj.com.cn/#" class="bds_sqq" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_qq.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="sqq" title="分享到QQ好友"></a>
+		<a href="#" class="bds_more" data-cmd="more" style="display: none"></a>
+		<a href="#" class="bds_qzone" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_qq2.png); background-repeat: no-repeat; background-size: 100%; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="qzone" title="分享到QQ空间"></a> <a href="#" class="bds_tsina" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_tx.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="tsina" title="分享到新浪微博"></a> <a href="#" class="bds_weixin" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_weixin.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="weixin" title="分享到微信"></a> <a href="#" class="bds_sqq" style="float: left; width: 50px; height: 50px; text-indent: inherit; background: url(images/share_qq.png); background-size: 100%; background-repeat: no-repeat; cursor: pointer; margin: 20px 0px 20px 33px; overflow: hidden; display: inline-block;" data-cmd="sqq" title="分享到QQ好友"></a>
 		<div style="position: absolute;right:-10px; top:-10px; cursor:pointer;" onclick="share();"><img src="{{url('web')}}/colour/icon_close.png"></div>
 	</div>
 </div>
@@ -433,7 +411,7 @@
     </span>
     <span style="display: none;">
         <p>手机app端访问</p>
-        <p><img src="http://www.yjysj.com.cn/" width="120" height="120"></p>
+        <p><img src="" width="120" height="120"></p>
     </span>
     <span>
         <p>微信端访问</p>

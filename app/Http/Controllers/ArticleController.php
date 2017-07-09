@@ -38,6 +38,30 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+
+        // 表单验证
+        $title = $request->input('title');
+        $description = $request->input('description');
+        $author = $request->input('author');
+        $cover = $request->input('cover');
+        $content = $request->input('content');
+
+        $tip = ['required' => ':attribute必须填写','min'=>':attribute不能少于3个字符','numeric'=>':attribute必须为数字'];
+
+        $msg = ['title' => '标题','description'=>'描述','author'=>'作者','cover' => '封面', 'content' => '内容'];
+
+        $this->validate($request, [
+            'title' => 'required|min:3',
+            'description' => 'required',
+            'author' => 'required',
+            'cover' => 'required',
+            'content' => 'required',
+        ],$tip,$msg);
+
+
+
+
+
         $list = $request->all();
         $data['title'] = $list['title'];
         $data['description'] = $list['description'];

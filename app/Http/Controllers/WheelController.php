@@ -14,10 +14,9 @@ class WheelController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
- 
-        $Wheel = Wheel::where('picname','like','%'.$search.'%')->paginate(1);
+
+        $Wheel = Wheel::where('picname','like','%'.$search.'%')->paginate(5);
         return view('/zhuazi.production.Wheel.index',compact('Wheel','search'));  
-        
     }
 
     //插入轮播图
@@ -31,6 +30,16 @@ class WheelController extends Controller
     {
         $picname = $request->input('picname');
         $sort = $request->input('sort');
+
+        $tip = ['required' => ':attribute必须填写','min'=>':attribute不能少于3个字符','numeric'=>':attribute必须为数字'];
+
+        $msg = ['picname' => '图片描述','sort'=>'图片顺序'];
+
+        $this->validate($request, [
+            'picname' => 'required|min:3',
+            'sort' => 'required|numeric',
+        ],$tip,$msg);
+
         //判断请求中是否包含name=picurl的上传文件
         if($request->hasFile('picurl')){
             $file = $request->file('picurl');

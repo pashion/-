@@ -16,8 +16,8 @@ class ColourTideController extends Controller
 {
     public function getIndex(Request $request){
         $search = $request->input('search');
-        $Article = Article::where('title','like','%'.$search.'%')->paginate(2);
-    	return view('web.colourTide',compact('Article'));
+        $Article = Article::where('title','like','%'.$search.'%')->paginate(4);
+    	return view('web.colourTide',compact('Article','search'));
     }
 
     public function getDetail(Request $request)

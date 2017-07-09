@@ -18,12 +18,7 @@
 <script src="js/css3-mediaqueries.js"  type="text/javascript"></script>
   <![endif]-->
 <title>请站住！冷色君</title>
-<script type="text/javascript">
-		var basePath="http://www.yjysj.com.cn:80/";
-		var alert=function(){
-			layer.msg(arguments[0], {});
-		};
-</script>
+
 <style type="text/css">
 	.black_overlay{
 		display: none;
@@ -95,16 +90,7 @@
   var tglImsgs=null,
   tglSrcs=[["images/zan.png","images/dz_on.png"],
            ["images/star.png","images/star_on.png"],];
-   	function toggleIconState(msg){
-   		var html=new String();
-   	   if(msg){
-   		html+=" <i class=\"iconfont \" style=\"background: none;\"><img src=\"images/icon_sc2_on.png\" style=\" vertical-align: middle;margin-top: -6px;width: 22px;\"></i>已收藏 ";
-   	   } else {
-   		html+=" <i class=\"iconfont \" style=\"background: none;\"><img src=\"images/icon_sc2.png\" style=\" vertical-align: middle;margin-top: -6px;width: 22px;\"></i>收藏 ";
-   	   }
-   		   $("#scHead").html(html);
-   	   
-   	}
+   	
   
     //收藏
     function collectCase(){
@@ -142,72 +128,7 @@
 	//加载更多
 	function loadMore(){
 	++pagecount;
-	$.ajax({
-			url:"http://www.yjysj.com.cn:80//colourTide/queryMsgListPaging",
-			type:"post",
-			async:true,
-			dataType:"json",
-			data:{
-                	pagecount:pagecount,
-                	pagesize:pagesize,
-                	type:type,
-                	colourId:$("#colourId").val()
-			},
-			success:function(data){
-				var result = JSON.parse(data);
-				var msgList=result.msgList;
-				if(result.reCode=="1"){
-					if(result.pageIndex&&result.pageSize){
-						var bNoMore=false;
-							if(!result.pageTotal){
-								bNoMore=true;
-							}else{
-								if(result.pageIndex*result.pageSize>=result.pageTotal){
-									bNoMore=true;
-								}
-								
-							}
-						if(bNoMore){
-							$(".readyMore").html("没有更多了...");
-						}
-					}
-					for(var i=0;i<msgList.length;i++){
-					var msg=msgList[i];
-           			 var html='<div class="main_box_left1_pl">';
-		            	html+='<span class="z_pl_pic"><img src="'+(msg.userPic?msg.userPic:"images/touxiang.jpg")+'"></span>';
-		                html+='<div class="z_pl_text"><p class="z_pl_name">';
-		                html+='<span class="fl">'+msg.userCode+'</span><span class="fl z_pl_name_time">'+msg.creTime.replace(".0","") +'</span>';
-		                html+='<span class="fr z_pl_hf" onclick="ShowDiv(\'MyDiv\',\'fade\',\''+msg.userCode+'\',\''+msg.creUser+'\',\'1\',\''+msg.msgId+'\',\''+msg.msgId+'\')">回复</span>';
-		                html+='</p><p style="word-wrap: break-word;word-break: break-all;">';
-		                html+=msg.msgContent;
-		                html+='</p>';
-		            	html+='</div>';
-           				html+='<div id="reMsgId_'+msg.msgId +'">';
-            			for(var j=0;j<msg.reMsgList.length;j++){
-            			var reMsg=msg.reMsgList[j];
-	            			html='<div class="main_box_left1_hf clear"><div class="main_box_left1_pl">';
-			            	html+='<span class="z_pl_pic"><img src="'+(reMsg.userPic?reMsg.userPic:"images/touxiang.jpg")+'"></span>';
-			                html+='<div class="z_pl_text2"><p class="z_pl_name">';
-			                html+='<span class="fl">'+reMsg.userCode+'</span>';
-			                html+='<span style="padding:0 6px; float:left; color:#999;">回复</span>';
-			                html+='<span style="padding:0 6px; color:#be895f; float:left;">'+msg.userCode+'</span>';
-			                html+='<span class="fl z_pl_name_time">'+reMsg.creTime.replace(".0","") +'</span>';
-			                html+='<span class="fr z_pl_hf" onclick="ShowDiv(\'MyDiv\',\'fade\',\''+reMsg.userCode+'\',\''+reMsg.creUser+'\',\'1\',\''+msg.msgId+'\',\''+reMsg.remsgId+'\')">回复</span>';
-			                html+='</p><p style="word-wrap: break-word;word-break: break-all;">';
-			                html+=reMsg.remsgContent;
-			                html+='</p>';
-			            	html+='</div></div>';
-            			}
-            			html+='</div>';
-            			html+='</div>';
-            			$(".msgDiv").children("div:last").after(html);
-					}
-				}else{
-					alert("数据库连接失败，请联系管理员");
-				}
-			}
-		});
-	}
+	
 	
 </script>
 
@@ -279,96 +200,7 @@ $(document).ready(function(){
 		var msgId=$("#replyMsgId").val();
 		var reMsgId=$("#replyRemsgIdUser").val();
 		
-  		$.ajax({
-			url:"http://www.yjysj.com.cn:80//colourTide/MsgInsert",
-			type:"post",
-			async:true,
-			dataType:"json",
-			data:{
-                	msgContent:changeCom,
-                	colourId:$("#colourId").val(),
-                	flag:flag,
-                	msgId:msgId,
-                	reMsgId:reMsgId,
-                	userId:userId,
-                	type:"0"
-			},
-			success:function(data){
-				var result = JSON.parse(data);
-				if(result.reCode=="-2"){
-					alert("请先登录！");
-					location.href=basePath+"user/loginPage?html=/colourTide/colourTideDetail?colourId=81";
-				}else if(result.reCode=="1"){
-					alert("评价成功");
-					CloseDiv('MyDiv','fade');
-					window.setTimeout(function(){
-						location.reload();
-					},666);
-					return ;
-					$("#replyContent").val("");
-					$("#replyUserId").val("");
-					$("#replyUserName").text("");
-					$("#replyFlag").val("");
-					$("#replyMsgId").val("");
-					$("#replyRemsgIdUser").val("");
-					$("#countBody").html(parseInt($("#countBody").html())+1);
-					$("#countHead").html($("#countBody").html());
-					CloseDiv('MyDiv','fade');
-					//$("#appraiseId").hide();
-    				//$("#thumbUpId").show();
-    				//$("#collectId").show();
-    				
-    				var time = new Date().Format("yyyy-MM-dd hh:mm:ss");      
-			        var user=result.user;
-    				if(flag=="0"){
-			            var html='<div class="main_box_left1_pl">';
-			            	html+='<span class="z_pl_pic"><img src="'+(user.userPic?user.userPic:"images/touxiang.jpg")+'"></span>';
-			                html+='<div class="z_pl_text"><p class="z_pl_name">';
-			                html+='<span class="fl">'+user.userCode+'</span><span class="fl z_pl_name_time">'+time+'</span>';
-			                html+='<span class="fr z_pl_hf" onclick="ShowDiv(\'MyDiv\',\'fade\',\''+user.userCode+'\',\''+user.userId+'\',\'1\',\''+result.seqCount+'\',\''+result.seqCount+'\')">回复</span>';
-			                html+='</p><p style="word-wrap: break-word;word-break: break-all;">';
-			                html+=changeCom;
-			                html+='</p>';
-			            	html+='</div>';
-			            	html+='<div id="reMsgId_'+result.seqCount +'"></div>';
-			            	html+='</div>';
-			            	if($(".msgDiv").children(".main_box_left1_pl:last").length==0){
-			            		$(".msgDiv").html(html);
-			            	}else{
-			            		$(".msgDiv").children(".main_box_left1_pl:first").before(html);
-			            	}
-			            	
-    				}if(flag=="1"){
-	            	 var html='<div class="main_box_left1_hf clear"><div class="main_box_left1_pl">';
-		            	html+='<span class="z_pl_pic"><img src="'+(user.userPic?user.userPic:"images/touxiang.jpg")+'"></span>';
-		                html+='<div class="z_pl_text2"><p class="z_pl_name">';
-		                html+='<span class="fl">'+user.userCode+'</span>';
-		                html+='<span style="padding:0 6px; float:left; color:#999;">回复</span>';
-		                html+='<span style="padding:0 6px; color:#be895f; float:left;">'+msgCode+'</span>';
-		                html+='<span class="fl z_pl_name_time">'+time+'</span>';
-		                html+='<span class="fr z_pl_hf" style="display: none;" onclick="ShowDiv(\'MyDiv\',\'fade\',\''+user.userCode+'\',\''+user.userId+'\',\'1\',\''+result.seqCount+'\',\''+result.seqCount+'\')">回复</span>';
-		                html+='</p><p style="word-wrap: break-word;word-break: break-all;">';
-		                html+=changeCom;
-		                html+='</p>';
-		            	html+='</div></div>';
-		            	if($("#reMsgId_"+msgId).children(".main_box_left1_hf:last").length==0){
-		            		$("#reMsgId_"+msgId).html(html);
-		            	}else{
-		            		$("#reMsgId_"+msgId).children(".main_box_left1_hf:first").before(html);
-		            	}
-    				}
-    				var temp= $("#noData").is(":visible");
-    				if(temp){
-	    				$("#noData").hide();
-	    				$(".readyMore").show();
-    				}
-				}else if(result.reCode=="0"){
-					alert("评价失败");
-				}else{
-					alert("数据库连接失败，请联系管理员");
-				}
-			}
-		});
+  		
 	}
 </script>
 </head>
@@ -387,25 +219,22 @@ $(document).ready(function(){
 
 	
 		
-	
-	
-
 <div class="header" id="gotop">
      <div class="header_top">
        <div class="logo_style l_f">
-            <a href="http://www.yjysj.com.cn/"><img src="{{url('web')}}/colour/logo.png"></a>
+            <a href="{{url('/')}}"><img src="{{url('web')}}/colour/logo.png"></a>
        </div>
        <div class="header_menu">
          <!--菜单导航栏-->
          <!--<a href="" class="">网站首页</a>-->
-         <a href="http://www.yjysj.com.cn/case/listPage" class="">设计精粹</a>
-         <a href="http://www.yjysj.com.cn/scene/listPage" class="">场景方案</a>
-         <a href="http://www.yjysj.com.cn/prod/rooListPage" class="">单品大库</a>
-         <a href="http://www.yjysj.com.cn/prod/greateListPage" class="">奇货可享</a>
-         <a href="http://www.yjysj.com.cn/colourTide/colourTideList" class=" menu_cur">找找感觉</a>
+         <a href="{{url('/')}}">网站首页</a>
+         <a href="{{url('scene')}}/create">设计精粹</a>
+         <a href="{{url('scene')}}">场景方案</a>
+         <a href="{{url('goods_list')}}">单品大库</a>
+         <a href="{{url('colourTide')}}">找找感觉</a>
        </div>
        <div class="Search_style l_f">
-        <form id="searchForm" onsubmit="return false;">
+        <form id="searchForm" action="{{url('colourTide')}}" method="get">
         	 <select name="type" size="1" style="padding:0; float:left;">
 		      <option value="0" selected="selected">设计精粹</option>
 		      <option value="1">场景方案</option>
@@ -413,11 +242,14 @@ $(document).ready(function(){
 		      <option value="3">奇货可享</option>
 		      <option value="4">色彩潮流</option>
 		      <option value="5">美居秀秀</option>
-		      <option value="6">有请专家</option>
+		      <option value="6">找找感觉</option>
 		    </select>
-	        <input name="name" type="text" class="add_Search">
-	        <input name="" type="button" onclick="frmSearchSubmit(this);" value="" class="submit_Search">
+	        <input name="search" type="text" class="add_Search" value="{{$search or ''}}">
+	        <input name="" type="submit" class="submit_Search" value="">
         </form>
+       </div>
+       <div class="Cart_user r_f"> 
+           </div>
        </div>
      </div>
 </div>
@@ -536,7 +368,7 @@ $(document).ready(function(){
 	    <div class="main_header">
 	    	<input type="hidden" id="colourId" value="81" style="color: rgb(136, 197, 35);">
 	    	<div class="main_header_box1" style="display: none;">
-	            <p class="main_header_pic"><img src="http://www.yjysj.com.cn/"></p>
+	            <p class="main_header_pic"><img src="#"></p>
 	            <p>15256874567</p>
 	        </div>
 	        <div class="main_header_box2">
@@ -579,16 +411,7 @@ $(document).ready(function(){
 	        	<div class="main_box_left2_title">
 
 	            	用户评论（<span id="countBody">0</span>）
-	            	<span href="#" class="fr z_pl_btn" onclick="
-			            
-			            	alert(&#39;请先登录!&#39;);
-			            	window.setTimeout(function(){
-								location.href=basePath+&#39;user/loginPage?html=/colourTide/colourTideDetail?colourId=81&#39;;
-							},600);
-							return ;
-			            
-			          ShowDiv(&#39;MyDiv&#39;,&#39;fade&#39;,&#39;15256874567&#39;,&#39;101&#39;,&#39;0&#39;,&#39;&#39;,&#39;&#39;);
-			          " style="cursor: pointer;">评论</span>
+	            	<span href="#" class="fr z_pl_btn" onclick="" style="cursor: pointer;">评论</span>
 	            </div>
 	            <div class="msgDiv">
 	              
@@ -658,7 +481,7 @@ $(document).ready(function(){
     </span>
     <span style="display: none;">
         <p>手机app端访问</p>
-        <p><img src="http://www.yjysj.com.cn/" width="120" height="120"></p>
+        <p><img src="#" width="120" height="120"></p>
     </span>
     <span>
         <p>微信端访问</p>
@@ -707,28 +530,7 @@ $(document).ready(function(){
 	<div id="fade" class="black_overlay">
 	</div>
 	<div id="MyDiv" class="white_content">
-		<form action="http://www.yjysj.com.cn/">
-			<br>
-			<span onclick="CloseDiv(&#39;MyDiv&#39;,&#39;fade&#39;)" style="display: none;"><img src="{{url('web')}}/colour/icon_close.png" class="icon_close"></span>
-		    <div class="divbox1" id="box_replay">
-		    	<span style=" line-height:48px; margin-right:20px;padding-left:8px;">回复</span>
-		    	<span style="color:#be895f;" id="replyUserName">亚琳的人名</span>
-		    </div>
-		   
-		    <div class="divbox4">
-		    	<span class="divboxtip" style="vertical-align: top;">内容:</span>
-		    	<textarea class="divtextarea" id="replyContent" name="replyContent" cols="5"></textarea>
-		    </div>
-		    
-		    <div class="divbox5 clear">
-		    	<input type="hidden" value="" name="replyUserId" id="replyUserId">
-		    	<input type="hidden" value="" name="flag" id="replyFlag">
-		    	<input type="hidden" value="" name="replyMsgId" id="replyMsgId">
-		    	<input type="hidden" value="" name="replyRemsgIdUser" id="replyRemsgIdUser">
-		    	<a href="javascript:void(0)" onclick="appraise()" class="surebtn">确定</a>
-		    	<a href="javascript:void(0)" class="canclebtn" onclick="closeDlgApp();">取消</a>
-		    </div>
-	    </form>
+		
 	</div>
 	
 <script type="text/javascript">

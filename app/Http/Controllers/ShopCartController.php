@@ -213,6 +213,18 @@ class ShopCartController extends Controller
 
     // 购物车checkbox按钮,处理并获取选中的
     public function postChoose(Request $request){
+        $bool = $request->input('choose');
+        if($bool == ''){
+            // 结算为空时跳转空购物车
+            $HOT = DB::select('select pic,goods,price,id from goods order by price desc limit 4');
+            foreach($HOT as $k=>$v){
+                $num = strpos($v->pic, ',');
+                if($num){
+                    $v->pic = substr($v->pic,0,$num);
+                }
+            }
+            return view('web.nullcart',compact('HOT'));
+        }
         $cartData = $request->session()->all()['list'];
         $choseData = $request->all()['choose'];
         foreach ($choseData as $k => $v) {

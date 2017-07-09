@@ -5,7 +5,7 @@
 @section('content')
 <body>
 <div class="shopping_cart">
- <div class="cart_top clearfix"><a href="#"><img src="images/logo.jpg" /></a><span class="title_name">购物车</span></div>
+ <div class="cart_top clearfix"><a href="#"><img src="/web/images/logo.jpg" /></a><span class="title_name"></span></div>
  <!--提示登录-->
  <div class="cart_prompt clearfix">
    <em class="icon_prompt"></em>
@@ -88,7 +88,7 @@
   <div class="Settlement clearfix">
    <div class="select-all clearfix">
   
-  <div class="operation"><a href="javascript:void(0);" id="send">删除选中的商品</a></div> 
+  <div class="operation"><a href="javascript:void(0);" id="send">购物车商品展示</a></div> 
     </div>
     <div class="toolbar_right clearfix">
      <div class="Quantity l_f marginright"><em></em></div>

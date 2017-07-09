@@ -317,7 +317,7 @@
     
     <script src="{{url('zhuazi')}}/vendors/freship/order_del.js"></script>
     <script src="{{url('zhuazi')}}/vendors/freship/detail_del.js"></script>
-    <!-- <script src="/test2/shop-laravel/public/js/del.js"></script> -->
+    <script src="{{(url('js'))}}/del.js"></script>
       </div>
     </div>
 	

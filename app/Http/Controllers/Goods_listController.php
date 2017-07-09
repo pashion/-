@@ -37,8 +37,10 @@ class Goods_listController extends Controller
             }
         }
         //数组形式获取商品数据
+        $search = $request->input('search');
+        $goods = Goods::where('goods','like','%'.$search.'%')->paginate(4);
         //分页测试
-        $goods = DB::table('goods')->paginate(4);
+        // $goods = DB::table('goods')->where('goods','like','')->paginate(2);
         //处理图片字段的多个图片数据
         foreach($goods as $k=>$v){
             $num = strpos($v->pic, ',');
@@ -48,7 +50,7 @@ class Goods_listController extends Controller
         }
 
         // $goods =  Goods::all()->toArray();
-        return view('web.good_list',compact('data','goods','king')); 
+        return view('web.good_list',compact('data','goods','king','search')); 
     }
 
     //菜单无限分类
