@@ -140,10 +140,10 @@ class UserController extends Controller
     //执行用户添加验证
     public function postData() 
     {
-       $users = DB::table('users_register')->where('username', $_POST['username'])->get();
+       $users = DB::table('users_register')->where('email', $_POST['email'])->get();
         // dd($user);
-       $patten = '/.{3,}/';
-       preg_match($patten,$_POST['username'],$match);
+       $pattern = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
+       preg_match($pattern,$_POST['email'],$match);
        if ($users) {
             echo 1;
        }else if ( !$match ){

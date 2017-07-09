@@ -49,7 +49,7 @@
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-fullname">邮箱</label>
                         <div class="col-sm-10">
-                            <input type="text" name="email" class="form-control" value="{{old('email')}}" />
+                            <input type="text" name="email" class="form-control" id="email" value="{{old('email')}}" />
                         </div>
                     </div>
 
@@ -93,19 +93,19 @@
 <script>
 
     //username判断
-    $("#username").on('blur',function()
+    $("#email").on('blur',function()
     {
         $('.tip').remove();
         var that = $(this);
-        $.post('data',{'_token':'{{csrf_token()}}','username':that.val()},function(data) //第二个参数要传token的值 再传参数要用逗号隔开
+        $.post("{{url('admin/user/data')}}",{'_token':'{{csrf_token()}}','email':that.val()},function(data) //第二个参数要传token的值 再传参数要用逗号隔开
         {
             if(data == 1)
             {
-                that.after('<span class="tip" style="color:red">用户名已存在</span>');
+                that.after('<span class="tip" style="color:red">邮箱已存在</span>');
             }else if(data == 0){
-                that.after('<span class="tip" style="color:green">用户名可以使用</span>');
+                that.after('<span class="tip" style="color:green">邮箱可以使用</span>');
             }else if (data ==2){
-                that.after('<span class="tip" style="color:red">用户名不符合规则</span>');
+                that.after('<span class="tip" style="color:red">邮箱不符合规则</span>');
             }
         });
     });
