@@ -23,10 +23,10 @@
             	<div class="form-group">
 				    <label for="inputEmail3" class="col-sm-2 control-label">会员名称</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="inputEmail3" name="username" placeholder="会员名称/电话/邮箱">
+				      <input type="text" class="form-control" id="inputEmail3" name="username" placeholder="会员名称/邮箱">
 				    </div>
 				 </div>
-  				
+
   				<div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
 				      <button type="submit" class="btn btn-info">搜索</button>

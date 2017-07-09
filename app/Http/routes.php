@@ -60,6 +60,9 @@ Route::post('order/work', 'workOrderController@index');
 //订单处理
 Route::post('order/joy', 'JoyOrderController@index');
 
+//订单地址处理
+Route::controller('/order/address','OrderAddressController');
+
 //前台商品显示,包括商品详情,商品列表,商品选项价格查询
 Route::resource('goodsShow', 'GoodsShowController');
 //返回商品选

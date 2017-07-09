@@ -44,7 +44,7 @@ $('.pagination').css({
 <div class="header">
  <div class="header_top">
    <div class="top_info clearfix">
-   <div class="logo_style l_f"><a href=""><img src="/web/images/logo.jpg" /></a></div>
+   <div class="logo_style l_f"><a href="{{url('/')}}"><img src="{{url('web')}}/images/logo.jpg"></a></div>
    <div class="Search_style l_f">
    <form action="{{url('goods_list')}}" method="get">
    <div class="select">

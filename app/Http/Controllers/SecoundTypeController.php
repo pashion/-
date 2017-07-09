@@ -11,7 +11,7 @@ use App\Http\Requests;
 use deltype;
 
 use App\SecondType;
-
+use App\Admin;
 use DB;
 
 use Illuminate\Support\Facades\Response;
@@ -26,6 +26,8 @@ class SecoundTypeController extends Controller
 
     public function index()
     {
+        Admin::findRole('type@show');
+
         //类别管理首页,查询二级类别表，通过path,id组合排序结果集,传递给index视图处理输出
         $info = DB::select('SELECT * from second_type ORDER BY CONCAT(path,id)');
         return view('zhuazi.production.secoundType.index',compact('info'));
@@ -33,12 +35,14 @@ class SecoundTypeController extends Controller
 
     public function create()
     {
+        Admin::findRole('type@add');
         //类别管理:添加根类别视图输出
         return view('zhuazi.production.secoundType.create');
     }
 
     public function store(Request $request)
     {
+
         //处理添加根目录传输过来的值并插入到数据表格中,并闪存name值->类名+添加成功
         $info = $request->all();
         $num = DB::select(' select count(*) num from second_type where path = \'0,\' ')[0]->num;
@@ -58,6 +62,8 @@ class SecoundTypeController extends Controller
 
     public function edit($id)
     {
+        Admin::findRole('type@update');
+
         //首页编辑传递类别id值,接收并查询该类别信息传递到edit视图,并提供name值修改
         $name = DB::select('select id,name,sort from second_type where id ='.$id)[0];
         return view('zhuazi.production.secoundType.edit',compact('name'));
@@ -65,6 +71,7 @@ class SecoundTypeController extends Controller
 
     public function update(Request $request, $id)
     {
+        Admin::findRole('type@update');
         //接收update视图修改的传值,并对该类目名称进行修改,返回闪,存值+修改成功,到首页
         DB::table('second_type')
             ->where('id', $id)
@@ -74,6 +81,8 @@ class SecoundTypeController extends Controller
 
     public function destroy($id)
     {
+        
+        Admin::findRole('type@delete');
         //接收ajax/post方式的传值,并对该条目数据进行删除,返回给ajax进行页面局部刷新
         $num = DB::table('second_type')->where('id', '=', $id)->delete();
         //返回0则删除失败,返回1则删除成功

@@ -113,6 +113,7 @@
                                      {!! $data->appends($request)->links() !!}
                                  </div>
                                  
-                            </div>       
+                            </div> 
+                            
  @endsection
 

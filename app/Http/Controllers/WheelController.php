@@ -7,12 +7,14 @@ use Storage;
 use Image;
 use App\Wheel;
 use DB;
+use App\Admin;
 
 class WheelController extends Controller
 {
     //轮播图首页展示
     public function index(Request $request)
     {
+        Admin::findRole('type@show');
         $search = $request->input('search');
 
         $Wheel = Wheel::where('picname','like','%'.$search.'%')->paginate(5);
@@ -22,6 +24,8 @@ class WheelController extends Controller
     //插入轮播图
     public function create()
     {
+        
+        Admin::findRole('type@add');
         return view('/zhuazi.production.Wheel.create');
     }
 
@@ -77,6 +81,9 @@ class WheelController extends Controller
     //编辑页面
     public function edit($id)
     {
+        
+        Admin::findRole('type@update');
+
         $info = DB::select('select id,picname,sort from Wheel where id = '.$id)[0];
         return view('/zhuazi.production.Wheel.edit',compact('info'));
     }
@@ -129,6 +136,7 @@ class WheelController extends Controller
     //删除轮播图
     public function destroy($id)
     {
+        Admin::findRole('type@delete');
         //获取路径
         $list = DB::select('select picurl,path from Wheel where id ='.$id)[0];
         $path = $list->path;

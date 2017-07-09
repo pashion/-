@@ -1,6 +1,6 @@
 @extends('web.layout.selfconmit')
 
-@section('title','售后服务')
+@section('title','收藏')
 
 @section('content')
 
@@ -8,7 +8,7 @@
         <div class="col-xs-4 col-md-2"></div>
         <div class="col-xs-8 col-sm-8 col-md-10">
            <hr>
-            <h4>售后服务</h4>
+            <h4>我的收藏</h4>
             <hr>
 
             <div class="row text-center " >
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    
-    
+	
+	
 
 @endsection

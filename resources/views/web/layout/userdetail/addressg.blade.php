@@ -1,6 +1,6 @@
-@extends('web.selfconmit')
+@extends('web.layout.selfconmit')
 
-@section('title','修改密码')
+@section('title','地址')
 
 @section('content')
 

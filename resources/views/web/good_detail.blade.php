@@ -148,7 +148,6 @@
                         </div>
                         @endif
 
-
                     <dl class="clearfix">
                         <dt class="infoParText ">承诺</dt>
                         <dd class="content color" >
@@ -228,12 +227,12 @@
                                   ->leftJoin('users_register', 'users_register.id', '=', 'criticism.user_id')
                                   ->leftJoin('goods', 'goods.id', '=', 'criticism.goods_id')
                                   ->get();
+
                                   foreach ($userContent as $key => $value) {
+                                    // dump($value);
                                     echo "<li class='comment_list clearfix'>";
                                     echo "
                                     <div class='comment_Avatar'> 
-                                    <div class='user_Avatar'><div class='Avatar_bg'></div>
-                                    <img src='{images/touxiang.jpg}' width='60' height='60'></div>
                                     <h3>$value->username</h3>
                                     </div>";
                                     echo "

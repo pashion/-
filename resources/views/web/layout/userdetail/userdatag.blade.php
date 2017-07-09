@@ -1,6 +1,6 @@
-@extends('web.selfconmit')
+@extends('web.layout.selfconmit')
 
-@section('title','修改密码')
+@section('title','个人资料')
 
 @section('content')
 
@@ -20,7 +20,7 @@
         </div>
     @endif
 <div class="row" style="background-color:white;">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-3">
     <div class="text-right">头像：<img  class="img-circle" id="avatar" style="width: 100px;height: 100px;"></div>
         <form class="form-horizontal" method="post" action="{{url('user/detail/saveuserdata')}}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -93,10 +93,19 @@
 
                 $('#phone').val(data[0].phone);
                 $('#birthday').val(data[0].birthday);
-                $('#avatar').attr({src:"http://qq.com"+data[0].avatar});
+                //默认头像
+                if ( data[0].avatar ) {
+                    $('#avatar').remove('src');
+                    $('#avatar').attr({src:"{{url('/')}}"+data[0].avatar});
+                }else{
+                    $('#avatar').remove('src');
+                    $('#avatar').attr({src:"{{url('web/images')}}/defaule.jpg"});
+                }
+                
 
                 var sex = data[0].sex;
                 
+                //这里注意pro/attr的用法和区别
                 if ( sex == 1 ) {
 
                     $('#sex1').prop("checked","true");

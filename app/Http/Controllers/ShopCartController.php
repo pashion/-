@@ -12,6 +12,8 @@ use App\Option;
 
 use DB;
 
+use Redirect;
+
 class ShopCartController extends Controller
 {
     //加入购物车方法
@@ -213,6 +215,7 @@ class ShopCartController extends Controller
 
     // 购物车checkbox按钮,处理并获取选中的
     public function postChoose(Request $request){
+
         $bool = $request->input('choose');
         if($bool == ''){
             // 结算为空时跳转空购物车
@@ -224,6 +227,10 @@ class ShopCartController extends Controller
                 }
             }
             return view('web.nullcart',compact('HOT'));
+        if (isset(session('user')['0']->id)) {
+            $_POST['user_id'] = session('user')['0']->id;
+        }else{
+            return Redirect::to("/home/login");
         }
         $cartData = $request->session()->all()['list'];
         $choseData = $request->all()['choose'];
@@ -237,6 +244,7 @@ class ShopCartController extends Controller
        $data = $request->session()->all();
        // dd($data);
        return view('web.addorder',compact('data'));
+
     }
 
 }

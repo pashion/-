@@ -1,4 +1,4 @@
-@extends('web.selfconmit')
+@extends('web.layout.selfconmit')
 
 @section('title','修改密码')
 

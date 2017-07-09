@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Image;
 
 use App\Article;
+use App\Admin;
 
 use DB;
 
@@ -21,12 +22,15 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        Admin::findRole('scrap@show');
         $data = DB::table('Article')->paginate(3);
         return view('zhuazi.production.article.index',compact('data'));
     }
 
     public function create()
     {
+        Admin::findRole('scrap@add');
+
         return view('zhuazi.production.article.create');
     }
 
@@ -98,6 +102,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        Admin::findRole('scrap@update');
+
         $data = DB::select('select id,title,author,description,date,content,cover,coverpath from Article where id = '.$id)[0];
         return view('zhuazi.production.article.edit',compact('data'));
     }
@@ -155,6 +161,9 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
+        Admin::findRole('scrap@delete');
+        
+
         $data = DB::select('select cover,coverpath,content from Article where id = '.$id)[0];
         //正则匹配img标签src的字符串
         $str = $data->content;

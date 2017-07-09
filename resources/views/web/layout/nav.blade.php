@@ -1,7 +1,7 @@
 <div class="header">
     <div class="header_top">
         <div class="top_info clearfix">
-            <div class="logo_style l_f"><a href="#"><img src="{{url('web')}}/images/logo.jpg" /></a></div>
+            <div class="logo_style l_f"><a href="{{url('/')}}"><img src="{{url('web')}}/images/logo.jpg" /></a></div>
             <div class="Search_style l_f">
                 <form action="{{url('goods_list')}}" method="get">
                     <div class="select">
@@ -15,10 +15,8 @@
                 </form>
             </div>
             <div class="Cart_user r_f">
-                <div class="Cart_Quantity "><span class="number">0</span></div>
                 <div class="header_operating l_f">
                       @if ( !session('user') )
-                            <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     网站导航 <span class="caret"></span>
@@ -32,7 +30,7 @@
                         @else
                             <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{session('user')[0]->username}} <span class="caret"></span>
+                                    欢迎您,{{session('user')[0]->username}} <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">购物车</a></li>
