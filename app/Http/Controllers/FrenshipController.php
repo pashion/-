@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Flink;
+use App\Admin;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
@@ -22,6 +23,8 @@ class FrenshipController extends Controller
      */
     public function index(Request $request)
     {
+        Admin::findRole('friend@show');
+
         $urlData=flink::where('name','like','%'.$request->input('keywords').'%')->paginate(3);
 //        $urlData=flink::get();
         return view('zhuazi/production/frenship/index',['urlData'=>$urlData,'request'=>$request->all()]);
@@ -34,6 +37,8 @@ class FrenshipController extends Controller
      */
     public function create()
     {
+        Admin::findRole('friend@add');
+
         return view('zhuazi/production/frenship/create');
     }
 
@@ -100,6 +105,7 @@ class FrenshipController extends Controller
     {
         // $info = DB::table('flink')->where('id','=',$id)->first();
         // $picname = $info->image;
+        Admin::findRole('friend@update');
 
         $data=DB::select('select * from flink where id = ?', [$id]);
        return view('zhuazi/production/frenship/edit')->with('data',$data[0]);
@@ -169,6 +175,9 @@ class FrenshipController extends Controller
      */
     public function destroy(Request $request,$id)
     {
+        Admin::findRole('friend@delete');
+
+
         $info = DB::table('flink')->where('id','=',$id)->first();
 
         $picname = $info->image;

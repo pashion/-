@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Order;
+use App\Admin;
 
 use App\OrderDetail;
 
@@ -20,6 +21,8 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        Admin::findRole('order@show');
+
         $orderData=order::where('id','like','%'.$request->input('keywords').'%')->paginate(3);
         return view('zhuazi/production/order/index',['orderData'=>$orderData,'request'=>$request->all()]);
     }
@@ -87,6 +90,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
+        Admin::findRole('order@delete');
 
         // $deData = DB::delete('delete from order where id = ?',[$id]);
         $deData = DB::delete('delete from `order` where id = ?',[$id]);

@@ -51,7 +51,7 @@ class UserController extends Controller
             'username.max'=>'用户名最多为15位数', 
             // 'phone.regex'=>'电话号码格式不对',
             'email.email'=>'邮箱格式不对',
-            'password.regex'=>'请输入不少于6位任意数字字母下划线',
+            'password.regex'=>'密码应不少于6数',
             'repassword.same'=>'两次密码不一致，请重新输入',
         ]);
 
@@ -132,7 +132,7 @@ class UserController extends Controller
 
         $data = $request->input('username');
 
-        $users = DB::select('select * from users_register where username = :username or phone = :phone or email = :email', ['username' => $data, 'phone' => $data, 'email' => $data]);
+        $users = DB::select('select * from users_register where username = :username or  email = :email', ['username' => $data, 'email' => $data]);
         return view('zhuazi.users.search',compact('users'));
 
     }

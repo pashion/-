@@ -10,7 +10,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-
+use App\Admin;
 
 use App\Goods;          //商品表
 use App\Option;         //属性表
@@ -30,6 +30,8 @@ class GoogsController extends Controller
      */
     public function index()
     {
+        Admin::findRole('goods@show');
+
         $data = Goods::paginate(10);
 
         //切割 处理图片名
@@ -48,6 +50,8 @@ class GoogsController extends Controller
      */
     public function create()
     {
+        Admin::findRole('goods@add');
+
         //获取种类数据
         $kindData = SecondType::where('name', '=', '种类')->get();//获取种类数据SecondType
         $kindData =  $kindData[0]->childrenType;
@@ -75,6 +79,7 @@ class GoogsController extends Controller
      */
     public function store(Requests\GoodsPostRquest  $request)
     {
+        Admin::findRole('goods@add');
 
         //检验是否有子类风格选项
         if (empty($_POST['styleChildren'])) {
@@ -190,6 +195,8 @@ class GoogsController extends Controller
     public function show($id)
     {
         //获取商品信息
+        Admin::findRole('goods@show');
+
         $goodsData =  Goods::find($id);
 
         //获取选项信息
@@ -241,6 +248,8 @@ class GoogsController extends Controller
      */
     public function edit($id)
     {
+        Admin::findRole('goods@update');
+
 
         $selData = DB::table('option')
             ->join('head', 'option.hid', '=', 'head.id')
@@ -260,6 +269,7 @@ class GoogsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Admin::findRole('goods@update');
 
         //不清楚哪里过来的路由调用了这个方法
         if (!empty($_POST['table'])) {
@@ -286,6 +296,9 @@ class GoogsController extends Controller
      */
     public function destroy($id)
     {
+        Admin::findRole('goods@delete');
+
+
         $id = $_POST['id'];
         $picStr = Goods::select('pic')->find($id);
         $picArr = explode(',', $picStr['pic']);
@@ -310,6 +323,7 @@ class GoogsController extends Controller
     public function editGoodsSel ()
     {
         //添加商品选项操作
+        
         $goodId = $_POST['gid'];
         if (!empty($_POST['addSelData'])) {
 
