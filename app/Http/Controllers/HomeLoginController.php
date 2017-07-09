@@ -27,7 +27,6 @@ class HomeLoginController extends Controller
    //执行登录验证操作
     public function postDologin(Request $request)
     {
-
       $email = DB::table('users_register')->where( 'email','=',$request->input('email') )->get();
 
       if ( $email[0]->status == 0 ) {
@@ -46,10 +45,9 @@ class HomeLoginController extends Controller
         if ($users != null) {
 
             if ( $users['0']->email == $email && Hash::check($pass,$users['0']->password) ) {
-
                 $request->session()->put(['user'=>$users]);
-                // dd(session('user')[0]->username);
-                return view('web.index');
+
+                return redirect('/');
 
             }else{
 
@@ -256,6 +254,7 @@ class HomeLoginController extends Controller
         }
 
     }
+
 
     //进行退出操作
     public function getLogout(Request $request)

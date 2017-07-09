@@ -153,20 +153,26 @@ $(document).on('click','.filter_link a',function(){
                 obj.nextAll('.next').html(str); 
             }
 
+
             //服务器处理层级选中选项,返回满足条件的商品,处理商品数据输出到视图
 
             var  goods_list = '';
-            for( var i=0;i<data['goods'].length;i++ ){
-                goods_list += "<li class='product'>";
-                goods_list += "<div class='pic_img textalign'>";
-                goods_list += "<a href='../goodsShow/"+data['goods'][i]['id']+"'><img src=''></a>";
-                goods_list += "<div class='operating'><a href='' class='pic_cart'>加入购物车</a>";
-                goods_list += "<a href='' class='Collection'>收藏</a>";
-                goods_list += "</div></div>";
-                goods_list += "<p class='pic_nme'><a href=''>"+data['goods'][i]['goods']+"</a></p>";
-                goods_list += "<p class='pic_price'>￥"+data['goods'][i]['price']+"</p>";
-                goods_list += "</li>";
+            if(data['goods'].length > 0){
+                for( var i=0;i<data['goods'].length;i++ ){
+                    goods_list += "<li class='product'>";
+                    goods_list += "<div class='pic_img textalign'>";
+                    goods_list += "<a href='../goodsShow/"+data['goods'][i]['id']+"'><img src=/goodsPic/"+data['goods'][i]['pic']+"></a>";
+                    goods_list += "<div class='operating'><a href='' class='pic_cart'>加入购物车</a>";
+                    goods_list += "<a href='' class='Collection'>收藏</a>";
+                    goods_list += "</div></div>";
+                    goods_list += "<p class='pic_nme'><a href=''>"+data['goods'][i]['goods']+"</a></p>";
+                    goods_list += "<p class='pic_price'>￥"+data['goods'][i]['price']+"</p>";
+                    goods_list += "</li>";
+                }
+            }else{
+                goods_list = '<img src="/uploads/Wheel/nevergoods/no-data.png" style="padding-left:250px;"/>';
             }
+            
 
             $('#prodList').html(goods_list);
 
@@ -366,10 +372,8 @@ function choose(){
     $(document).on('change','.table .allcheck',function(){
         //全选中或不选
         if( $(this).is(':checked') ){
-            alert(1);
             $('.choose .checkbox').prop('checked',true);
         }else{
-            alert(2);
             $('.choose .checkbox').prop('checked',false);
         }
 

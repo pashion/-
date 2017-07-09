@@ -59,6 +59,7 @@ class GoodsShowController extends Controller
             ->where('goods.id', '=', $id)
             ->get();
 
+
         if (empty($goodData)) {
 
             echo '不存在该商品';

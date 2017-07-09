@@ -123,7 +123,7 @@
                                 网站导航 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">购物车</a></li>
+                                <li><a href="{{url('shopCart')}}">购物车</a></li>
                                 <li><a href="{{url('home/index')}}">注册</a></li>
                                 <li><a href="{{url('home/login')}}">登录</a></li>
                             </ul>
@@ -135,7 +135,7 @@
                                 {{session('user')[0]->username}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">购物车</a></li>
+                                <li><a href="{{url('shopCart')}}">购物车</a></li>
                                 <li><a href="{{url('/user/detail/order')}}">个人中心</a></li>
                                 <li><a href="{{url('home/logout')}}">退出</a></li>
                             </ul>

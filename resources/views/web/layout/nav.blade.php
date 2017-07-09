@@ -25,14 +25,13 @@
                                     网站导航 <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">购物车</a></li>
+                                    <li><a href="{{url('shopCart')}}/cart">购物车</a></li>
                                     <li><a href="{{url('home/index')}}">注册</a></li>
                                     <li><a href="{{url('home/login')}}">登录</a></li>
                                 </ul>
                             </div>
                         @else
-                            <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-                            欢迎您，<div class="btn-group">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{session('user')[0]->username}} <span class="caret"></span>
                                 </button>
@@ -53,9 +52,9 @@
                 <li class="nLi Down"><a href="{{url('')}}">网站首页</a><em class="icon_jiantou"></em></li>
                 <li class="nLi Down"><a href="{{url('scene/create')}}">设计精粹</a><em class="icon_jiantou"></em></li>
                 <li class="nLi Down"><a href="{{url('scene')}}">场景方案</a><em class="icon_jiantou"></em></li>
-                <li class="nLi Down"><a href="{{url('')}}">单品大库</a><em class="icon_jiantou"></em></li>
+                <li class="nLi Down"><a href="{{url('goods_list')}}">单品大库</a><em class="icon_jiantou"></em></li>
                 <li class="nLi Down"><a href="{{url('')}}">奇货可享</a><em class="icon_jiantou"></em></li>
-                <li class="nLi Down"><a href="{{url('')}}">找找感觉</a><em class="icon_jiantou"></em></li>
+                <li class="nLi Down"><a href="{{url('colourTide')}}">找找感觉</a><em class="icon_jiantou"></em></li>
             </ul>
             <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
             <div class="q_code">
