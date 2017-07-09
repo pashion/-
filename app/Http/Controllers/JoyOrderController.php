@@ -46,6 +46,9 @@ class JoyOrderController extends Controller
 	    		}else{
 	    			echo "失败";
 	    		}
+               session()->forget('list');
+               session()->forget('orderlist');
+               session()->save();
     		}
     	}else{
     		echo "失败";

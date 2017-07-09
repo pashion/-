@@ -62,7 +62,6 @@ class GoodInfoController extends Controller
 
         //获取轮播图数据
         $Wheel = DB::table('Wheel')->orderBy('sort','asc')->get();
-
         //返回()
         
         return view('web.index', compact('modeData', 'goodsData','goodsPic','Wheel'));
