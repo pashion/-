@@ -17,7 +17,7 @@ class UserDetailController extends Controller
    //加载个人中心
    public function getOrder()
    {
-   		return view('web.selfconmit');
+   		return view('web.layout.selfconmit');
    }
 
    //加载top顶部栏
@@ -185,7 +185,7 @@ class UserDetailController extends Controller
                $exten = $req->file('avatar')->getClientOriginalExtension();
                //随机图片名字
                $name = time()+rand(1,9999);
-               $req->file('avatar')->move('/uploads/',$name.'.'.$exten);
+               $req->file('avatar')->move('./uploads/',$name.'.'.$exten);
                $data['avatar'] = '/uploads/'.$name.'.'.$exten;
 
             }
@@ -235,9 +235,9 @@ class UserDetailController extends Controller
 
 
 
-   public function getAbord()
+   public function getStore()
    {
-      return view('web.layout.userdetail.abord');
+      return view('web.layout.userdetail.store');
      
    }
 

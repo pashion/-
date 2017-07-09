@@ -165,7 +165,7 @@
 
 								</dd>
 								<dd>
-									<a href="宝贝收藏.html">我的收藏</a>
+									<a href="{{url('user/detail/store')}}">我的收藏</a>
 
 								</dd>
 								<dd>
@@ -184,27 +184,20 @@
 									<a>我的优惠券</a>
 
 								</dd>
-								<dt><img src="{{url('web')}}/images/左侧/我的买啦.png"  style="margin-right: 10px;margin-left: -20px;"/>我的买啦</dt>
-								<dd>
-									<a href="我的推荐.html">我的推荐</a>
+								<dt><img src="{{url('web')}}/images/左侧/我的买啦.png"  style="margin-right: 10px;margin-left: -20px;"/>个人中心</dt>
+            <dd>
+                <a href="{{url('user/detail/data')}}">我的资料</a>
 
-								</dd>
-								<dd>
-									<a href="我的钱包.html">我的钱包</a>
+            </dd>
+            <dd>
+                <a href="{{url('user/detail/address')}}">地址管理</a>
 
-								</dd>
-								<dd>
-									<a href="我要提现.html">我要提现</a>
+            </dd>
+            <dd>
+                <a href="{{url('user/detail/changepass')}}">修改密码</a>
 
-								</dd>
-								<dd>
-									<a href="买豆">我的买豆</a>
-
-								</dd>
-								<dd>
-									<a href="邀请管理-收入明细.html">邀请管理</a>
-
-								</dd>
+            </dd>
+								
 								<dt><img src="{{url('web')}}/images/左侧/v-card-3.png"  style="margin-right: 10px;margin-left: -20px;"/>售后服务</dt>
 								<dd>
 									<a href="退换货.html">退换货</a>
