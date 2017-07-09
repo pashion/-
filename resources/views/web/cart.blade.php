@@ -26,7 +26,7 @@
         <tr>
           <td width="70" valign="top" class='choose'>
 
-            @if(isset($v['str_bunch']))
+            @if(isset($v['num_bunch']))
               <input name="choose[]" class="checkbox" type="checkbox" value="{{$v['gid']}}|{{$v['num_bunch']}}" checked="" />
             @else
               <input name="choose[]" class="checkbox" type="checkbox" value="{{$v['gid']}}" checked="" />
@@ -36,7 +36,7 @@
             <!-- <input name="choose[]" class="checkbox" type="checkbox" value="{{$v['gid']}}" checked="" /> -->
           </td>
           <td width="430" valign="top">
-          <p class="img"><img src="images/img_30.jpg" width="80px" height="80px" /></p>
+          <p class="img"><img src="{{url('goodsPic')}}/{{$v['pic']}}" width="80px" height="80px" /></p>
           <p class="name"><a href="#">{{$v['goods']}}</a></p>
           <p class="classification">规格分类：
             @if(isset($v['str_bunch']))
@@ -111,10 +111,10 @@
     <tr>
      @foreach($HOT as $k => $v)
       <td>
-       <p class="img"> <a href="#"><img src="{{$v->pic}}"  width="160" height="160"/></a></p>
-       <p class="name"><a href="#">{{$v->goods}}</a></p>
+       <p class="img"> <a href="{{url('/goodsShow')}}/{{$v->id}}"><img src="{{url('goodsPic')}}/{{$v->pic}}"  width="160" height="160"/></a></p>
+       <p class="name"><a href="{{url('/goodsShow')}}/{{$v->id}}">{{$v->goods}}</a></p>
        <p class="price">￥{{$v->price}}</p>
-       <p><a href="#" class="add_cart_btn"><em class="icon_cart"></em>查看商品</a></p>
+       <p><a href="{{url('/goodsShow')}}/{{$v->id}}" class="add_cart_btn"><em class="icon_cart"></em>查看商品</a></p>
       </td>
      @endforeach 
     </tr>

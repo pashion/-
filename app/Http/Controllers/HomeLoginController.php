@@ -9,6 +9,8 @@ use App\Http\Requests;
 use DB;
 use Hash;
 use Mail;
+use App\IndexMode;
+use App\Goods;
 
 class HomeLoginController extends Controller
 {
@@ -48,8 +50,31 @@ class HomeLoginController extends Controller
             if ( $users['0']->email == $email && Hash::check($pass,$users['0']->password) ) {
 
                 $request->session()->put(['user'=>$users]);
-                // dd(session('user')[0]->username);
-                return view('web.index');
+                        $modeData = IndexMode::get();
+        //切割字符
+        $gid = explode(',',$modeData[0]['gid_bunch']);
+        $str  = '';
+        foreach ($gid as $v ) {
+            $str .= ' id = ? or';
+        }
+        $str = rtrim($str, ' or');
+        //查询数据
+        $goodsData = Goods::whereRaw($str, $gid)->get();
+        //切割获取图片名
+        
+        $goodsPic = [];
+        foreach ($goodsData as $v) {
+            $arr =  explode(',', $v['pic']);
+            $goodsPic[] = $arr[0];
+        }
+
+
+        //获取轮播图数据
+        $Wheel = DB::table('Wheel')->orderBy('sort','asc')->get();
+
+        //返回()
+        
+        return view('web.index', compact('modeData', 'goodsData','goodsPic','Wheel'));
 
             }else{
 

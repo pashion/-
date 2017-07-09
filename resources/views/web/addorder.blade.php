@@ -66,7 +66,6 @@
     </div>
     <div class="content_style clearfix" >
             <?php 
-   
             $userId = session('user')['0']->id;
             // dump($userId);
             $orderAddress=DB::table('users_address')

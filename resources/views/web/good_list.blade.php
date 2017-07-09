@@ -128,7 +128,7 @@ $('.pagination').css({
         @foreach($goods as $v)
         <li class="product">
           <div class="pic_img textalign">
-            <a href="{{url('/goodsShow')}}/{{$v->id}}"><img src=""></a>
+            <a href="{{url('/goodsShow')}}/{{$v->id}}"><img src="{{url('goodsPic')}}/{{$v->pic}}"></a>
             <div class="operating"><a href="#" class="pic_cart">加入购物车</a><a href="#" class="Collection">收藏</a></div>
           </div>
           <p class="pic_nme"><a href="#">{{$v->goods}}</a></p>

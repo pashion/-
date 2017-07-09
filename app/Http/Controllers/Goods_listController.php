@@ -38,7 +38,15 @@ class Goods_listController extends Controller
         }
         //数组形式获取商品数据
         //分页测试
-        $goods = DB::table('goods')->paginate(3);
+        $goods = DB::table('goods')->paginate(4);
+        //处理图片字段的多个图片数据
+        foreach($goods as $k=>$v){
+            $num = strpos($v->pic, ',');
+            if($num){
+                $v->pic = substr($v->pic,0,$num);
+            }
+        }
+
         // $goods =  Goods::all()->toArray();
         return view('web.good_list',compact('data','goods','king')); 
     }
@@ -63,16 +71,17 @@ class Goods_listController extends Controller
         return $arr;
     }
 
+    // 处理图片多字段切割
+    public function HandlePic($Goods){
+        foreach($Goods as $k=>$v){
+            $num = strpos($v->pic, ',');
+            if($num){
+                $v->pic = substr($v->pic,0,$num);
+            }
+        }
 
-    public function getCeshi(){
-        $menu = SecondType::all()->toArray();
-        $data = self::menu($menu,0);
-        
-        dump($data);
-
+        return $Goods;
     }
-
-
 
 
     // 分类ajax触发函数
@@ -141,6 +150,7 @@ class Goods_listController extends Controller
 
                 //查询满足两个第三层并且判断是否有区域选择时查询数据库
                 $Goods = Goods::where($option)->get()->toArray();
+                // $Goods = self::HandlePic($Goods);
                 $arr['goods'] = $Goods;
             }
 
@@ -173,12 +183,14 @@ class Goods_listController extends Controller
                             //风格第二层选中查询条件
                             ->whereIn('style',$style_son_id)
                             ->where($option)->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }else{
                         //种类第三层被选中，风格第二层没被选中时查询 
                         $Goods = DB::table('goods')
                             ->where($option)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }                    
                 }
@@ -199,10 +211,12 @@ class Goods_listController extends Controller
                             // 种类第二层查询条件
                             ->whereIn('kind',$kind_son_id)
                             ->where($option)->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }else{
                         $Goods = DB::table('goods')
                             ->where($option)->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }
                 }
@@ -225,6 +239,7 @@ class Goods_listController extends Controller
                             ->whereIn('style',$style_son_id)
                             ->where($option)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }else{
                         //区域area没有选中时
@@ -232,6 +247,7 @@ class Goods_listController extends Controller
                             ->whereIn('kind',$kind_son_id)
                             ->whereIn('style',$style_son_id)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }
                 }else{
@@ -240,12 +256,14 @@ class Goods_listController extends Controller
                         $Goods = DB::table('goods')
                             ->whereIn('kind',$kind_son_id)
                             ->where($option)->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }else{
-                        ////种类不为空,风格为空,区域为空
+                        // 种类不为空,风格为空,区域为空
                         $Goods = DB::table('goods')
                             ->whereIn('kind',$kind_son_id)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }
                 }
@@ -257,12 +275,14 @@ class Goods_listController extends Controller
                             ->whereIn('style',$style_son_id)
                             ->where($option)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }else{
                         //种类、区域为空，风格不为空
                         $Goods = DB::table('goods')
                             ->whereIn('style',$style_son_id)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }
                 }else{
@@ -271,6 +291,7 @@ class Goods_listController extends Controller
                         $Goods = DB::table('goods')
                             ->where($option)
                             ->get();
+                        $Goods = self::HandlePic($Goods);
                         $arr['goods'] = $Goods;
                     }
                 }
