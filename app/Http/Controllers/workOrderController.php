@@ -20,7 +20,7 @@ class workOrderController extends Controller
     	$tatal = 0;
     	$num = 0;
     	// dump(session('user')['0']->id);
-    	dump($_POST);
+    	// dump($_POST);
     	if ($_POST['num_bunch']) {
     		$goodsData = DB::table('spec_price')->where('num_bunch','=',$_POST['num_bunch'])->get();
     	}else{
@@ -45,6 +45,7 @@ class workOrderController extends Controller
     		foreach ($goodsData1 as $k => $v) {
     			// dump($v);
     			$orderDetail['order_id'] = $orders;
+                $orderDetail['user_id'] = $_POST['user_id'];
     			$orderDetail['goods_id'] = $_POST['goods_id'];
     			$orderDetail['goods_name'] = $v->goods;
     			$orderDetail['goods_pic'] = $v->pic;
@@ -59,7 +60,7 @@ class workOrderController extends Controller
     		// dd($orderDetail);
 
     		$date = orderDetail::insertGetId($orderDetail);
-    		var_dump($date);
+    		// var_dump($date);
     		if ($date > 0) {
     			echo "成功";
     		}else{

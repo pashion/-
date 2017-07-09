@@ -45,7 +45,7 @@
                 <td>{{$v['name']}}</td>
                 <td>{{$type[$v["type"]]}}</td>
                 <td>{{$v['url']}}</td>
-                <td><img src='{{url('uploads')}}/_s{{$v->image}}'></td>
+                <td><img src='{{url('uploads')}}/{{$v->image}}'></td>
                 <td>{{$v['created_at']}}</td>
                 <td>{{$v['created_at']}}</td>
                 <td>

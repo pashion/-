@@ -214,7 +214,11 @@
 					</div>
 		</div>
 		@yield('content')
-		<div class="clear "></div>		
+		<div class="clear "></div>	
+		<div class="frenship">
+		
+		</div>
+		<div class="clear "></div>	
 		<script type="text/javascript " src="js/safe/ms_common.min.js "></script>
 		<div class="footer clearfix" style="margin-top:0; background:#f5f5f5; border-top:1px solid #e6e6e6;">
 		<div class="footer_spacing clearfix">

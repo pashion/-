@@ -77,7 +77,7 @@
                                     <td >{{$order_status[$v["order_status"]]}}</td>
                                     <td >{{$v['commodity_number']}}</td>
                                     <td >{{$v['cargo_price']}}</td>
-                                    <td ><img src='{{url("goodsPic")}}/{{$array["0"]}}'></td>
+                                    <td ><img src='{{url("goodsPic")}}/{{$array["0"]}}' style="height: 100px;float: left;margin-left: 20px;margin-top: 30px;"></td>
                                     <td >{{$ruturn_status[$v["ruturn_status"]]}}</td>
                                     <td >{{$comment_status[$v["comment_status"]]}}</td>
                                     <td >{{$v['created_at']}}</td>
