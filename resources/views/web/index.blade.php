@@ -32,7 +32,7 @@ $(document).ready(function(){
         <ul style="position: relative; width: 1583px; height: 460px;">
             
             @foreach($Wheel as $k =>$v)
-                <li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url({{$v->path}}/{{$v->picurl}}) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
+                <li style="position: absolute; width: 1583px; left: 0px; top: 0px; display: none; background: url(/{{$v->path}}/{{$v->picurl}}) 50% 0px no-repeat;"><a target="_blank" href="#"></a></li>
             @endforeach
 
 

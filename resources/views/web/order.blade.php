@@ -62,14 +62,13 @@
     </div>
     <div class="content_style clearfix">
             <?php 
-            // var_dump($data);
-           
+            // dd($data);
             $userId = $data['user_id'];
 
             $orderAddress=DB::table('users_address')
                     ->where('user_id','=',$userId)
                     ->get();
-           
+           // dd($orderAddress);
              ?>
              <form action="{{url('order/work')}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">

@@ -31,8 +31,7 @@
                                 </ul>
                             </div>
                         @else
-                            <span class="header_touxiang"><img src="{{url('web')}}/images/touxiang_03.png" /></span>
-                           <div class="btn-group">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{session('user')[0]->username}} <span class="caret"></span>
                                 </button>
