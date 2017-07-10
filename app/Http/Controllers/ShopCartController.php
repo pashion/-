@@ -19,6 +19,7 @@ class ShopCartController extends Controller
     //加入购物车方法
     public function postIndex(Request $request){
 
+
     	//获取商品页的数据,商品id,数量,有无规格,规格值
         // dd($_POST);
     	$gid = $request->input('gid');
@@ -37,14 +38,15 @@ class ShopCartController extends Controller
                 return back()->withInput()->with('news','请先选择规格,谢谢');
             }else{
                 // 加入购物车已选规格,判断规格价格表有无对应价格,有则取出,没有则去商品表获取
-                $list = DB::select('select str_bunch,price from spec_price where gid ='.$gid.' and num_bunch ='."'".$num_bunch."'")[0];
+                $list = DB::select('select str_bunch,price from spec_price where gid ='.$gid.' and num_bunch ='."'".$num_bunch."'");
 
                 // 规格价格表有价格
                 if($list){
+                    $list = $list[0];
                     // 获取有对应的价格,商品名,图片
                     $goods_list = DB::select('select goods,price,pic from goods where id ='.$gid)[0];
                     $str_bunch = $list->str_bunch;
-                    $price = $goods_list->price;
+                    $price = $list->price;
                     $goods = $goods_list->goods;
                     $pic = $goods_list->pic;
                     // 判断图片字串有无','有则处理截取前面一段
@@ -77,45 +79,8 @@ class ShopCartController extends Controller
 
                 // 规格价格表无价格
                 }else{
-                    // 无价格则去商品表获取价格
-                    $goods_list = DB::select('select goods,price,pic from goods where id ='.$gid)[0];
-                    // 获取对应的价格
-                    $spec = DB::select('select name from option where gid ='.$gid);
-                    //循环拼接规格名
-                    $old_str_bunch = '';
-                    foreach($spec as $k=>$v){
-                        $old_str_bunch .= $v->name.'_';
-                    }
-                    $str_bunch = rtrim($old_str_bunch,'_');
-
-                    $goods = $goods_list->goods;
-                    $price = $goods_list->price;
-                    $pic = $goods_list->pic;
-                    // 判断图片字串有无','有则处理截取前面一段
-                    $oldpic = @strpos($pic, ',');
-                    if($oldpic){
-                        $pic = substr($pic,0,$oldpic);
-                    }
-                    //判断该产品是否存在购物车,存在则加数量,不存在保存该产品
-                    if( $request->session()->has('list.'.$gid) ){
-                        $originNum = $request->session()->get('list.'.$gid.'.num');
-                        $newNum = $originNum + $num;
-                        $request->session()->put('list.'.$gid.'.num',$newNum);
-                        $request->session()->save();
-                        // echo '没有规格的产品购物车存在';
-                        return back()->withInput()->with('news','购物车存在，数量加一');
-                    }else{
-                        //保存该商品到购物车
-                        $data['goods'] = $goods;
-                        $data['gid'] = $gid;
-                        $data['num'] = $num;
-                        $data['price'] = $price;
-                        $data['pic'] = $pic;
-                        $data['str_bunch'] = $str_bunch;
-                        $request->session()->put('list.'.$gid , $data);
-                        $request->session()->save();
-                        return back()->withInput()->with('news','添加购物车成功');
-                    }
+                    return back()->withInput()->with('news','未知错误,请选择其他商品');
+                    
                 }
             }
 
@@ -215,7 +180,6 @@ class ShopCartController extends Controller
 
     // 购物车checkbox按钮,处理并获取选中的
     public function postChoose(Request $request){
-
         $bool = $request->input('choose');
         if($bool == ''){
             // 结算为空时跳转空购物车
@@ -227,6 +191,8 @@ class ShopCartController extends Controller
                 }
             }
             return view('web.nullcart',compact('HOT'));
+        }
+            
         if (isset(session('user')['0']->id)) {
             $_POST['user_id'] = session('user')['0']->id;
         }else{

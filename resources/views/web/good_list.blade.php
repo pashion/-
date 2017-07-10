@@ -74,13 +74,6 @@ $('.pagination').css({
   </ul>
 
  <script>jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:false,trigger:"click"});</script>
- <div class="q_code">
-  <a href="" class="q_code_applnk" rel="nofollow"></a>
-    <div class="q_code_layer" style="display: none;">
-    <a href="" class="qcode_lnk" rel="nofollow">
-      <span class="qcode_title">只分享装修干货</span>
-    </a>  
-    </div>
   </div>
  </div>
  </div>

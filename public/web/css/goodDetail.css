@@ -7,3 +7,51 @@
 	height: 50px;
 	background: red;
 }
+
+
+
+#content {
+	width:950px;
+}
+
+#content img{
+	width:100%;
+}
+
+.parText {
+	font-size:18px;
+	font-family:'微软雅黑';
+	float:left;
+	color:rgb(165,153,153);
+	margin-top:12px;
+	margin-right:14px;
+	margin-left:10px;
+}
+
+.infoParText {
+	font-size:15px;
+	font-family:Apple LiGothic Medium ;
+	float:left;
+	color:rgb(165,153,153);
+	margin-right:10px;
+	margin-left:10px;
+}
+
+.selMinBox {
+	display: block;
+	width: 50px;
+	height: 50px;
+	background: red;
+}
+
+#numConStyle {
+	margin-right: 40px
+}
+
+.selsel {
+	border-color: #00A000;
+	border:1px solid silver;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
